@@ -1,0 +1,49 @@
+.container {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.header {
+  border: 1px rgb(154, 189, 167) solid;
+}
+.main {
+  border: 1px rgb(196, 202, 170) solid;
+}
+.footer {
+  border: 1px rgb(172, 152, 164) solid;
+}
+
+.headerMenu {
+  height: 25%;
+  width: 100%;
+  transition: all 0.5s ease;
+}
+.mainMenu {
+  height: 50%;
+  width: 100%;
+  transition: all 0.5s ease;
+}
+.footerMenu {
+  height: 25%;
+  width: 100%;
+  transition: all 0.5s ease;
+}
+
+.headerSession {
+  height: 15%;
+  width: 100%;
+  transition: all 0.5s ease;
+}
+.mainSession {
+  height: 70%;
+  width: 100%;
+  transition: all 0.5s ease;
+}
+.footerSession {
+  height: 15%;
+  width: 100%;
+  transition: all 0.5s ease;
+}
