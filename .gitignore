@@ -2,6 +2,7 @@
 server/config
 node_modules
 
+.env
 .svg
 .png
 .jpe
