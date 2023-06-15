@@ -43,8 +43,22 @@ class UserController {
   //? test
   async getUsers(req, res, next) {
     try {
-      res.status(200).json(['123', '213231312']);
-    } catch (e) {}
+      const users = await userService.getUsers();
+      res.status(200).json(users);
+    } catch (e) {
+      console.error('Error try to get users:', e);
+      res.status(500).json({ e: 'Server error' });
+    }
+  }
+  async removeAllUsers(req, res, next) {
+    try {
+      const { email } = req.body;
+      await userService.deleteAllUsers(email);
+      res.status(200).json({ message: `user with email: ${email} is deleted.` });
+    } catch (e) {
+      console.error('Error try to remove:', e);
+      res.status(500).json({ e: `${e}` });
+    }
   }
 }
 

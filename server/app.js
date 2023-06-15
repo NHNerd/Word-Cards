@@ -28,4 +28,4 @@ app.use('/api', router);
 //   res.send('hello');
 // });
 
-export default server;
+export default app;

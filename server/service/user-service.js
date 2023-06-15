@@ -21,9 +21,9 @@ class UserService {
 
     // Create new user
     const user = await UserModel.create({ email, password: hashPassword, activationLink });
-    console.log(333);
+
     //send activation link on user mail
-    await mailService.sendActiovationMail(email, activationLink);
+    await mailService.sendActivationMail(email, `${process.env.API_URL}/api/activate/${activationLink}`);
 
     const userDto = new UserDto(user); // id, email, isActivated
     const tokens = tokenService.generateTokens({ ...userDto });
@@ -33,6 +33,19 @@ class UserService {
       ...tokens,
       user: userDto,
     };
+  }
+  async getUsers() {
+    const users = await UserModel.find({});
+    return {
+      users,
+    };
+  }
+  async deleteAllUsers(email) {
+    const candidate = await UserModel.findOne({ email });
+    if (!candidate) {
+      throw new Error(`User with this email ${email} dont exist!`);
+    }
+    await UserModel.deleteOne({ email });
   }
 }
 
