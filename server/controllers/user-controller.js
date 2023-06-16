@@ -1,4 +1,5 @@
 import userService from '../service/user-service.js';
+import '../config.js';
 
 class UserController {
   async registration(req, res, next) {
@@ -34,7 +35,14 @@ class UserController {
   }
   async activate(req, res, next) {
     try {
-    } catch (e) {}
+      const activationLink = req.params.link;
+
+      await userService.activate(activationLink);
+      console.log('User is activate!');
+      return res.redirect(process.env.CLIENT_URL); //? Swithc on client
+    } catch (e) {
+      console.log(e);
+    }
   }
   async refresh(req, res, next) {
     try {

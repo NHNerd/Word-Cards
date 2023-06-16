@@ -1,5 +1,5 @@
 import express from 'express';
-import http from 'http'; //? fixes busy port issue when refresh server
+// import http from 'http'; //? fixes busy port issue when refresh server
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import mongoose from 'mongoose';
@@ -9,7 +9,7 @@ import mongoURI from './config/keys.js';
 import router from './routers/index.js';
 
 const app = express();
-const server = http.createServer(app);
+// const server = http.createServer(app);
 
 // connect MongoDB
 mongoose

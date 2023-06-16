@@ -5,6 +5,7 @@ import mailService from './mail-service.js';
 import tokenService from './token-service.js';
 import UserModel from '../models/user-model.js';
 import UserDto from '../dtos/user-dto.js';
+import '../config.js';
 
 class UserService {
   async registration(email, password) {
@@ -34,12 +35,22 @@ class UserService {
       user: userDto,
     };
   }
+  async activate(activationLink) {
+    const user = await UserModel.findOne({ activationLink });
+    if (!user) {
+      throw new Error(`Link is not correct!`);
+    }
+    user.isActivated = true;
+    await user.save();
+  }
+
   async getUsers() {
     const users = await UserModel.find({});
     return {
       users,
     };
   }
+
   async deleteAllUsers(email) {
     const candidate = await UserModel.findOne({ email });
     if (!candidate) {
