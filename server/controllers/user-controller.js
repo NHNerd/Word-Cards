@@ -1,9 +1,16 @@
 import userService from '../service/user-service.js';
+import { validationResult } from 'express-validator';
+import ApiError from '../exceptions/api-error.js';
 import '../config.js';
 
 class UserController {
   async registration(req, res, next) {
     try {
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        return next(ApiError.BadRequest('Error validation', errors.array()));
+      }
+
       const { email, password } = req.body;
 
       const userData = await userService.registration(email, password); //! Issue
@@ -17,7 +24,7 @@ class UserController {
 
       return res.status(201).json(userData);
     } catch (e) {
-      return res.status(500).json(`${e}`);
+      next(e);
     }
   }
 
@@ -27,11 +34,15 @@ class UserController {
         success: true,
         test: 'complite!!!',
       });
-    } catch (e) {}
+    } catch (e) {
+      next(e);
+    }
   }
   async logout(req, res, next) {
     try {
-    } catch (e) {}
+    } catch (e) {
+      next(e);
+    }
   }
   async activate(req, res, next) {
     try {
@@ -39,14 +50,16 @@ class UserController {
 
       await userService.activate(activationLink);
       console.log('User is activate!');
-      return res.redirect(process.env.CLIENT_URL); //? Swithc on client
+      return res.status(201).redirect(process.env.CLIENT_URL); //? Swithc on client
     } catch (e) {
-      console.log(e);
+      next(e);
     }
   }
   async refresh(req, res, next) {
     try {
-    } catch (e) {}
+    } catch (e) {
+      next(e);
+    }
   }
   //? test
   async getUsers(req, res, next) {
@@ -54,8 +67,7 @@ class UserController {
       const users = await userService.getUsers();
       res.status(200).json(users);
     } catch (e) {
-      console.error('Error try to get users:', e);
-      res.status(500).json({ e: 'Server error' });
+      next(e);
     }
   }
   async removeAllUsers(req, res, next) {
@@ -64,8 +76,7 @@ class UserController {
       await userService.deleteAllUsers(email);
       res.status(200).json({ message: `user with email: ${email} is deleted.` });
     } catch (e) {
-      console.error('Error try to remove:', e);
-      res.status(500).json({ e: `${e}` });
+      next(e);
     }
   }
 }

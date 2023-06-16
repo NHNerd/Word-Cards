@@ -5,6 +5,7 @@ import mailService from './mail-service.js';
 import tokenService from './token-service.js';
 import UserModel from '../models/user-model.js';
 import UserDto from '../dtos/user-dto.js';
+import ApiError from '../exceptions/api-error.js';
 import '../config.js';
 
 class UserService {
@@ -13,7 +14,7 @@ class UserService {
     const candidate = await UserModel.findOne({ email });
     // Check email exist
     if (candidate) {
-      throw new Error(`User with this email ${email} already exist!`);
+      throw ApiError.BadRequest(`User with this email ${email} already exist!`);
     }
     // Hashing password
     const hashPassword = await bcrypt.hash(password, 3);
@@ -38,7 +39,10 @@ class UserService {
   async activate(activationLink) {
     const user = await UserModel.findOne({ activationLink });
     if (!user) {
-      throw new Error(`Link is not correct!`);
+      throw ApiError.BadRequest(`Link is not correct!`);
+    }
+    if (user.isActivated) {
+      return console.log('User already is activated');
     }
     user.isActivated = true;
     await user.save();
@@ -54,7 +58,7 @@ class UserService {
   async deleteAllUsers(email) {
     const candidate = await UserModel.findOne({ email });
     if (!candidate) {
-      throw new Error(`User with this email ${email} dont exist!`);
+      throw ApiError.BadRequest(`User with this email ${email} dont exist!`);
     }
     await UserModel.deleteOne({ email });
   }

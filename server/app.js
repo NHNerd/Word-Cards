@@ -4,6 +4,7 @@ import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import mongoose from 'mongoose';
 import mongoURI from './config/keys.js';
+import errorMiddleware from './middleware/error-middleware.js';
 
 //Routers
 import router from './routers/index.js';
@@ -23,6 +24,7 @@ app.use(express.json()); //? For express will be can reade json from request / p
 app.use(cookieParser());
 app.use(cors());
 app.use('/api', router);
+app.use(errorMiddleware); // Must be last in chain of middleware
 
 // app.get('/', (req, res) => {
 //   res.send('hello');
