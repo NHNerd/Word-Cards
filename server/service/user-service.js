@@ -58,7 +58,7 @@ class UserService {
   async deleteAllUsers(email) {
     const candidate = await UserModel.findOne({ email });
     if (!candidate) {
-      throw ApiError.BadRequest(`User with this email ${email} dont exist!`);
+      throw ApiError.BadRequest(`User with this email ${email} does not exist!`);
     }
     await UserModel.deleteOne({ email });
   }

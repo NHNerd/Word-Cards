@@ -3,18 +3,19 @@ import express from 'express';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import mongoose from 'mongoose';
-import mongoURI from './config/keys.js';
 import errorMiddleware from './middleware/error-middleware.js';
 
 //Routers
 import router from './routers/index.js';
+
+import './config.js';
 
 const app = express();
 // const server = http.createServer(app);
 
 // connect MongoDB
 mongoose
-  .connect(mongoURI)
+  .connect(process.env.MONGO_URI)
   .then(() => console.log('MongoDB is connected'))
   .catch(() => console.log('ERROR MongoDB'));
 
