@@ -22,7 +22,7 @@ class UserController {
         httpOnly: true, //? httpOnly not be change in browser
       });
 
-      return res.status(201).json(userData);
+      return res.status(201).json({ message: 'Registration is successfully', userData });
     } catch (e) {
       next(e);
     }
@@ -30,10 +30,22 @@ class UserController {
 
   async login(req, res, next) {
     try {
-      return res.status(200).json({
-        success: true,
-        test: 'complite!!!',
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        return next(ApiError.BadRequest('Error validation', errors.array()));
+      }
+
+      const { email, password } = req.body;
+      const userData = await userService.login(email, password);
+
+      // Refresh token save in cookie
+      res.cookie('refrehToken', userData.refreshToken, {
+        maxAge: 30 * 24 * 60 * 60 * 1000,
+        //TODO if use HTTPS need add flag - sequre
+        httpOnly: true, //? httpOnly not be change in browser
       });
+
+      return res.status(200).json({ message: 'Logged is successfully', userData });
     } catch (e) {
       next(e);
     }
