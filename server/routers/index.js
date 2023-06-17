@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import { body } from 'express-validator';
 import userController from '../controllers/user-controller.js';
+import authMiddleware from '../middleware/auth-middleware.js';
 
 const router = new Router();
 
@@ -20,7 +21,7 @@ router.post('/logout', userController.logout);
 router.get('/activate/:link', userController.activate);
 router.get('/refresh', userController.refresh);
 
-router.get('/users', userController.getUsers); //? Test for get list of users
+router.get('/users', authMiddleware, userController.getUsers); //? Test for get list of users
 router.delete('/users/remove', userController.removeAllUsers); //? Test for get list of users
 
 export default router;

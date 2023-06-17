@@ -16,11 +16,7 @@ class UserController {
       const userData = await userService.registration(email, password); //! Issue
 
       // Refresh token save in cookie
-      res.cookie('refrehToken', userData.refreshToken, {
-        maxAge: 30 * 24 * 60 * 60 * 1000,
-        //TODO if use HTTPS need add flag - sequre
-        httpOnly: true, //? httpOnly not be change in browser
-      });
+      resCookieRfresh(res, userData);
 
       return res.status(201).json({ message: 'Registration is successfully', userData });
     } catch (e) {
@@ -39,11 +35,7 @@ class UserController {
       const userData = await userService.login(email, password);
 
       // Refresh token save in cookie
-      res.cookie('refrehToken', userData.refreshToken, {
-        maxAge: 30 * 24 * 60 * 60 * 1000,
-        //TODO if use HTTPS need add flag - sequre
-        httpOnly: true, //? httpOnly not be change in browser
-      });
+      resCookieRfresh(res, userData);
 
       return res.status(200).json({ message: 'Logged is successfully', userData });
     } catch (e) {
@@ -73,6 +65,14 @@ class UserController {
   }
   async refresh(req, res, next) {
     try {
+      const { refreshToken } = req.cookies;
+
+      const userData = await userService.refresh(refreshToken);
+
+      // Refresh token save in cookie
+      resCookieRfresh(res, userData);
+
+      return res.status(201).json({ message: 'Refresh is successfuly', userData });
     } catch (e) {
       next(e);
     }
@@ -81,7 +81,7 @@ class UserController {
   async getUsers(req, res, next) {
     try {
       const users = await userService.getUsers();
-      res.status(200).json(users);
+      return res.status(200).json(users);
     } catch (e) {
       next(e);
     }
@@ -98,3 +98,12 @@ class UserController {
 }
 
 export default new UserController();
+
+function resCookieRfresh(res, userData) {
+  // Refresh token save in cookie
+  res.cookie('refreshToken', userData.refreshToken, {
+    maxAge: 30 * 24 * 60 * 60 * 1000,
+    //TODO if use HTTPS need add flag - sequre
+    httpOnly: true, //? httpOnly not be change in browser
+  });
+}
