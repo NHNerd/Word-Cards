@@ -1,8 +1,32 @@
 .burger {
   position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+  width: 50px;
   top: 0;
   right: 0;
+  border: 1px solid #ffff;
+}
+
+.burger-line,
+.burger-line::before,
+.burger-line::after {
+  position: absolute;
   height: 3px;
   width: 25px;
-  background-color: brown;
+  background-color: #d9d9d9;
+  border-radius: 5px;
+}
+.burger-line::before,
+.burger-line::after {
+  content: '';
+  transition: all 0.5s linear;
+}
+.burger-line::before {
+  transform: translateY(-7px);
+}
+.burger-line::after {
+  transform: translateY(7px);
 }

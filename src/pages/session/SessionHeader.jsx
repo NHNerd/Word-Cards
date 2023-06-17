@@ -1,4 +1,4 @@
-import './GameHeader.css';
+import './SessionHeader.css';
 
 function SessionHeader({ changeScreen }) {
   const onClickPB = () => {
