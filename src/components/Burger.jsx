@@ -1,13 +1,9 @@
 import './Burger.css';
 
-function Burger({ changeScreen, currentScreen, prevScreenRef }) {
-  const onClickBurgerMenu = () => {
-    changeScreen(currentScreen == 'Setting' ? prevScreenRef.current : 'Setting');
-  };
-
+function Burger({ onClick }) {
   return (
     <>
-      <div onClick={onClickBurgerMenu} className='burger'>
+      <div onClick={onClick} className='burger'>
         <div className='burger-line'></div>
       </div>
     </>

@@ -1,19 +1,18 @@
-import { useState, useRef } from 'react';
+import { useState } from 'react';
 import MenuMain from './pages/menu/MenuMain.jsx';
 import MenuFooter from './pages/menu/MenuFooter.jsx';
 import SessionHeader from './pages/session/SessionHeader.jsx';
-import SettingFooter from './pages/setting/SettingFooter.jsx';
-import SettingMain from './pages/setting/SettingMain.jsx';
 import Burger from './components/Burger.jsx';
+import Settings from './pages/setting/Settings.jsx';
 
-import './App.css';
+import './App.scss';
 
 function App() {
   const [screen, setScreen] = useState('Menu');
-  const prevScreenRef = useRef(null);
+  const [isSettings, setSettings] = useState(false);
+  const [isSync, setsSync] = useState(false);
 
   const changeScreen = (newScreen) => {
-    prevScreenRef.current = screen;
     setScreen(newScreen);
   };
 
@@ -33,10 +32,6 @@ function App() {
     contentHeader = <SessionHeader changeScreen={changeScreen} />;
     contentMain = <MenuMain changeScreen={changeScreen} />;
     contentFooter = 'Game buttons';
-  } else if (screen === 'Setting') {
-    contentHeader = 'About';
-    contentMain = <SettingMain changeScreen={changeScreen} />;
-    contentFooter = <SettingFooter changeScreen={changeScreen} />;
   }
 
   return (
@@ -44,11 +39,18 @@ function App() {
       <div className='container'>
         <div className={`header header${screen}`}>
           {' '}
-          <Burger changeScreen={changeScreen} currentScreen={screen} prevScreenRef={prevScreenRef} />
+          <Burger onClick={() => setSettings(!isSettings)} />
           {contentHeader}
         </div>
         <div className={`main main${screen}`}>{contentMain}</div>
         <div className={`footer footer${screen}`}>{contentFooter}</div>
+      </div>
+
+      {/* setting */}
+      <div className={isSettings ? 'bg active' : 'bg'}></div>
+      <div className={isSettings ? 'modal active' : 'modal'}>
+        <Settings />
+        <div onClick={() => setSettings(!isSettings)} className='sync'></div>
       </div>
     </>
   );

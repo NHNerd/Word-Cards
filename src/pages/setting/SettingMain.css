@@ -1,0 +1,52 @@
+.settingMain {
+  position: absolute;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  font-size: 22px;
+}
+
+.settingMain-element {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.check-box {
+  position: absolute;
+  left: 0;
+}
+.box {
+  width: 18px;
+  height: 18px;
+  border: 1px #eff0e8 solid;
+  border-radius: 50%;
+}
+
+.tick {
+  position: absolute;
+  width: 26px;
+  height: 26px;
+  transform: translate(-4px, -4px);
+  background-image: url('../../../public/buttons/tick.svg');
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.faq {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  right: 0;
+  background-image: url('../../../public/buttons/faq.svg');
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.line {
+  position: relative;
+  margin: 4px 0 32px 0;
+  height: 2px;
+  width: auto;
+  background-color: #eff0e8;
+}

@@ -24,6 +24,7 @@
     "nodemailer-smtp-transport": "^2.7.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "sass": "^1.63.6",
     "uuid": "^9.0.0"
   },
   "devDependencies": {

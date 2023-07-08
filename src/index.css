@@ -11,10 +11,10 @@
 
 #root {
   position: absolute;
-  top: 2vh;
-  bottom: 5vh;
-  left: 3vw;
-  right: 3vw;
+  top: 0vh;
+  bottom: 0vh;
+  left: 0vw;
+  right: 0vw;
 }
 
 :root {

@@ -8,6 +8,7 @@
   top: 0;
   right: 0;
   border: 1px solid #ffff;
+  z-index: 2;
 }
 
 .burger-line,
