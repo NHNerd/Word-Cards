@@ -2,23 +2,19 @@ import { useState } from 'react';
 
 import './SettingMain.css';
 
-function SettingMain() {
+function SettingMain({ cahngeSync }) {
   // Contacts
-  const [synchronization, setSynchronization] = useState(false);
-  const cahngeSynchronization = () => {
-    setSynchronization(!synchronization);
-  };
 
   return (
     <>
       <div className='settingMain'>
-        <div className='synchronization settingMain-element'>
+        <div className='sync settingMain-element'>
           <div className='check-box'>
             <div className='box'>
               <div className='tick'></div>
             </div>
           </div>
-          <div onClick={cahngeSynchronization} className='synchronizationButton'>
+          <div onClick={cahngeSync} className='syncButton'>
             synchronization
           </div>
           <div className='faq'></div>

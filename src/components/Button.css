@@ -1,0 +1,22 @@
+.button {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.bg-left {
+  width: 40px;
+  height: 40px;
+  border-left: 3px solid red;
+  border-radius: 10px;
+}
+
+.text {
+}
+
+.bg-right {
+  width: 40px;
+  height: 40px;
+  border-right: 3px solid red;
+  border-radius: 10px;
+}

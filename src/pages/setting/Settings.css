@@ -1,4 +1,4 @@
-.settings-container {
+.setting-popup {
   position: absolute;
   top: 0;
   bottom: 0;
@@ -7,4 +7,24 @@
   margin: 20px;
   border-radius: 26px;
   background-color: #23232379;
+}
+.settings-container {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: 20px;
+  opacity: 0;
+}
+
+.settings-active {
+  opacity: 1;
+}
+
+.auth-form {
+  opacity: 0;
+}
+.auth-form.settings-active {
+  opacity: 1;
 }

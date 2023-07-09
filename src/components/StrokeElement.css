@@ -1,0 +1,13 @@
+.text {
+  position: absolute;
+  margin: auto;
+  font-size: 26;
+}
+
+.line {
+  position: relative;
+  margin: 4px 0 32px 0;
+  height: 2px;
+  width: auto;
+  background-color: #eff0e8;
+}

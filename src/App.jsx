@@ -5,12 +5,11 @@ import SessionHeader from './pages/session/SessionHeader.jsx';
 import Burger from './components/Burger.jsx';
 import Settings from './pages/setting/Settings.jsx';
 
-import './App.scss';
+import './App.css';
 
 function App() {
   const [screen, setScreen] = useState('Menu');
   const [isSettings, setSettings] = useState(false);
-  const [isSync, setsSync] = useState(false);
 
   const changeScreen = (newScreen) => {
     setScreen(newScreen);
@@ -50,7 +49,6 @@ function App() {
       <div className={isSettings ? 'bg active' : 'bg'}></div>
       <div className={isSettings ? 'modal active' : 'modal'}>
         <Settings />
-        <div onClick={() => setSettings(!isSettings)} className='sync'></div>
       </div>
     </>
   );

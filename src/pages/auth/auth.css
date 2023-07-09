@@ -1,0 +1,6 @@
+.auth-form {
+  opacity: 0;
+}
+.auth-form.settings-active {
+  opacity: 1;
+}
