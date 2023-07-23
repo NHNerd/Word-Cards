@@ -14,9 +14,9 @@ function Settings() {
   };
   return (
     <>
-      {/* Settings all */}
-      <div className='setting-popup'>
-        <div className={isSync ? 'settings-container ' : 'settings-container settings-active '}>
+      <div className='popup'>
+        {/* Settings all */}
+        <div className={isSync ? 'settings-container' : 'settings-container settings-active '}>
           <div className='headerSetting'>About</div>
           <div className='mainSetting'>
             <SettingMain isSync={isSync} cahngeSync={cahngeSync} />

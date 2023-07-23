@@ -1,0 +1,21 @@
+.headerMenu {
+  top: 0;
+  bottom: 25%;
+  left: 0;
+  right: 0;
+  transition: all 0.5s ease;
+}
+.mainMenu {
+  top: 25%;
+  bottom: 25%;
+  left: 0;
+  right: 0;
+  transition: all 0.5s ease;
+}
+.footerMenu {
+  top: 75%;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  transition: all 0.5s ease;
+}

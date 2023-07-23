@@ -1,11 +1,18 @@
+import { useContext } from 'react';
+
 import './Button.css';
 
-function Button() {
+import { ScreenContext } from '../App';
+
+function Button({ text, type, position }) {
+  // Get value from context
+  const [screen, changeScreen] = useContext(ScreenContext);
+
   return (
     <>
-      <div className='button'>
+      <div onClick={() => changeScreen('ListEditing')} className={`button button-position-${position}`}>
         <div className='bg-left'></div>
-        <div className='text'>submit</div>
+        <div className={type}>{text}</div>
         <div className='bg-right'></div>
       </div>
     </>

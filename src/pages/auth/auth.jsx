@@ -3,7 +3,7 @@ import Button from '../../components/Button.jsx';
 import './Auth.css';
 
 function Auth() {
-  const isUserRegistr = false;
+  const isUserRegistr = true;
   return (
     <>
       {isUserRegistr ? (
@@ -11,7 +11,8 @@ function Auth() {
           <div className='header'>sign-in</div>
           <StrokeElement text={'e-mail'} />
           <StrokeElement text={'password'} />
-          <Button />
+          <Button text={'sign-in'} />
+          <Button text={'create an account'} />
         </div>
       ) : (
         <div className='sign-up'>
@@ -19,7 +20,7 @@ function Auth() {
           <StrokeElement text={'e-mail'} />
           <StrokeElement text={'password'} />
           <StrokeElement text={'confirm-password'} />
-          <Button />
+          <Button text={'sign-up'} />
         </div>
       )}
 

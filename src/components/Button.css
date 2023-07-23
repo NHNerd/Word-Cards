@@ -1,22 +1,42 @@
 .button {
+  pointer-events: auto;
+  position: absolute;
+  width: 48px;
+  height: 30px;
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
 }
-
-.bg-left {
-  width: 40px;
-  height: 40px;
-  border-left: 3px solid red;
-  border-radius: 10px;
+.button > * {
+  pointer-events: none; /* Отключаем обработку событий для всех дочерних элементов */
+}
+.button-position-right {
+  right: 0;
+}
+.edit {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  background-image: url('../../public/buttons/edit.svg');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
-.text {
-}
-
+.bg-left,
 .bg-right {
-  width: 40px;
-  height: 40px;
-  border-right: 3px solid red;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
   border-radius: 10px;
+  opacity: 50%;
+}
+.bg-left {
+  border-left: 2px solid #d9d9d9;
+}
+.bg-right {
+  border-right: 2px solid #d9d9d9;
 }

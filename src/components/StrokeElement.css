@@ -1,13 +1,57 @@
-.text {
-  position: absolute;
-  margin: auto;
-  font-size: 26;
+.stroke-container {
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  text-align: center;
 }
 
-.line {
+.h1,
+.h2,
+.h3 {
   position: relative;
-  margin: 4px 0 32px 0;
+  display: flex;
+  flex-direction: stroke;
+  align-items: center;
+  justify-content: center;
+}
+
+.h1 {
+  font-size: 34px;
+}
+
+.h2 {
+  font-size: 20px;
+}
+.h2Off {
+  display: none;
+}
+
+.h3 {
+  font-size: 16px;
+}
+.h3Off {
+  display: none;
+}
+.textH1 {
+  padding-right: 16px;
+  padding-left: 16px;
+  padding-top: 8px;
+}
+.textH2,
+.textH3 {
+  margin-right: 8px;
+  color: rgba(217, 217, 217, 0.7);
+}
+
+.stroke-line {
   height: 2px;
-  width: auto;
-  background-color: #eff0e8;
+  /* width: auto;
+  background-color: #eff0e8; */
+  background-image: linear-gradient(
+    to right,
+    rgba(239, 240, 232, 0),
+    rgba(239, 240, 232, 1),
+    rgba(239, 240, 232, 0)
+  );
 }

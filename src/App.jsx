@@ -1,11 +1,13 @@
-import { useState } from 'react';
-import MenuMain from './pages/menu/MenuMain.jsx';
-import MenuFooter from './pages/menu/MenuFooter.jsx';
-import SessionHeader from './pages/session/SessionHeader.jsx';
+import { useState, createContext } from 'react';
+
+import Menu from './pages/menu/Menu.jsx';
+import ListOfList from './pages/listOfList/ListOfList.jsx';
 import Burger from './components/Burger.jsx';
 import Settings from './pages/setting/Settings.jsx';
 
 import './App.css';
+//create context
+export const ScreenContext = createContext();
 
 function App() {
   const [screen, setScreen] = useState('Menu');
@@ -15,42 +17,21 @@ function App() {
     setScreen(newScreen);
   };
 
-  // function changeClass() {
-  //   setHeader('session');
-  // }
-
-  let contentHeader = null;
-  let contentMain = null;
-  let contentFooter = null;
-
-  if (screen === 'Menu') {
-    contentHeader = 'Graph';
-    contentMain = <MenuMain changeScreen={changeScreen} />;
-    contentFooter = <MenuFooter />;
-  } else if (screen === 'Session') {
-    contentHeader = <SessionHeader changeScreen={changeScreen} />;
-    contentMain = <MenuMain changeScreen={changeScreen} />;
-    contentFooter = 'Game buttons';
-  }
-
+  console.log(`current screen: ${screen}`);
   return (
-    <>
-      <div className='container'>
-        <div className={`header header${screen}`}>
-          {' '}
-          <Burger onClick={() => setSettings(!isSettings)} />
-          {contentHeader}
-        </div>
-        <div className={`main main${screen}`}>{contentMain}</div>
-        <div className={`footer footer${screen}`}>{contentFooter}</div>
-      </div>
+    // Оберните компонент App в провайдер контекста, чтобы значения были доступны всем компонентам внутри него
+    <ScreenContext.Provider value={[screen, changeScreen]}>
+      <Burger onClick={() => setSettings(!isSettings)} />
 
-      {/* setting */}
-      <div className={isSettings ? 'bg active' : 'bg'}></div>
-      <div className={isSettings ? 'modal active' : 'modal'}>
-        <Settings />
+      {/*? padding for all element into the pages */}
+      <div className='container'>
+        <Menu />
+
+        {/* <Session />screen */}
+        {/* <ListOfList /> */}
+        {/* <Settings /> */}
       </div>
-    </>
+    </ScreenContext.Provider>
   );
 }
 

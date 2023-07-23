@@ -1,5 +1,5 @@
 .startBtn {
-  position: relative;
+  position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -28,6 +28,7 @@
   background-color: #d9d9d9;
   border-radius: 50%;
   filter: blur(9px);
+
   animation: pulse1 2s infinite ease-in-out;
   transition: all 0.5s ease;
 }
@@ -45,7 +46,6 @@
   background-color: #d9d9d9;
   border-radius: 50%;
   filter: blur(50px);
-  z-index: -1;
   animation: pulse2 2.4s infinite ease-in-out;
   transition: all 0.5s ease;
 }
@@ -88,10 +88,12 @@
   }
 }
 .startBtn > .text {
+  pointer-events: none;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   color: black;
   font-size: 54px;
+  z-index: 1;
 }

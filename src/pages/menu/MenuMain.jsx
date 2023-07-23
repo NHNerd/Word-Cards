@@ -1,25 +1,9 @@
-import { useState, useEffect } from 'react';
+import PlayCard from '../../components/PlayCard.jsx';
 
-import '../../components/play-card.css';
-
-// import '../components/Card.css';
-
-function MenuMain({ changeScreen }) {
-  const [isCircle, setIsCircle] = useState(false);
-
-  const onClickStartBtn = () => {
-    changeScreen('Session');
-  };
-
-  useEffect(() => {
-    setIsCircle(!isCircle);
-  }, [changeScreen]);
-
+function MenuMain() {
   return (
     <>
-      <div onClick={onClickStartBtn} className={`startBtn ${isCircle ? 'play' : 'card'}`}>
-        <span className='text'>go</span>
-      </div>
+      <PlayCard />
     </>
   );
 }
