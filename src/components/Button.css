@@ -1,7 +1,7 @@
 .button {
   pointer-events: auto;
   position: absolute;
-  width: 48px;
+  width: 42px;
   height: 30px;
   display: flex;
   flex-direction: row;
@@ -10,18 +10,35 @@
 .button > * {
   pointer-events: none; /* Отключаем обработку событий для всех дочерних элементов */
 }
+.button-position-left {
+  left: 0;
+}
 .button-position-right {
   right: 0;
 }
-.edit {
+.edit,
+.exit {
   position: absolute;
   top: 0;
   bottom: 0;
   width: 100%;
-  background-image: url('../../public/buttons/edit.svg');
-  background-size: contain;
   background-repeat: no-repeat;
+  background-size: contain;
   background-position: center;
+}
+.edit {
+  background-image: url('../../public/buttons/edit.svg');
+  margin: 2px;
+}
+.exit {
+  background-image: url('../../public/buttons/exit.svg');
+  margin: 6px;
+}
+.add {
+  background-image: url('../../public/buttons/add.svg');
+}
+.search {
+  background-image: url('../../public/buttons/search.svg');
 }
 
 .bg-left,

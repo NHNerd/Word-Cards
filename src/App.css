@@ -1,5 +1,5 @@
 .container {
-  position: fixed;
+  position: absolute;
   top: 0;
   bottom: 0;
   left: 0;
@@ -8,55 +8,7 @@
   flex-direction: column;
   justify-content: space-evenly;
 
+  padding: 30px;
+  transition: all 0.5s ease;
   /* border: 2px rgb(154, 189, 167) solid; */
 }
-
-.header,
-.main,
-.footer {
-  position: fixed;
-
-  padding: 20px;
-}
-
-/* .header-border {
-  border: 1px rgb(154, 189, 167) solid;
-}
-.main-border {
-  border: 1px rgb(196, 202, 170) solid;
-}
-.footer-border {
-  border: 1px rgb(172, 152, 164) solid;
-} */
-
-/* .headerSession {
-  height: 15%;
-  width: 100%;
-  transition: all 0.5s ease;
-}
-.mainSession {
-  height: 70%;
-  width: 100%;
-  transition: all 0.5s ease;
-}
-.footerSession {
-  height: 15%;
-  width: 100%;
-  transition: all 0.5s ease;
-}
-
-.headerSetting {
-  height: 25%;
-  width: 100%;
-  transition: all 0.5s ease;
-}
-.mainSetting {
-  height: 50%;
-  width: 100%;
-  transition: all 0.5s ease;
-}
-.footerSetting {
-  height: 25%;
-  width: 100%;
-  transition: all 0.5s ease;
-} */
