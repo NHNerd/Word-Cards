@@ -1,17 +1,23 @@
 .stroke-container {
+  position: relative;
   left: 0;
   right: 0;
+  flex-direction: column;
   text-align: center;
-  cursor: grab;
-}
+  cursor: pointer;
+  user-select: none;
+  pointer-events: none;
 
-.stroke-container.Menu {
+  /* .stroke-container.Menu {
+  bottom: 30px;
+} */
+  /* .stroke-container.Session {
   position: relative;
-  top: 80%;
 }
 .stroke-container.ListOfList {
   position: relative;
-  top: 0;
+  top: 220px;
+} */
 }
 
 .h1,
@@ -26,7 +32,7 @@
 
 .h1 {
   font-size: 34px;
-  margin: -8px;
+  margin: -8px 0;
   margin-top: -12px;
 }
 
@@ -55,14 +61,11 @@
 }
 
 .stroke-line {
-  margin: 22px;
   height: 2px;
-  /* width: auto;
-  background-color: #eff0e8; */
   background-image: linear-gradient(
     to right,
     rgba(239, 240, 232, 0),
-    rgba(239, 240, 232, 1),
+    rgba(239, 240, 232, 0.2),
     rgba(239, 240, 232, 0)
   );
 }

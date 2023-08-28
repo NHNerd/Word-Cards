@@ -11,13 +11,15 @@
   pointer-events: none; /* Отключаем обработку событий для всех дочерних элементов */
 }
 .button-position-left {
-  left: 0;
+  left: 26px;
 }
 .button-position-right {
-  right: 0;
+  right: 26px;
 }
 .edit,
-.exit {
+.exit,
+.add,
+.search {
   position: absolute;
   top: 0;
   bottom: 0;
@@ -36,9 +38,11 @@
 }
 .add {
   background-image: url('../../public/buttons/add.svg');
+  margin: 4px;
 }
 .search {
   background-image: url('../../public/buttons/search.svg');
+  margin: 4px;
 }
 
 .bg-left,

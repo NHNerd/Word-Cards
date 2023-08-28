@@ -1,0 +1,60 @@
+.fork-container {
+  position: fixed;
+  left: 50%;
+  transform: translate(-50%);
+  /* top: 60px; */
+  height: 50px;
+  width: 220px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 2;
+}
+
+.fork-line {
+  height: 100%;
+  width: 2px;
+
+  background-image: linear-gradient(
+    to bottom,
+    rgba(239, 240, 232, 0.1),
+    rgba(239, 240, 232, 0.2),
+    rgba(239, 240, 232, 0.1)
+  );
+  transform: scaleY(0%);
+  opacity: 0;
+  z-index: 2;
+  transition: 0.5s ease;
+}
+.fork-line.ListOfList {
+  transform: scaleY(100%);
+  opacity: 1;
+}
+
+.fork-bg {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 82vh;
+  background-image: linear-gradient(
+    to bottom,
+    rgba(35, 35, 35, 1) 0%,
+    rgba(35, 35, 35, 1) 52%,
+    rgba(35, 35, 35, 0.95) 72%,
+    rgba(35, 35, 35, 0) 100%
+  );
+  z-index: 1;
+}
+
+/* blur */
+.fork-bg::before {
+  content: '';
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 85vh;
+  backdrop-filter: blur(1px);
+}

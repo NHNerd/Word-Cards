@@ -4,24 +4,41 @@ import './PlayCard.css';
 
 import { ScreenContext } from '../App';
 let text = 'Go';
-function PlayCard() {
+let textClass = 'text';
+
+function PlayCard({ menuLOLTransition }) {
   // Get value from context
   const [screen, changeScreen] = useContext(ScreenContext);
   if (screen === 'Menu') {
+    textClass = 'text';
     text = 'go';
   }
   if (screen === 'Session') {
+    textClass = 'text';
     text = 'Card text...';
+  } else {
+    textClass = 'off';
   }
   // let text = screen === 'Menu' ? 'go' : 'cardText';
 
   return (
     <>
       <div
-        onClick={() => changeScreen('Session')}
-        className={screen === 'Menu' ? 'startBtn play' : 'startBtn card'}
+        className='scale-warp'
+        style={{
+          position: 'fixed',
+          top: '50%',
+          left: '50%',
+          opacity: `${1 - menuLOLTransition}`,
+          transform: `translate(-50%, -50%) scale(${1 - menuLOLTransition})`,
+        }}
       >
-        <div className='text'>{text}</div>
+        <div
+          onClick={() => changeScreen('Session')}
+          className={screen !== 'Menu' && screen !== 'Session' ? `startBtn other` : `startBtn ${screen}`}
+        >
+          <div className={textClass}>{text}</div>
+        </div>
       </div>
     </>
   );

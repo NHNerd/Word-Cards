@@ -1,13 +1,26 @@
+import React from 'react';
+
+import { useContext } from 'react';
+
 import './Burger.css';
 
-function Burger({ onClick }) {
+import { ScreenContext } from '../App';
+
+function Burger() {
+  const [screen, changeScreen] = useContext(ScreenContext);
+
+  function test() {
+    changeScreen('Menu');
+    console.log(test);
+  }
   return (
     <>
-      <div onClick={onClick} className='burger'>
-        <div className='burger-line'></div>
+      <div onClick={test} className='burger'>
+        <div className={`burger-line ${screen}`}></div>
       </div>
     </>
   );
 }
 
-export default Burger;
+//TODO memo is don't work. Why?
+export default React.memo(Burger);

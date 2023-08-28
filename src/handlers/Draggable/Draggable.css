@@ -1,0 +1,22 @@
+.draggable-wrap {
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+
+  bottom: 100px;
+  z-index: 5;
+
+  border: 1px red dotted;
+}
+
+::-webkit-scrollbar {
+  width: 2px;
+}
+::-webkit-scrollbar-track {
+  opacity: 0;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.4);
+
+  border-radius: 4px;
+}
