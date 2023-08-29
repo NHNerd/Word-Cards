@@ -2,11 +2,9 @@
   position: absolute;
   width: 100%;
   bottom: 0;
-
-  bottom: 100px;
   z-index: 5;
-
   border: 1px red dotted;
+  user-select: none;
 }
 
 ::-webkit-scrollbar {

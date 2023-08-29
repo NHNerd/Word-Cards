@@ -32,7 +32,6 @@ function App() {
     setScreen(newScreen);
   };
 
-  console.log(screen);
   // console.log(`current screen: ${screen}`);
 
   // listner change screen size
