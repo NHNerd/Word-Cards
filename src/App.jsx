@@ -12,18 +12,16 @@ import Draggable from './handlers/Draggable/Draggable.jsx';
 import data from '../public/data/data.json';
 import './App.css';
 //create context
-//TODO Add conteinerSize in context
-export const ScreenContext = createContext();
+
+export const AppContext = createContext();
 
 function App() {
   const containerRef = useRef();
 
   const [containerSize, setContainerSize] = useState({ x: 800, y: 800 });
-
   const [strokeElemenHeight, setStrokeElementHeight] = useState();
   const [menuLOLTransition, setMenuLOLTransition] = useState(0);
 
-  const [screenChangeMenuLOL, setScreenChangeMenuLOL] = useState(false);
   const [screen, setScreen] = useState('Menu');
   const [isSettings, setSettings] = useState(false);
 
@@ -58,32 +56,30 @@ function App() {
 
   return (
     // Оберните компонент App в провайдер контекста, чтобы значения были доступны всем компонентам внутри него
-    <ScreenContext.Provider value={[screen, changeScreen]}>
+    <AppContext.Provider
+      //? order not wise in {} instead []
+      value={{
+        screen,
+        changeScreen,
+        containerSize,
+        strokeElemenHeight,
+        menuLOLTransition,
+      }}
+    >
       <div className='container' ref={containerRef}>
-        {/* <Menu /> 
+        <Statistic />
+        <PlayCard />
+        <Fork />
 
-        {/* <Session />screen */}
-        <Statistic menuLOLTransition={menuLOLTransition} />
-        <PlayCard menuLOLTransition={menuLOLTransition} />
-        <Fork containerSize={containerSize} menuLOLTransition={menuLOLTransition} />
-
-        <Draggable
-          containerSize={containerSize}
-          strokeElemenHeight={strokeElemenHeight}
-          menuLOLTransition={menuLOLTransition}
-          setMenuLOLTransition={setMenuLOLTransition}
-        >
-          <ListOfList
-            setStrokeElementHeight={setStrokeElementHeight}
-            menuLOLTransition={menuLOLTransition}
-          />
+        <Draggable setMenuLOLTransition={setMenuLOLTransition}>
+          <ListOfList setStrokeElementHeight={setStrokeElementHeight} />
         </Draggable>
 
         {/* <Settings /> */}
         {/*Multy elements*/}
       </div>
       {<Burger /*onClick={() => setSettings(!isSettings)}*/ />}
-    </ScreenContext.Provider>
+    </AppContext.Provider>
   );
 }
 

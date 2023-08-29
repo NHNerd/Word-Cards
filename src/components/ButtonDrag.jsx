@@ -1,6 +1,11 @@
+import { useContext } from 'react';
+
 import './ButtonDrag.css';
 
-function ButtonDrag({ rotate, menuLOLTransition }) {
+import { AppContext } from '../App';
+
+function ButtonDrag({ rotate }) {
+  const { menuLOLTransition } = useContext(AppContext);
   function getStyleForRotateClass(rotate, menuLOLTransition) {
     let transform = false;
     let opacity = '0.2';

@@ -1,10 +1,10 @@
 .draggable-wrap {
   position: absolute;
   width: 100%;
-  bottom: 0;
-  z-index: 5;
   border: 1px red dotted;
   user-select: none;
+  bottom: 0;
+  z-index: 1;
 }
 
 ::-webkit-scrollbar {

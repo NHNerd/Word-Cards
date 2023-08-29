@@ -1,18 +1,18 @@
 import { useContext } from 'react';
 import Button from './Button.jsx';
 
-import { ScreenContext } from '../App.jsx';
+import { AppContext } from '../App.jsx';
 
 import './Fork.css';
 
-function Fork({ containerSize, menuLOLTransition }) {
-  const [screen, changeScreen] = useContext(ScreenContext);
+function Fork() {
+  const { screen, containerSize, menuLOLTransition } = useContext(AppContext);
 
   const marginTop = containerSize.y * 0.04;
 
   return (
     <>
-      {/* <div className='fork-bg'></div> */}
+      <div className={`fork-bg ${screen}`}></div>
       <div
         className={`fork-container fork-${screen}`}
         style={{

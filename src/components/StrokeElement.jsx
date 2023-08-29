@@ -2,7 +2,7 @@ import { useContext, useState, useEffect, useRef } from 'react';
 import ButtonDrag from './ButtonDrag.jsx';
 import Button from './Button.jsx';
 
-import { ScreenContext } from '../App.jsx';
+import { AppContext } from '../App.jsx';
 
 import './StrokeElement.css';
 
@@ -10,7 +10,6 @@ import './StrokeElement.css';
 // container
 function StrokeElement({
   setStrokeElementHeight,
-  menuLOLTransition,
   textH1,
   textH2,
   countH2,
@@ -20,7 +19,7 @@ function StrokeElement({
   isButtonDrag,
   isFirstElement,
 }) {
-  const [screen, changeScreen] = useContext(ScreenContext);
+  const { screen, changeScreen, menuLOLTransition } = useContext(AppContext);
   const strokeContainerRef = useRef();
 
   useEffect(() => {
@@ -38,18 +37,13 @@ function StrokeElement({
           marginBottom: `${120 - menuLOLTransition * 100}px`,
         }}
       >
-        {isFirstElement ? <ButtonDrag rotate='top' menuLOLTransition={menuLOLTransition} /> : null}
+        {isFirstElement ? <ButtonDrag rotate='top' /> : null}
 
         <div className='h1'>
-          {isFirstElement ? <ButtonDrag rotate='left' menuLOLTransition={menuLOLTransition} /> : null}
-          <Button
-            type='exit'
-            position='left'
-            menuLOLTransition={menuLOLTransition}
-            parrentType={'StrokeElement'}
-          />
+          {isFirstElement ? <ButtonDrag rotate='left' /> : null}
+          <Button type='exit' position='left' parrentType={'StrokeElement'} />
           <div className='textH1'>{textH1}</div>
-          {isFirstElement ? <ButtonDrag rotate='right' menuLOLTransition={menuLOLTransition} /> : null}
+          {isFirstElement ? <ButtonDrag rotate='right' /> : null}
           <Button type='edit' position='right' />
         </div>
         <div className={textH2 ? 'h2' : 'h2Off'}>

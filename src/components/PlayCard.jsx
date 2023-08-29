@@ -2,13 +2,14 @@ import { useContext } from 'react';
 
 import './PlayCard.css';
 
-import { ScreenContext } from '../App';
+import { AppContext } from '../App';
 let text = 'Go';
 let textClass = 'text';
 
-function PlayCard({ menuLOLTransition }) {
+function PlayCard() {
   // Get value from context
-  const [screen, changeScreen] = useContext(ScreenContext);
+  const { screen, changeScreen, containerSize, menuLOLTransition } = useContext(AppContext);
+
   if (screen === 'Menu') {
     textClass = 'text';
     text = 'go';
@@ -37,7 +38,14 @@ function PlayCard({ menuLOLTransition }) {
           onClick={() => changeScreen('Session')}
           className={screen !== 'Menu' && screen !== 'Session' ? `startBtn other` : `startBtn ${screen}`}
         >
-          <div className={textClass}>{text}</div>
+          <div
+            className={textClass}
+            style={{
+              transform: `translate(-50%, -50%) scale(${0.2 + (containerSize.y / 1000) * 0.8})`,
+            }}
+          >
+            {text}
+          </div>
         </div>
       </div>
     </>

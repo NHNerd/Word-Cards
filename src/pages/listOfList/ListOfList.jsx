@@ -1,10 +1,9 @@
-import { useContext, useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import StrokeElement from '../../components/StrokeElement.jsx';
-import { ScreenContext } from '../../App.jsx';
+
 import data from '../../../public/data/data.json';
 
-function ListOfList({ setStrokeElementHeight, menuLOLTransition }) {
-  const [screen, changeScreen] = useContext(ScreenContext);
+function ListOfList({ setStrokeElementHeight }) {
   const listOfListKeys = Object.keys(data.listOfList);
 
   return (
@@ -12,7 +11,6 @@ function ListOfList({ setStrokeElementHeight, menuLOLTransition }) {
       {listOfListKeys.map((key, index) => (
         <StrokeElement
           setStrokeElementHeight={setStrokeElementHeight}
-          menuLOLTransition={menuLOLTransition}
           key={key} // Используем ключ в качестве уникального идентификатора (id)
           id={key} // Прокидываем ключ как id для StrokeElement
           textH1={listOfListKeys[index]}

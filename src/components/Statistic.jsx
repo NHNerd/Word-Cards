@@ -1,6 +1,10 @@
+import { useContext } from 'react';
+
+import { AppContext } from '../App';
 import './Statistic.css';
 
-function Statistic({ menuLOLTransition }) {
+function Statistic() {
+  const { menuLOLTransition } = useContext(AppContext);
   // let test = Math.max(1, (1 - menuLOLTransition) * 2) - 1;
   // let test2 = Math.max(1, menuLOLTransition * 2) - 1;
 

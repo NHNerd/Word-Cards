@@ -4,10 +4,10 @@ import { useContext } from 'react';
 
 import './Burger.css';
 
-import { ScreenContext } from '../App';
+import { AppContext } from '../App';
 
 function Burger() {
-  const [screen, changeScreen] = useContext(ScreenContext);
+  const { screen, changeScreen } = useContext(AppContext);
 
   function test() {
     changeScreen('Menu');

@@ -2,7 +2,6 @@
   position: fixed;
   left: 50%;
   transform: translate(-50%);
-  /* top: 60px; */
   height: 50px;
   width: 260px;
   display: flex;
@@ -15,7 +14,6 @@
 .fork-line {
   height: 100%;
   width: 2px;
-
   background-image: linear-gradient(
     to bottom,
     rgba(239, 240, 232, 0.1),
@@ -37,15 +35,20 @@
   left: 0;
   right: 0;
   top: 0;
-  bottom: 82vh;
+  bottom: 84vh;
   background-image: linear-gradient(
     to bottom,
     rgba(35, 35, 35, 1) 0%,
-    rgba(35, 35, 35, 1) 52%,
-    rgba(35, 35, 35, 0.95) 72%,
-    rgba(35, 35, 35, 0) 100%
+    rgba(35, 35, 35, 1) 58%,
+    rgba(35, 35, 35, 1) 58%,
+    rgba(35, 35, 35, 0.1) 100%
   );
-  z-index: 1;
+  z-index: 2;
+  opacity: 0;
+}
+.fork-bg.ListOfList {
+  transform: scaleY(100%);
+  opacity: 1;
 }
 
 /* blur */

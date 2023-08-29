@@ -2,11 +2,11 @@ import { useContext } from 'react';
 
 import './Button.css';
 
-import { ScreenContext } from '../App';
+import { AppContext } from '../App';
 
-function Button({ parrentType, text, type, position, menuLOLTransition, containerSize }) {
+function Button({ parrentType, text, type, position }) {
   // Get value from context
-  const [screen, changeScreen] = useContext(ScreenContext);
+  const { screen, changeScreen, menuLOLTransition, containerSize } = useContext(AppContext);
 
   let buttonStyles = {};
   let buttonBgLeftStyles = {};
