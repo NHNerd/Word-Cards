@@ -16,10 +16,10 @@ function Draggable(props) {
   const totalDistanceY = containerSize.y - strokeElemenHeight - marginBottom - marginTop;
 
   const [isTaped, setIsTaped] = useState(false);
-  const [transformOld, setTransformOld] = useState(0);
-  const [transform, setTransform] = useState(0);
-  const [transformDown, setTransformDown] = useState(0);
+  const [transformOld, setTransformOld] = useState({ x: 0, y: 0 });
+  const [transform, setTransform] = useState({ x: 0, y: 0 });
   const [correct, setCorrect] = useState(0);
+  const [toWard, setToWard] = useState('NaN');
 
   const eventHandlers = isMobile
     ? {
@@ -39,12 +39,17 @@ function Draggable(props) {
     if (!isMobile) {
       e.preventDefault();
     }
-    const clientY = isMobile ? e.touches[0].clientY : e.clientY;
-    const transformNotClump = containerSize.y - clientY - transformOld;
+    //Vertical
+    const userInputDevice = isMobile ? e.touches[0] : e;
+    const client = {
+      x: userInputDevice.clientX,
+      y: userInputDevice.clientY,
+    };
+    const transformNotClump = containerSize.y - client.y - transformOld.y;
     setIsTaped(true);
     setCorrect(Math.max(0, Math.min(totalDistanceY, transformNotClump)));
-
-    setTransformDown(clientY);
+    //horizontal
+    setTransformOld({ x: client.x });
   }
   function handleEventMove(e) {
     if (!isMobile) {
@@ -52,19 +57,49 @@ function Draggable(props) {
     }
     //TODO now have problem when drug to - when return mosue to + component not move
     if (isTaped) {
-      const clientY = isMobile ? e.touches[0].clientY : e.clientY;
-      const transformNotClump = containerSize.y - (clientY + correct);
-      setTransform(Math.max(0, Math.min(totalDistanceY, transformNotClump)));
-      setTransform(setTransform);
-      props.setMenuLOLTransition(1 - (totalDistanceY - transform) / totalDistanceY);
+      const userInputDevice = isMobile ? e.touches[0] : e;
+      const client = {
+        x: userInputDevice.clientX,
+        y: userInputDevice.clientY,
+      };
+
+      let transformNotClumpX = client.x - transformOld.x;
+      let transformNotClumpY = containerSize.y - (client.y + correct);
+      const toWardThreshold = 10; //? after 10px the final direction will be chosen
+
+      if (toWard === 'NaN') {
+        // Toward befaore final toward
+        if (Math.abs(transformNotClumpX) > Math.max(0, transformNotClumpY)) {
+          transformNotClumpY = 0;
+        } else {
+          transformNotClumpX = 0;
+        }
+        // Final toward
+        if (Math.round(Math.abs(transformNotClumpX)) >= toWardThreshold && toWard === 'NaN') {
+          setToWard('x');
+        }
+        if (Math.round(transformNotClumpY) >= toWardThreshold && toWard === 'NaN') {
+          setToWard('y');
+        }
+      }
+
+      setTransform({
+        x: toWard === 'y' ? 0 : transformNotClumpX,
+        y: toWard === 'x' ? 0 : Math.max(0, Math.min(totalDistanceY, transformNotClumpY)),
+      });
+
+      props.setMenuLOLTransition(1 - (totalDistanceY - transform.y) / totalDistanceY);
     }
   }
   function handleEventUpLeave() {
     if (isTaped) {
+      //Vertical
       setIsTaped(false);
-      setTransformOld(transform);
+      setTransformOld({ x: transform.x, y: transform.y });
       changeScreen(menuLOLTransition === 1 ? 'ListOfList' : 'Menu');
+      setToWard('NaN');
     }
+    //horizontal
   }
 
   useEffect(() => {
@@ -75,10 +110,10 @@ function Draggable(props) {
       // first value(20) is constant step, second value is distance dependent step => ( (70) in center of screen 0 on the edge )
       const step = 20 + (menuLOLTransition > 0.5 ? 1 - menuLOLTransition : menuLOLTransition) * 70;
 
-      if (!isTaped && transform > 0) {
+      if (!isTaped && transform.y > 0) {
         setTransform((prevTransform) => {
-          const newTransform = Math.min(totalDistanceY, prevTransform - step * closeTo);
-          setTransformOld(newTransform);
+          const newTransform = Math.min(totalDistanceY, prevTransform.y - step * closeTo);
+          setTransformOld({ x: 0, y: newTransform });
           if (newTransform <= 0 || newTransform >= totalDistanceY) {
             cancelAnimationFrame(animationFrameId);
 
@@ -88,10 +123,10 @@ function Draggable(props) {
                 changeScreen('ListOfList');
               }, 10);
             } else {
-              return 0;
+              return { x: 0, y: 0 };
             }
           }
-          return newTransform;
+          return { x: 0, y: newTransform };
         });
 
         props.setMenuLOLTransition((prevMenuLOLTransition) =>
@@ -120,13 +155,13 @@ function Draggable(props) {
                 height: `${strokeElemenHeight + marginBottom}px`,
                 bottom: `${0}px`,
                 paddingTop: `40px`,
-                transform: `translateY(-${transform}px)`,
+                transform: `translate(${transform.x}px,-${transform.y}px)`,
               }
             : {
                 height: `${containerSize.y - marginTop}px`,
                 top: `${0}px`,
                 paddingTop: `${marginTop}px`,
-                transform: `translateY(${transformOld - transform}px)`,
+                transform: `translateY(${transformOld.y - transform.y}px)`,
                 overflowY: 'scroll',
               }
         }
