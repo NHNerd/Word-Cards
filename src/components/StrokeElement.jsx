@@ -17,33 +17,41 @@ function StrokeElement({
   countH3,
   line,
   isButtonDrag,
-  isFirstElement,
+  order,
+  axis,
+  pos,
 }) {
-  const { screen, changeScreen, menuLOLTransition } = useContext(AppContext);
+  const { screen, changeScreen, containerSize, menuLOLTransition } = useContext(AppContext);
   const strokeContainerRef = useRef();
 
   useEffect(() => {
     setStrokeElementHeight(strokeContainerRef.current.clientHeight);
   }, []);
 
+  //Style
+  const strokeContainerStyle = {
+    marginBottom: `${120 - menuLOLTransition * 100}px`,
+    transform: `translateX(${
+      axis === 'horizontal' ? (order + 1) * containerSize.x * (pos === 'left' ? 1 : -1) : 0
+    }px)`,
+  };
+
   return (
     <>
       <div
         ref={strokeContainerRef}
-        className={`stroke stroke-container ${screen} ${
-          isFirstElement ? 'firstElement' : 'nonFirstElement'
+        className={`stroke stroke-container ${screen}  ${axis} ${
+          order === 0 ? 'firstElement' : 'nonFirstElement'
         }`}
-        style={{
-          marginBottom: `${120 - menuLOLTransition * 100}px`,
-        }}
+        style={strokeContainerStyle}
       >
-        {isFirstElement ? <ButtonDrag rotate='top' /> : null}
+        {order === 0 ? <ButtonDrag rotate='top' /> : null}
 
         <div className='h1'>
-          {isFirstElement ? <ButtonDrag rotate='left' /> : null}
+          {order === 0 ? <ButtonDrag rotate='left' /> : null}
           <Button type='exit' position='left' parrentType={'StrokeElement'} />
           <div className='textH1'>{textH1}</div>
-          {isFirstElement ? <ButtonDrag rotate='right' /> : null}
+          {order === 0 ? <ButtonDrag rotate='right' /> : null}
           <Button type='edit' position='right' />
         </div>
         <div className={textH2 ? 'h2' : 'h2Off'}>

@@ -19,6 +19,9 @@
   top: 220px;
 } */
 }
+.stroke-container.horizontal {
+  position: absolute;
+}
 
 .h1,
 .h2,

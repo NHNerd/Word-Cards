@@ -1,7 +1,7 @@
 {
   "id": "1",
   "listOfList": {
-    "list1": {
+    "it slang #1": {
       "order": 1,
       "game count": 40,
       "words": {
@@ -157,7 +157,7 @@
         }
       }
     },
-    "list2": {
+    "B1 #2": {
       "order": 2,
       "game count": 66,
       "words": {
@@ -187,7 +187,7 @@
         }
       }
     },
-    "list3": {
+    "art #3": {
       "order": 3,
       "game count": 24,
       "words": {
