@@ -1,5 +1,5 @@
 .ButtonDrag {
-  position: relative;
+  position: absolute;
   width: 0;
   height: 0;
   border: 8px solid transparent;
@@ -8,16 +8,17 @@
 }
 
 .ButtonDrag-top {
-  position: relative;
   left: 50%;
-  transform: rotate(0deg) translate(-50%) scale(140%);
+  transform: rotate(0deg) translate(-50%, -20px) scale(140%);
 }
 .ButtonDrag-bottom {
   transform: rotate(180deg);
 }
 .ButtonDrag-left {
-  transform: rotate(-90deg);
+  right: 50%;
+  transform: translate(-60px, 0) rotate(-90deg);
 }
 .ButtonDrag-right {
-  transform: rotate(90deg);
+  left: 50%;
+  transform: translate(60px, 0) rotate(90deg);
 }

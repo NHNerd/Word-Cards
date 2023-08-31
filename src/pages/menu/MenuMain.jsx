@@ -3,7 +3,9 @@ import PlayCard from '../../components/PlayCard.jsx';
 function MenuMain() {
   return (
     <>
-      <PlayCard />
+      <div draggable={true} className='ss'>
+        <PlayCard />
+      </div>
     </>
   );
 }

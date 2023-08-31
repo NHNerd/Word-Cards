@@ -18,7 +18,8 @@ function MenuFooter() {
         countH2={231}
         textH3={'game count'}
         countH3={126}
-        // line={true}
+        line={false}
+        isButtonDrag={true}
       />
     </>
   );

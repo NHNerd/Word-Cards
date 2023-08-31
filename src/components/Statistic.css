@@ -1,0 +1,27 @@
+.statistic {
+  position: absolute;
+  top: 4%;
+  height: 24%;
+  width: 100%;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+
+  background-image: url('../../public/ref/Statistic.png');
+  margin: 2px;
+}
+
+.fork-test {
+  position: absolute;
+  top: -2%;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 24%;
+  width: 40%;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+
+  background-image: url('../../public/ref/forkt.png');
+  margin: 2px;
+}
