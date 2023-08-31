@@ -17,6 +17,7 @@ function Draggable(props) {
 
   const [isTaped, setIsTaped] = useState(false);
   const [transformOld, setTransformOld] = useState({ x: 0, y: 0 });
+  const [transformOldUseeffetX, setTransformOldUseeffetX] = useState(0);
   const [transform, setTransform] = useState({ x: 0, y: 0 });
   const [correct, setCorrect] = useState(0);
   const [toWard, setToWard] = useState('NaN');
@@ -84,7 +85,7 @@ function Draggable(props) {
       }
 
       setTransform({
-        x: toWard === 'y' ? 0 : transformNotClumpX,
+        x: toWard === 'y' ? 0 : transformNotClumpX + transformOldUseeffetX,
         y: toWard === 'x' ? 0 : Math.max(0, Math.min(totalDistanceY, transformNotClumpY)),
       });
 
@@ -102,21 +103,61 @@ function Draggable(props) {
     //horizontal
   }
 
+  //TODO Add condition: swipe speed
   useEffect(() => {
     let animationFrameId;
 
     function transitionAutoCloser() {
-      const closeTo = menuLOLTransition > 0.5 ? -1 : 1;
-      // first value(20) is constant step, second value is distance dependent step => ( (70) in center of screen 0 on the edge )
-      const step = 20 + (menuLOLTransition > 0.5 ? 1 - menuLOLTransition : menuLOLTransition) * 70;
+      const invertTowardY = menuLOLTransition > 0.5 ? -1 : 1;
+      // speed is constant step, acceleration is distance dependent step => ( MAX acceleration in center of screen,  MIN acceleration on the edge )
+      const speed = 5;
+      const acceleration = 80;
+      const step = {
+        //TODO Add acseleration for X axis
+        x: 30,
+        y: speed + (menuLOLTransition > 0.5 ? 1 - menuLOLTransition : menuLOLTransition) * acceleration,
+      };
 
+      // x:
+      // 4 + Math.abs(transform.x) > containerSize.x / 4
+      //   ? (containerSize.x / 4 - transform.x) * 0.05
+      //   : 1,
+
+      //horizontal
+      if (!isTaped && Math.abs(transform.x) > 0) {
+        const invertTowardX = transform.x < 0 ? -1 : 1;
+
+        setTransform((prevTransform) => {
+          let newTransformX = prevTransform.x + step.x * invertTowardX;
+
+          //forward
+          if (Math.abs(transform.x) > containerSize.x / 4) {
+            newTransformX = Math.min(containerSize.x, Math.max(-containerSize.x, newTransformX));
+          }
+          //backward
+          else {
+            newTransformX = prevTransform.x - step.x * invertTowardX;
+          }
+          //Stop
+          if (Math.abs(newTransformX) >= containerSize.x || newTransformX * invertTowardX <= 0) {
+            cancelAnimationFrame(animationFrameId);
+            return { x: 0, y: 0 };
+          }
+          // setTransformOld({ x: newTransformX, y: 0 });
+          return { x: newTransformX, y: 0 };
+        });
+      } else {
+        setTransformOldUseeffetX(transform.x);
+      }
+
+      //Vertical
       if (!isTaped && transform.y > 0) {
         setTransform((prevTransform) => {
-          const newTransform = Math.min(totalDistanceY, prevTransform.y - step * closeTo);
+          const newTransform = Math.min(totalDistanceY, prevTransform.y - step.y * invertTowardY);
+
           setTransformOld({ x: 0, y: newTransform });
           if (newTransform <= 0 || newTransform >= totalDistanceY) {
             cancelAnimationFrame(animationFrameId);
-
             //TODO Workaround(setTimeout)! changeScreen fires before render Draggable or App components
             if (newTransform >= totalDistanceY) {
               setTimeout(() => {
@@ -130,7 +171,7 @@ function Draggable(props) {
         });
 
         props.setMenuLOLTransition((prevMenuLOLTransition) =>
-          Math.min(1, (totalDistanceY * prevMenuLOLTransition - step * closeTo) / totalDistanceY)
+          Math.min(1, (totalDistanceY * prevMenuLOLTransition - step.y * invertTowardY) / totalDistanceY)
         );
       }
       animationFrameId = requestAnimationFrame(transitionAutoCloser);
