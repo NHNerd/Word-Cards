@@ -62,11 +62,13 @@
 }
 
 .stroke-line {
+  margin: 0 30px;
   height: 2px;
   background-image: linear-gradient(
     to right,
     rgba(239, 240, 232, 0),
-    rgba(239, 240, 232, 0.2),
+    rgba(239, 240, 232, 0.34),
     rgba(239, 240, 232, 0)
   );
+  border-radius: 50%;
 }
