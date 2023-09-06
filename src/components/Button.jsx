@@ -23,11 +23,14 @@ function Button({ parrentType, text, type, position }) {
       buttonStyles.right = `-${containerSize.x * 0.06}px`;
       buttonStyles.transform = `translate(${(1 - menuLOLTransition) * containerSize.x * 0.52}px)`;
     }
+    // bracsec
     buttonBgLeftStyles.transform = `translateX(${-containerSize.x * 0.05}px)`;
     buttonBgRightStyles.transform = `translateX(${containerSize.x * 0.05}px)`;
   } else {
-    buttonStyles.transform = `scale(${menuLOLTransition * 0.6 + 0.4})`;
-    buttonStyles.opacity = `${menuLOLTransition}`;
+    if (position === 'left') {
+      buttonStyles.transform = `scale(${menuLOLTransition * 0.6 + 0.4})`;
+      buttonStyles.opacity = `${menuLOLTransition}`;
+    }
 
     buttonBgLeftStyles.transform = `translateX(${-5}px)`;
     buttonBgRightStyles.transform = `translateX(${5}px)`;

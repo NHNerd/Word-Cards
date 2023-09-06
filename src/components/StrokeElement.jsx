@@ -40,18 +40,17 @@ function StrokeElement({
     <>
       <div
         ref={strokeContainerRef}
-        className={`stroke stroke-container ${screen}  ${axis} ${
-          order === 0 ? 'firstElement' : 'nonFirstElement'
-        }`}
+        className={`stroke ${screen}  ${axis} ${order === 0 ? 'firstElement' : 'nonFirstElement'}`}
         style={strokeContainerStyle}
       >
-        {order === 0 ? <ButtonDrag rotate='top' /> : null}
-
         <div className='h1'>
-          {order === 0 ? <ButtonDrag rotate='left' /> : null}
+          {order === 0 ? <ButtonDrag rotate='top' /> : null}
           <Button type='exit' position='left' parrentType={'StrokeElement'} />
-          <div className='textH1'>{textH1}</div>
-          {order === 0 ? <ButtonDrag rotate='right' /> : null}
+          <div className='textH1'>
+            {textH1}
+            {order === 0 ? <ButtonDrag rotate='left' /> : null}
+            {order === 0 ? <ButtonDrag rotate='right' /> : null}
+          </div>
           <Button type='edit' position='right' />
         </div>
         <div className={textH2 ? 'h2' : 'h2Off'}>

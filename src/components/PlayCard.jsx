@@ -24,6 +24,7 @@ function PlayCard() {
 
   return (
     <>
+      {/*? scale-warp need for applay the translate change on all moving component */}
       <div
         className='scale-warp'
         style={{

@@ -11,11 +11,11 @@ function Burger() {
 
   function test() {
     changeScreen('Menu');
-    console.log(test);
+    console.log('Burger onClick');
   }
   return (
     <>
-      <div onClick={test} className='burger'>
+      <div onClick={test} id='burger'>
         <div className={`burger-line ${screen}`}></div>
       </div>
     </>

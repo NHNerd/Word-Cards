@@ -6,18 +6,18 @@ import { AppContext } from '../App';
 
 function ButtonDrag({ rotate }) {
   const { menuLOLTransition } = useContext(AppContext);
-  function getStyleForRotateClass(rotate, menuLOLTransition) {
+  function styleHandler(rotate, menuLOLTransition) {
     let transform = false;
-    let opacity = '0.2';
+    let opacity = 0.2;
 
     if (rotate === 'top') {
-      transform = `rotate(0deg) translate(-50%, -20px) scale(${1.4 - menuLOLTransition})`;
+      transform = `translate(-50%, -30px) scale(${1.4 - menuLOLTransition})`;
     } else if (rotate === 'left') {
-      transform = `translate(-60px, 0) rotate(-90deg)  scale(${1 - menuLOLTransition * 0.5})`;
+      transform = `translate(-50px, -50%) rotate(-90deg)  scale(${1 - menuLOLTransition * 0.5})`;
     } else if (rotate === 'right') {
-      transform = `translate(60px, 0) rotate(90deg)  scale(${1 - menuLOLTransition * 0.5})`;
+      transform = `translate(50px, -50%) rotate(90deg)  scale(${1 - menuLOLTransition * 0.5})`;
     }
-    opacity = `${(1 - menuLOLTransition) * 0.2}`;
+    opacity = (1 - menuLOLTransition) * 0.2;
 
     return {
       transform,
@@ -28,11 +28,10 @@ function ButtonDrag({ rotate }) {
   return (
     <>
       <div
-        className={`ButtonDrag ButtonDrag-${rotate}`}
-        style={getStyleForRotateClass(rotate, menuLOLTransition)}
-      >
-        <div className='xyu'></div>
-      </div>
+        id='ButtonDrag'
+        className={`ButtonDrag-${rotate}`}
+        style={styleHandler(rotate, menuLOLTransition)}
+      />
     </>
   );
 }

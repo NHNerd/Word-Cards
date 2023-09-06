@@ -11,7 +11,7 @@ function Statistic() {
   return (
     <>
       <div
-        className='statistic'
+        id='statistic'
         style={{
           transform: `translateY(${-menuLOLTransition * 300}px) `,
         }}
