@@ -8,6 +8,7 @@
   padding: 0;
   margin: 0;
   -webkit-tap-highlight-color: transparent; /* Для браузеров на основе WebKit, таких как Safari & Chrome */
+  overscroll-behavior: none; /* off down swipe refrash */
 }
 
 #root {

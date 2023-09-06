@@ -10,7 +10,7 @@
   /* border: 1px solid #ffff; */
   transform: rotate(0deg);
   z-index: 5;
-  transition: 0.5s ease-in;
+  transition: 0.25s ease-in;
 }
 
 .burger-line,
@@ -21,11 +21,12 @@
   width: 28px;
   background-color: #d9d9d9;
   border-radius: 4px;
+  border-radius: 50%;
 }
 .burger-line::before,
 .burger-line::after {
   content: '';
-  transition: all 0.5s linear;
+  transition: all 0.25s linear;
 }
 .burger-line::before {
   transform: translateY(-7px) rotate(0);
