@@ -1,4 +1,4 @@
-.stroke-container {
+.stroke {
   position: relative;
   left: 0;
   right: 0;
@@ -19,7 +19,7 @@
   top: 220px;
 } */
 }
-.stroke-container.horizontal {
+.stroke.horizontal {
   position: absolute;
 }
 
@@ -36,7 +36,7 @@
 .h1 {
   font-size: 34px;
   margin: -8px 0;
-  margin-top: -12px;
+  margin-top: -8px;
 }
 
 .h2 {
@@ -53,9 +53,7 @@
   display: none;
 }
 .textH1 {
-  padding-right: 16px;
-  padding-left: 16px;
-  padding-top: 8px;
+  position: relative;
 }
 .textH2,
 .textH3 {

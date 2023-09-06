@@ -3,9 +3,9 @@ import { useState, useEffect, createContext, useRef } from 'react';
 import PlayCard from './components/PlayCard.jsx';
 import ListOfList from './pages/listOfList/ListOfList.jsx';
 import Burger from './components/Burger.jsx';
-import Settings from './pages/setting/Settings.jsx';
 import Fork from './components/Fork.jsx';
 import Statistic from './components/Statistic.jsx';
+import { increase, decrease } from './handlers/LOLData.js';
 
 import Draggable from './handlers/Draggable/Draggable.jsx';
 
@@ -16,11 +16,14 @@ import './App.css';
 export const AppContext = createContext();
 
 function App() {
+  // increase();
+  // LOLData();
   const containerRef = useRef();
 
   const [containerSize, setContainerSize] = useState({ x: 800, y: 800 });
   const [strokeElemenHeight, setStrokeElementHeight] = useState();
   const [menuLOLTransition, setMenuLOLTransition] = useState(0);
+  const [LOLOrder, setLOLOrder] = useState(0);
 
   const [screen, setScreen] = useState('Menu');
   const [isSettings, setSettings] = useState(false);
@@ -64,6 +67,7 @@ function App() {
         containerSize,
         strokeElemenHeight,
         menuLOLTransition,
+        LOLOrder,
       }}
     >
       <div className='container' ref={containerRef}>
@@ -71,7 +75,7 @@ function App() {
         <PlayCard />
         <Fork />
 
-        <Draggable setMenuLOLTransition={setMenuLOLTransition}>
+        <Draggable setMenuLOLTransition={setMenuLOLTransition} setLOLOrder={setLOLOrder}>
           <ListOfList setStrokeElementHeight={setStrokeElementHeight} />
         </Draggable>
 

@@ -29,7 +29,9 @@ function ListOfList({ setStrokeElementHeight }) {
           pos={'left'}
         />
       ))}
+
       {/* right */}
+
       {listOfListKeys.slice(startIdx, 12).map((key, index) => (
         <StrokeElement
           setStrokeElementHeight={setStrokeElementHeight}

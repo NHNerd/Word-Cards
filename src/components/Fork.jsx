@@ -14,7 +14,8 @@ function Fork() {
     <>
       <div className={`fork-bg ${screen}`}></div>
       <div
-        className={`fork-container fork-${screen}`}
+        id='fork'
+        className={`fork-${screen}`}
         style={{
           top: `${marginTop}px`,
         }}
