@@ -61,3 +61,31 @@
 .bg-right {
   border-right: 2px solid #d9d9d9;
 }
+
+.img {
+  transition: 0.25s;
+}
+.button:hover .img {
+  scale: 1.4;
+  rotate: -360deg;
+}
+.button::before {
+  content: '';
+  background-color: #d9d9d9;
+  height: 100%;
+  width: 100%;
+  border-radius: 20px;
+  scale: 0.2;
+  filter: blur(21px);
+  opacity: 0;
+}
+
+.button:active::before {
+  content: '';
+  scale: 0.8 0.7;
+  opacity: 1;
+}
+
+.button:active {
+  scale: 1.2;
+}

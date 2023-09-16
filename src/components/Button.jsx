@@ -23,6 +23,7 @@ function Button({ parrentType, text, type, position }) {
       buttonStyles.right = `-${containerSize.x * 0.06}px`;
       buttonStyles.transform = `translate(${(1 - menuLOLTransition) * containerSize.x * 0.52}px)`;
     }
+
     // bracsec
     buttonBgLeftStyles.transform = `translateX(${-containerSize.x * 0.05}px)`;
     buttonBgRightStyles.transform = `translateX(${containerSize.x * 0.05}px)`;
@@ -38,15 +39,15 @@ function Button({ parrentType, text, type, position }) {
 
   return (
     <>
-      <div
+      <button
         onClick={() => changeScreen('ListOfList')}
         className={`button button-position-${position}`}
         style={buttonStyles}
       >
         <div className='bg-left' style={buttonBgLeftStyles}></div>
-        <div className={type}>{text}</div>
+        <div className={`img ${type}`}>{text}</div>
         <div className='bg-right' style={buttonBgRightStyles}></div>
-      </div>
+      </button>
     </>
   );
 }

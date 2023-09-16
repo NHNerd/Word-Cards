@@ -13,7 +13,7 @@ function Fork() {
   return (
     <>
       <div className={`fork-bg ${screen}`}></div>
-      <div
+      <section
         id='fork'
         className={`fork-${screen}`}
         style={{
@@ -35,7 +35,7 @@ function Fork() {
           parrentType={'Fork'}
           containerSize={containerSize}
         />
-      </div>
+      </section>
     </>
   );
 }
