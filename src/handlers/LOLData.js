@@ -20,16 +20,12 @@ export function decrease(i) {
 }
 
 let db;
-if (!window.indexedDB) {
-  window.alert(
-    'Ваш браузер не поддерживает стабильную версию IndexedDB. Такие-то функции будут недоступны'
-  );
-}
-//Opening BD
-const request = window.indexedDB.open('WordCards', 1);
 
-request.addEventListener('error', () => console.error('Error opening DB'));
-request.addEventListener('success', () => {
+//Opening BD
+const openOrCreateDB = window.indexedDB.open('WordCards', 1);
+
+openOrCreateDB.addEventListener('error', () => console.error('Error opening DB'));
+openOrCreateDB.addEventListener('success', () => {
   console.log('Successfully opened DB');
-  db = request.result;
+  db = openOrCreateDB.result;
 });

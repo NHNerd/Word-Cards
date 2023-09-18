@@ -27,7 +27,7 @@ function ButtonDrag({ rotate }) {
 
   return (
     <>
-      <div
+      <button
         id='ButtonDrag'
         className={`ButtonDrag-${rotate}`}
         style={styleHandler(rotate, menuLOLTransition)}

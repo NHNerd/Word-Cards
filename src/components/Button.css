@@ -7,8 +7,9 @@
   flex-direction: row;
   justify-content: space-evenly;
 }
+
 .button > * {
-  pointer-events: none; /* Отключаем обработку событий для всех дочерних элементов */
+  pointer-events: none; /* Turn-off for all childe elenent */
 }
 .button-position-left {
   left: 26px;
@@ -55,9 +56,124 @@
   border-radius: 10px;
   opacity: 0.34;
 }
+
 .bg-left {
   border-left: 2px solid #d9d9d9;
 }
 .bg-right {
   border-right: 2px solid #d9d9d9;
+}
+
+.img {
+  transition: 0.25s;
+}
+
+.button:hover .edit {
+  scale: 1.4;
+  rotate: -360deg;
+}
+.button::before {
+  content: '';
+  background-color: #d9d9d9;
+  height: 100%;
+  width: 100%;
+  border-radius: 20px;
+  scale: 0.2;
+  filter: blur(10px);
+  opacity: 0;
+}
+
+.forkNon.button:active::before,
+.StrokeElement.button:active::before {
+  content: '';
+  scale: 1;
+  opacity: 0.3;
+}
+
+.forkNon.button:active,
+.StrokeElement.button:active {
+  scale: 1.14;
+}
+
+.inputAdd,
+.inputSearch {
+  position: absolute;
+  width: 0;
+  top: 50%;
+  transform: translate(0, calc(-50% + 2px));
+  padding-bottom: 4px;
+  border-radius: 6px;
+  text-align: center;
+  opacity: 0;
+}
+
+.Fork {
+  height: 48px;
+  width: 60px;
+}
+
+/** Fork state */
+
+/* Left */
+.button-position-left.forkSearch {
+  position: absolute;
+  width: 40vw;
+  left: 50%;
+  translate: -50% 0;
+  transition: 0.25s ease-out;
+}
+.button-position-right.forkSearch {
+  position: absolute;
+  width: 30px;
+  translate: 40vw 0;
+  opacity: 0.2;
+  transition: 0.25s ease-out;
+}
+.forkSearch .inputSearch {
+  opacity: 1;
+  width: 100%;
+  pointer-events: all;
+}
+/* right */
+.button-position-right.forkAdd {
+  position: absolute;
+  width: 40vw;
+  left: 50%;
+  translate: -50% 0;
+  transition: 0.25s ease-out;
+}
+.button-position-left.forkAdd {
+  position: absolute;
+  width: 30px;
+  translate: -40vw 0;
+  opacity: 0.2;
+  transition: 0.25s ease-out;
+}
+.forkAdd .inputAdd {
+  position: absolute;
+  opacity: 1;
+  width: 100%;
+  pointer-events: all;
+}
+
+.forkAdd .img,
+.forkSearch .img {
+  opacity: 0.1;
+  scale: 0.6;
+}
+
+/** Fork state */
+
+@media (max-width: 400px) {
+  .button-position-left.forkSearch,
+  .button-position-right.forkAdd {
+    width: 54vw;
+  }
+}
+
+@media (min-width: 1200px) {
+  .button-position-left.forkSearch,
+  .button-position-right.forkAdd {
+    width: 400px;
+  }
 }
