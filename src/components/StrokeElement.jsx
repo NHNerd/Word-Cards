@@ -51,7 +51,7 @@ function StrokeElement({
             {order === 0 ? <ButtonDrag rotate='left' /> : null}
             {order === 0 ? <ButtonDrag rotate='right' /> : null}
           </div>
-          <Button type='edit' position='right' />
+          <Button type='edit' position='right' parrentType={'StrokeElement'} />
         </div>
         <div className={textH2 ? 'h2' : 'h2Off'}>
           <div className='textH2'>{textH2 + ':'}</div>
