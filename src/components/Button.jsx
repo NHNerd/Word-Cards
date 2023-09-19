@@ -4,7 +4,7 @@ import './Button.css';
 
 import { AppContext } from '../App';
 
-function Button({ parrentType, text, type, position, onClickHandler, forkState }) {
+function Button({ parrentType, text, type, position, onClickHandler, forkState, setInputValue }) {
   // Get value from context
   const { screen, changeScreen, menuLOLTransition, containerSize } = useContext(AppContext);
 
@@ -26,30 +26,24 @@ function Button({ parrentType, text, type, position, onClickHandler, forkState }
     }
   }, [forkState]);
 
+  //* Animation
   if (parrentType === 'Fork') {
     if (screen != 'ListOfList') {
       buttonStyles.opacity = menuLOLTransition;
+    } else {
+      buttonStyles.transition = '0.25s ease-out';
     }
-
+    // opening
     if (position === 'left' && forkState != 'forkSearch') {
-      buttonStyles.left = `-${containerSize.x * 0.06}px`;
       buttonStyles.transform = `translate(${(1 - menuLOLTransition) * -containerSize.x * 0.52}px)`;
     } else if (position === 'right' && forkState != 'forkAdd') {
-      buttonStyles.right = `-${containerSize.x * 0.06}px`;
       buttonStyles.transform = `translate(${(1 - menuLOLTransition) * containerSize.x * 0.52}px)`;
     }
-
-    // bracsec
-    buttonBgLeftStyles.transform = `translateX(${-containerSize.x * 0.05}px)`;
-    buttonBgRightStyles.transform = `translateX(${containerSize.x * 0.05}px)`;
   } else {
     if (position === 'left') {
-      buttonStyles.transform = `scale(${menuLOLTransition * 0.6 + 0.4})`;
+      // opacity: delite in Menu screen
       buttonStyles.opacity = `${menuLOLTransition}`;
     }
-
-    buttonBgLeftStyles.transform = `translateX(${-5}px)`;
-    buttonBgRightStyles.transform = `translateX(${5}px)`;
   }
 
   //
@@ -65,8 +59,17 @@ function Button({ parrentType, text, type, position, onClickHandler, forkState }
         <div className='bg-left' style={buttonBgLeftStyles}></div>
         <div className={`img ${type} ${forkState}`}>{text}</div>
         <div className='bg-right' style={buttonBgRightStyles}></div>
-        {type === 'search' ? <input className='inputSearch' ref={inputSearchRef}></input> : null}
-        {type === 'add' ? <input className='inputAdd' ref={inputAddRef}></input> : null}
+
+        {/* input */}
+        {type === 'search' || type === 'add' ? (
+          <input
+            className={`input${type === 'search' ? 'Search' : 'Add'}`}
+            onChange={(e) => setInputValue(e.target.value)}
+            ref={type === 'search' ? inputSearchRef : inputAddRef}
+            maxLength={16}
+            required
+          ></input>
+        ) : null}
       </button>
     </>
   );

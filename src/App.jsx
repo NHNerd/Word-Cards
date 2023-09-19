@@ -70,7 +70,7 @@ function App() {
         LOLOrder,
       }}
     >
-      <div className='container' ref={containerRef}>
+      <div className='container' ref={containerRef} style={{ '--menuLOLTransition': menuLOLTransition }}>
         <Statistic />
         <PlayCard />
         <Fork />
