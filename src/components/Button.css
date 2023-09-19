@@ -1,7 +1,7 @@
 .button {
   pointer-events: auto;
   position: absolute;
-  width: 42px;
+  width: 48px;
   height: 30px;
   display: flex;
   flex-direction: row;
@@ -11,16 +11,34 @@
 .button > * {
   pointer-events: none; /* Turn-off for all childe elenent */
 }
-.button-position-left {
+
+/* Fork button size */
+.Fork {
+  height: 44px;
+  width: auto;
+  min-width: 90px;
+}
+.Fork.button-position-left {
+  left: 0;
+  right: 70%;
+}
+.Fork.button-position-right {
+  right: 0;
+  left: 70%;
+}
+/* Fork button size */
+
+.StrokeElement.button-position-left {
   left: 26px;
 }
-.button-position-right {
+.StrokeElement.button-position-right {
   right: 26px;
 }
 .edit,
 .exit,
 .add,
-.search {
+.search,
+.tick {
   position: absolute;
   top: 0;
   bottom: 0;
@@ -45,6 +63,10 @@
   background-image: url('../../public/buttons/search.svg');
   margin: 4px;
 }
+.tick {
+  background-image: url('../../public/buttons/tick.svg');
+  margin: 4px;
+}
 
 .bg-left,
 .bg-right {
@@ -64,6 +86,7 @@
   border-right: 2px solid #d9d9d9;
 }
 
+/** Image hover effects */
 .img {
   transition: 0.25s;
 }
@@ -72,6 +95,9 @@
   scale: 1.4;
   rotate: -360deg;
 }
+/** Image hover effects */
+
+/** Button active effects */
 .button::before {
   content: '';
   background-color: #d9d9d9;
@@ -94,7 +120,7 @@
 .StrokeElement.button:active {
   scale: 1.14;
 }
-
+/** Button active effects */
 .inputAdd,
 .inputSearch {
   position: absolute;
@@ -107,73 +133,66 @@
   opacity: 0;
 }
 
-.Fork {
-  height: 48px;
-  width: 60px;
-}
-
 /** Fork state */
 
 /* Left */
+
+/* Active button */
 .button-position-left.forkSearch {
   position: absolute;
-  width: 40vw;
-  left: 50%;
-  translate: -50% 0;
-  transition: 0.25s ease-out;
+  width: auto;
+  right: 26%;
 }
+/* Passive button */
 .button-position-right.forkSearch {
   position: absolute;
-  width: 30px;
-  translate: 40vw 0;
-  opacity: 0.2;
-  transition: 0.25s ease-out;
+  width: auto;
+  min-width: 62px;
+  left: 80%;
+  scale: 1 0.8;
 }
 .forkSearch .inputSearch {
   opacity: 1;
-  width: 100%;
+  width: 90%;
   pointer-events: all;
 }
+/* Left */
+
 /* right */
+
+/* Active button */
 .button-position-right.forkAdd {
   position: absolute;
-  width: 40vw;
-  left: 50%;
-  translate: -50% 0;
-  transition: 0.25s ease-out;
+  width: auto;
+  left: 26%;
 }
+/* Passive button */
 .button-position-left.forkAdd {
   position: absolute;
-  width: 30px;
-  translate: -40vw 0;
-  opacity: 0.2;
-  transition: 0.25s ease-out;
+  width: auto;
+  min-width: 62px;
+  right: 80%;
+  scale: 1 0.8;
 }
 .forkAdd .inputAdd {
   position: absolute;
   opacity: 1;
-  width: 100%;
+  width: 90%;
   pointer-events: all;
 }
+/* right */
 
-.forkAdd .img,
-.forkSearch .img {
+.forkSearch .search,
+.forkAdd .add {
   opacity: 0.1;
   scale: 0.6;
 }
 
+.forkSearch .tick,
+.forkAdd .tick {
+  rotate: 360deg;
+  opacity: 0.5;
+  scale: 0.7;
+}
+
 /** Fork state */
-
-@media (max-width: 400px) {
-  .button-position-left.forkSearch,
-  .button-position-right.forkAdd {
-    width: 54vw;
-  }
-}
-
-@media (min-width: 1200px) {
-  .button-position-left.forkSearch,
-  .button-position-right.forkAdd {
-    width: 400px;
-  }
-}

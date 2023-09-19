@@ -9,6 +9,7 @@ function Fork() {
   const { screen, containerSize, menuLOLTransition } = useContext(AppContext);
 
   const [forkState, setForkState] = useState('forkNon');
+  const [inputValue, setInputValue] = useState('');
 
   const marginTop = containerSize.y * 0.04;
   const lineStyle = {};
@@ -21,6 +22,13 @@ function Fork() {
   }
   function forkNonHandler() {
     setForkState('forkNon');
+
+    //clear
+    setInputValue('');
+  }
+
+  function submitHandler() {
+    alert(`submit = ${inputValue}`);
   }
 
   console.log(forkState);
@@ -38,24 +46,39 @@ function Fork() {
         }}
       >
         <Button
-          type='search'
+          type={forkState === 'forkAdd' ? 'tick' : 'search'}
           position='left'
           menuLOLTransition={menuLOLTransition}
           parrentType={'Fork'}
           containerSize={containerSize}
-          onClickHandler={searcHandler}
+          onClickHandler={
+            forkState === 'forkAdd'
+              ? () => {
+                  submitHandler();
+                }
+              : searcHandler
+          }
           forkState={forkState}
+          setInputValue={setInputValue}
         />
 
         <div className={`fork-line ${screen} ${forkState}`} style={lineStyle}></div>
+
         <Button
-          type='add'
+          type={forkState === 'forkSearch' ? 'tick' : 'add'}
           position='right'
           menuLOLTransition={menuLOLTransition}
           parrentType={'Fork'}
           containerSize={containerSize}
-          onClickHandler={addHandler}
+          onClickHandler={
+            forkState === 'forkSearch'
+              ? () => {
+                  submitHandler();
+                }
+              : addHandler
+          }
           forkState={forkState}
+          setInputValue={setInputValue}
         />
       </section>
     </>
