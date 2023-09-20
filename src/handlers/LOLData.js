@@ -18,14 +18,3 @@ export function decrease(i) {
   console.log(i);
   return i;
 }
-
-let db;
-
-//Opening BD
-const openOrCreateDB = window.indexedDB.open('WordCards', 1);
-
-openOrCreateDB.addEventListener('error', () => console.error('Error opening DB'));
-openOrCreateDB.addEventListener('success', () => {
-  console.log('Successfully opened DB');
-  db = openOrCreateDB.result;
-});
