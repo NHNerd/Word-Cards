@@ -4,15 +4,17 @@ import StrokeElement from '../../components/StrokeElement.jsx';
 import data from '../../../public/data/data.json';
 
 function ListOfList({ setStrokeElementHeight }) {
-  const listOfListKeys = Object.keys(data.listOfList);
-
+  // const listOfListKeys = Object.keys(data.listOfList);
+  const listOfListKeys = [1, 2, 3, 4, 5, 6];
   const startIdx = 1; // Указываем начальный индекс
+
   return (
     <>
       {/* horizontal */}
+
       {/* left */}
 
-      {listOfListKeys.slice(startIdx, 12).map((key, index) => (
+      {/* {listOfListKeys.slice(startIdx, 12).map((key, index) => (
         <StrokeElement
           setStrokeElementHeight={setStrokeElementHeight}
           key={key} // Используем ключ в качестве уникального идентификатора (id)
@@ -28,11 +30,11 @@ function ListOfList({ setStrokeElementHeight }) {
           axis={'horizontal'}
           pos={'left'}
         />
-      ))}
+      ))} */}
 
       {/* right */}
 
-      {listOfListKeys.slice(startIdx, 12).map((key, index) => (
+      {/* {listOfListKeys.slice(startIdx, 12).map((key, index) => (
         <StrokeElement
           setStrokeElementHeight={setStrokeElementHeight}
           key={key} // Используем ключ в качестве уникального идентификатора (id)
@@ -48,7 +50,7 @@ function ListOfList({ setStrokeElementHeight }) {
           axis={'horizontal'}
           pos={'right'}
         />
-      ))}
+      ))} */}
 
       {/* vertical */}
       {listOfListKeys.map((key, index) => (
@@ -58,9 +60,11 @@ function ListOfList({ setStrokeElementHeight }) {
           id={key} // Прокидываем ключ как id для StrokeElement
           textH1={listOfListKeys[index]}
           textH2={'word count'}
-          countH2={Object.keys(data.listOfList[key].words).length}
+          // countH2={Object.keys(data.listOfList[key].words).length}
+          countH2={1}
           textH3={'game count'}
-          countH3={data.listOfList[key]['game count']}
+          // countH3={data.listOfList[key]['game count']}
+          countH3={1}
           line={listOfListKeys.length - 1 > index ? true : false}
           isButtonDrag={true}
           order={index}

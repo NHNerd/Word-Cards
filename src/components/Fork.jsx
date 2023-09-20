@@ -1,5 +1,6 @@
 import { useContext, useState } from 'react';
 import Button from './Button.jsx';
+import { addList } from '../handlers/indexDBHendlers.js';
 
 import { AppContext } from '../App.jsx';
 
@@ -28,10 +29,9 @@ function Fork() {
   }
 
   function submitHandler() {
-    alert(`submit = ${inputValue}`);
+    // alert(`submit = ${inputValue}`);
+    addList(inputValue);
   }
-
-  console.log(forkState);
 
   return (
     <>
