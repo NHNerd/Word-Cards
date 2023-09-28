@@ -1,0 +1,75 @@
+:root {
+  --settings-fork-icons-scale: 100px;
+}
+
+.container-setting-fork-inner {
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  height: auto;
+  width: calc(var(--settings-fork-icons-scale));
+  /* background-color: red; */
+  left: 50%;
+  translate: -50% -100%;
+  transition: 1s;
+}
+
+#instagram,
+#gmail,
+#telegram,
+#patreon,
+#googlePay,
+#coFi,
+#payPal {
+  margin-bottom: 18px;
+  position: relative;
+  height: 50px;
+  width: 40px;
+  left: 50%;
+  translate: -50% 0;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100%;
+}
+
+/* Contacts  */
+#instagram {
+  background-image: url('../../../../public/icons/instagram.svg');
+}
+
+#gmail {
+  background-image: url('../../../../public/icons/gmail.svg');
+}
+
+#telegram {
+  background-image: url('../../../../public/icons/telegram.svg');
+}
+
+/* Donate  */
+#patreon {
+  background-image: url('../../../../public/icons/patreon.svg');
+}
+#googlePay {
+  background-image: url('../../../../public/icons/googlePay.svg');
+  width: 80px;
+}
+#coFi {
+  background-image: url('../../../../public/icons/coFi.svg');
+}
+#payPal {
+  background-image: url('../../../../public/icons/payPal.svg');
+}
+
+.setting-fork-contacts-all.on,
+.setting-fork-donate-all.on {
+  opacity: 1;
+  transform: scale(1) translate(0, 0);
+  transition: 0.25s ease-out;
+}
+
+.setting-fork-contacts-all.off,
+.setting-fork-donate-all.off {
+  opacity: 0;
+  transform: scale(0.4) translate(0, 200%);
+  transition: 0.25s ease-in;
+}

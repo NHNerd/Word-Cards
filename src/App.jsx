@@ -2,8 +2,9 @@ import { useState, useEffect, createContext, useRef } from 'react';
 
 import PlayCard from './components/PlayCard.jsx';
 import ListOfList from './pages/listOfList/ListOfList.jsx';
+import Settings from './pages/settings/Settings.jsx';
 import Burger from './components/Burger.jsx';
-import Fork from './components/Fork.jsx';
+import Fork from './components/Fork/Fork.jsx';
 import Statistic from './components/Statistic.jsx';
 import { increase, decrease } from './handlers/LOLData.js';
 
@@ -24,7 +25,12 @@ function App() {
   const [strokeElemenHeight, setStrokeElementHeight] = useState();
   const [menuLOLTransition, setMenuLOLTransition] = useState(0);
   const [LOLOrder, setLOLOrder] = useState(0);
+  // Settings
+  const [settingOpen, setSettingOpen] = useState(false);
+  const [isContactsOpen, setIsContactsOpen] = useState(false);
+  const [isDonateOpen, setIsDonateOpen] = useState(false);
 
+  // All
   const [screen, setScreen] = useState('Menu');
   const [isSettings, setSettings] = useState(false);
 
@@ -68,9 +74,19 @@ function App() {
         strokeElemenHeight,
         menuLOLTransition,
         LOLOrder,
+        settingOpen,
+        setIsContactsOpen,
+        setIsDonateOpen,
+        isContactsOpen,
+        isDonateOpen,
       }}
     >
-      <div className='container' ref={containerRef} style={{ '--menuLOLTransition': menuLOLTransition }}>
+      <section
+        className='container'
+        ref={containerRef}
+        style={{ '--menuLOLTransition': menuLOLTransition }}
+      >
+        <Settings setStrokeElementHeight={setStrokeElementHeight} />
         <Statistic />
         <PlayCard />
         <Fork />
@@ -79,10 +95,10 @@ function App() {
           <ListOfList setStrokeElementHeight={setStrokeElementHeight} />
         </Draggable>
 
-        {/* <Settings /> */}
         {/*Multy elements*/}
-      </div>
-      {<Burger /*onClick={() => setSettings(!isSettings)}*/ />}
+      </section>
+
+      <Burger setSettingOpen={setSettingOpen} />
     </AppContext.Provider>
   );
 }

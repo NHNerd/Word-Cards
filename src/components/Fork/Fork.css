@@ -1,12 +1,25 @@
 #fork {
-  position: fixed;
   left: 50%;
-  transform: translate(-50%);
+  transform: translateX(-50%);
+}
+
+.fork-ListOfList,
+.fork-Menu {
+  position: fixed;
   height: 50px;
   width: 66vw;
   min-width: 280px;
   max-width: 400px;
   z-index: 2;
+}
+.fork-Settings {
+  position: absolute;
+  height: 50px;
+  width: 70%;
+  /* min-width: 280px;
+  max-width: 400px; */
+  bottom: 50%;
+  translate: 0 50%;
 }
 
 .fork-line {
@@ -26,8 +39,14 @@
   z-index: 2;
   transition: 0.25s ease;
 }
+
+.fork-line.Settings {
+  transform: scaleY(1.2);
+  opacity: 1;
+}
+
 .fork-line.ListOfList {
-  transform: scaleY(100%);
+  transform: scaleY(1.2);
   opacity: 1;
 }
 .fork-line.forkAdd {
@@ -38,6 +57,7 @@
   scale: 0;
   translate: 20vw 0;
 }
+
 .fork-bg-header {
   position: fixed;
   left: 0;
@@ -62,15 +82,15 @@
 /* blur */
 .fork-bg-header::before {
   content: '';
-  position: fixed;
+  position: absolute;
   left: 0;
   right: 0;
   top: 0;
-  bottom: 85vh;
+  bottom: 26%;
   backdrop-filter: blur(1px);
 }
 
-#fork-bg {
+#fork-bg-lol {
   position: absolute;
   top: 0;
   bottom: 0;

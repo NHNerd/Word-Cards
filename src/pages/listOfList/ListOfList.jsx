@@ -1,11 +1,11 @@
-import { useState, useEffect } from 'react';
+import React from 'react';
 import StrokeElement from '../../components/StrokeElement.jsx';
 
 import data from '../../../public/data/data.json';
 
 function ListOfList({ setStrokeElementHeight }) {
   // const listOfListKeys = Object.keys(data.listOfList);
-  const listOfListKeys = [1, 2, 3, 4, 5, 6];
+  const listOfListKeys = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14];
   const startIdx = 1; // Указываем начальный индекс
 
   return (
@@ -56,6 +56,7 @@ function ListOfList({ setStrokeElementHeight }) {
       {listOfListKeys.map((key, index) => (
         <StrokeElement
           setStrokeElementHeight={setStrokeElementHeight}
+          parrentType={'ListOfList'}
           key={key} // Используем ключ в качестве уникального идентификатора (id)
           id={key} // Прокидываем ключ как id для StrokeElement
           textH1={listOfListKeys[index]}
@@ -75,4 +76,5 @@ function ListOfList({ setStrokeElementHeight }) {
   );
 }
 
-export default ListOfList;
+const MemoizedListOfList = React.memo(ListOfList);
+export default MemoizedListOfList;

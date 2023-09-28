@@ -10,6 +10,7 @@ import './StrokeElement.css';
 // container
 function StrokeElement({
   setStrokeElementHeight,
+  parrentType,
   textH1,
   textH2,
   countH2,
@@ -23,6 +24,14 @@ function StrokeElement({
 }) {
   const { screen, changeScreen, containerSize, menuLOLTransition } = useContext(AppContext);
   const strokeContainerRef = useRef();
+
+  // Button type
+  // let type = 'exit';
+  // if (parrentType === 'Settings') {
+  //   type = 'tick';
+  // } else {
+  //   type = 'exit';
+  // }
 
   useEffect(() => {
     setStrokeElementHeight(strokeContainerRef.current.clientHeight);
@@ -45,13 +54,21 @@ function StrokeElement({
       >
         <div className='h1'>
           {order === 0 ? <ButtonDrag rotate='top' /> : null}
-          <Button type='exit' position='left' parrentType={'StrokeElement'} />
+          <Button
+            type={`${parrentType === 'Settings' ? 'tick' : 'exit'}`}
+            position='left'
+            parrentType={'StrokeElement'}
+          />
           <div className='textH1'>
             {textH1}
             {order === 0 ? <ButtonDrag rotate='left' /> : null}
             {order === 0 ? <ButtonDrag rotate='right' /> : null}
           </div>
-          <Button type='edit' position='right' parrentType={'StrokeElement'} />
+          <Button
+            type={`${parrentType === 'Settings' ? 'faq' : 'edit'}`}
+            position='right'
+            parrentType={'StrokeElement'}
+          />
         </div>
         <div className={textH2 ? 'h2' : 'h2Off'}>
           <div className='textH2'>{textH2 + ':'}</div>

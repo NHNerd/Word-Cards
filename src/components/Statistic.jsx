@@ -1,10 +1,10 @@
-import { useContext } from 'react';
+import React from 'react';
 
 import { AppContext } from '../App';
 import './Statistic.css';
 
 function Statistic() {
-  const { menuLOLTransition } = useContext(AppContext);
+  const { menuLOLTransition } = React.useContext(AppContext);
   // let test = Math.max(1, (1 - menuLOLTransition) * 2) - 1;
   // let test2 = Math.max(1, menuLOLTransition * 2) - 1;
 
@@ -27,4 +27,5 @@ function Statistic() {
   );
 }
 
-export default Statistic;
+const MemoizedStatistic = React.memo(Statistic);
+export default MemoizedStatistic;
