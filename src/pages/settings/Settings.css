@@ -1,0 +1,106 @@
+#page-settings {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 3;
+  transition: 0.35s;
+}
+
+#setting-bg {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  backdrop-filter: blur(10px);
+}
+
+#page-settings-window {
+  position: fixed;
+  top: 8%;
+  bottom: 8%;
+  left: 6%;
+  right: 6%;
+  background-color: rgba(255, 255, 255, 0.04);
+  border-radius: 14px;
+  border: solid 1px rgba(255, 255, 255, 0.04);
+  /* backdrop-filter: blur(0.8rem); */
+  filter: drop-shadow(10px 16px 20px black);
+  display: flex;
+  flex-direction: column;
+  pointer-events: none;
+}
+
+#setting-header {
+  position: relative;
+  flex: 0 0 auto;
+  height: 180px;
+  border: dotted 2px rgba(193, 40, 165, 0.463);
+  box-sizing: border-box;
+}
+
+#setting-main {
+  position: relative;
+  flex: 1;
+
+  border: dotted 2px rgba(226, 228, 108, 0.463);
+  box-sizing: border-box;
+}
+
+#setting-footer {
+  position: relative;
+  flex: 0 0 auto;
+  height: 240px;
+
+  border: dotted 2px rgba(22, 182, 22, 0.463);
+  box-sizing: border-box;
+}
+
+#about-bg,
+#about {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
+}
+
+#about-bg {
+  opacity: 0.4;
+}
+
+#about {
+  font-size: 34px;
+}
+
+/* Popup animation */
+.page-settings {
+  scale: 0 0;
+  translate: 48% -48%;
+  visibility: hidden;
+}
+.page-settings.on {
+  scale: 1 1;
+  translate: 0;
+  visibility: visible;
+}
+
+.container-setting-fork-inner-bg {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(20px);
+}
+
+.container-setting-fork-inner-bg.on {
+  pointer-events: all;
+  visibility: visible;
+  opacity: 1;
+}
+.container-setting-fork-inner-bg.off {
+  pointer-events: none;
+  visibility: hidden;
+  opacity: 0;
+}

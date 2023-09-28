@@ -38,7 +38,8 @@
 .exit,
 .add,
 .search,
-.tick {
+.tick,
+.faq {
   position: absolute;
   top: 0;
   bottom: 0;
@@ -66,6 +67,18 @@
 .tick {
   background-image: url('../../public/buttons/tick.svg');
   margin: 4px;
+}
+.faq {
+  background-image: url('../../public/buttons/faq.svg');
+  margin: 4px;
+}
+.contacts,
+.donate {
+  position: absolute;
+  top: 50%;
+  right: 50%;
+  translate: 50% -50%;
+  font-size: 24px;
 }
 
 .bg-left,

@@ -1,22 +1,31 @@
-import { useContext, useRef, useEffect } from 'react';
+import React from 'react';
 
 import './Button.css';
 
 import { AppContext } from '../App';
 
-function Button({ parrentType, text, type, position, onClickHandler, forkState, setInputValue }) {
+function Button({
+  children,
+  parrentType,
+  text,
+  type,
+  position,
+  onClickHandler,
+  forkState,
+  setInputValue,
+}) {
   // Get value from context
-  const { screen, changeScreen, menuLOLTransition, containerSize } = useContext(AppContext);
+  const { screen, changeScreen, menuLOLTransition, containerSize } = React.useContext(AppContext);
 
   let buttonStyles = {};
   let buttonBgLeftStyles = {};
   let buttonBgRightStyles = {};
 
-  const inputSearchRef = useRef(null);
-  const inputAddRef = useRef(null);
+  const inputSearchRef = React.useRef(null);
+  const inputAddRef = React.useRef(null);
 
   // Set focus on input
-  useEffect(() => {
+  React.useEffect(() => {
     if (inputSearchRef.current && forkState === 'forkSearch') {
       inputSearchRef.current.focus();
       return;
@@ -70,9 +79,12 @@ function Button({ parrentType, text, type, position, onClickHandler, forkState, 
             required
           ></input>
         ) : null}
+
+        {children}
       </button>
     </>
   );
 }
 
-export default Button;
+const MemoizedButton = React.memo(Button);
+export default MemoizedButton;

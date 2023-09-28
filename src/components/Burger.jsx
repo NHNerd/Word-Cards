@@ -6,12 +6,15 @@ import './Burger.css';
 
 import { AppContext } from '../App';
 
-function Burger() {
-  const { screen, changeScreen } = useContext(AppContext);
+console.log('B U R G E R');
+
+function Burger({ setSettingOpen }) {
+  const { screen, changeScreen, settingOpen } = useContext(AppContext);
 
   function test() {
     changeScreen('Menu');
     console.log('Burger onClick');
+    setSettingOpen(!settingOpen);
   }
   return (
     <>
@@ -22,5 +25,5 @@ function Burger() {
   );
 }
 
-//TODO memo is don't work. Why?
-export default React.memo(Burger);
+const MemoizedBurger = React.memo(Burger);
+export default MemoizedBurger;
