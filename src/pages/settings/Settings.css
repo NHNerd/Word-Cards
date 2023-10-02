@@ -1,59 +1,257 @@
+/* Button open setting */
+
+#button-page-settings {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  height: 36px;
+  width: 36px;
+  background-image: url('../../../public/buttons/setting.svg');
+  background-repeat: no-repeat;
+  background-size: 100%;
+  z-index: 4;
+  opacity: 0.6;
+  transition: 1.2s ease-out;
+}
+
+#button-page-settings:active {
+  transition: 0s;
+  scale: 1.1;
+  opacity: 1;
+  animation: settingButtonRot 6s infinite linear;
+}
+
+#button-page-settings:active::before {
+  content: '';
+  position: absolute;
+  translate: -50% -50%;
+  width: inherit;
+  height: inherit;
+  background-image: inherit;
+  background-repeat: inherit;
+  background-size: inherit;
+  filter: blur(3px);
+}
+
+@keyframes settingButtonRot {
+  0% {
+    rotate: 0;
+  }
+  100% {
+    rotate: 360deg;
+  }
+}
+
+/* Button open setting */
+
+/* Button close setting */
+#page-setting-exit-container {
+  position: fixed;
+  top: 12px;
+  right: 12px;
+  width: 30px;
+  height: 30px;
+  pointer-events: all;
+  opacity: 0.8;
+}
+
+@keyframes settingExitHover {
+  0% {
+    scale: 1;
+    rotate: 0;
+  }
+  25% {
+    rotate: 4deg;
+  }
+  50% {
+    scale: 1.06;
+    rotate: 0deg;
+  }
+  75% {
+    rotate: -4deg;
+  }
+  100% {
+    scale: 1;
+    rotate: 0;
+  }
+}
+
+#page-setting-exit-container:active {
+  scale: 1.1;
+  opacity: 1;
+}
+
+/*? off hover effect when active */
+#page-setting-exit-container:hover:active {
+  animation: none;
+}
+
+#page-setting-exit-element {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  height: 2px;
+  width: 100%;
+  translate: -50% -50%;
+  background-color: var(--text-color);
+  border-radius: 50%;
+  pointer-events: none;
+  rotate: 45deg;
+}
+
+#page-setting-exit-element::before {
+  content: '';
+  position: absolute;
+  top: inherit;
+  left: inherit;
+  height: inherit;
+  width: inherit;
+  translate: inherit;
+  background-color: inherit;
+  border-radius: inherit;
+  pointer-events: inherit;
+  rotate: 90deg;
+}
+
+/* Button close setting */
+
 #page-settings {
   position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  z-index: 3;
-  transition: 0.35s;
-}
-
-#setting-bg {
-  position: absolute;
-  height: 100%;
-  width: 100%;
-  backdrop-filter: blur(10px);
-}
-
-#page-settings-window {
-  position: fixed;
-  top: 8%;
-  bottom: 8%;
+  top: 4%;
+  bottom: 4%;
   left: 6%;
   right: 6%;
   background-color: rgba(255, 255, 255, 0.04);
   border-radius: 14px;
   border: solid 1px rgba(255, 255, 255, 0.04);
-  /* backdrop-filter: blur(0.8rem); */
-  filter: drop-shadow(10px 16px 20px black);
+  backdrop-filter: blur(0.8rem);
+  z-index: 5;
+  transition: 0.25s ease-in-out;
+}
+
+.setting-bg-filter,
+.setting-bg-color {
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  z-index: 5;
+  /* pointer-events: none; */
+}
+.setting-bg-filter.on {
+  backdrop-filter: blur(3px);
+  visibility: visible;
+}
+
+.setting-bg-filter.off {
+  backdrop-filter: blur(0px);
+  visibility: hidden;
+}
+
+.setting-bg-color.on {
+  background-color: rgba(0, 0, 0, 0.3);
+  opacity: 1;
+  visibility: visible;
+  transition: 0.25s;
+}
+
+.setting-bg-color.off {
+  opacity: 0;
+  visibility: hidden;
+  transition: 0.25s;
+}
+
+#page-settings-inner {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
   display: flex;
   flex-direction: column;
   pointer-events: none;
 }
 
+#auth {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  pointer-events: none;
+}
+
+/* Setting to Auth animation */
+#page-settings-inner.on {
+  animation: AuthToSetting 0.25s 1 linear;
+  animation-fill-mode: forwards;
+  visibility: visible;
+}
+
+#page-settings-inner.off {
+  animation: settingToAuth 0.25s 1 linear;
+  animation-fill-mode: forwards;
+}
+
+#auth.on {
+  animation: AuthToSetting 0.25s 1 linear;
+  animation-fill-mode: forwards;
+  visibility: visible;
+}
+#auth.off {
+  animation: settingToAuth 0.25s 1 linear;
+  animation-fill-mode: forwards;
+}
+
+@keyframes settingToAuth {
+  0% {
+    scale: 1;
+  }
+  50% {
+    scale: 0 1;
+  }
+  100% {
+    scale: 0 1;
+    visibility: hidden;
+  }
+}
+
+@keyframes AuthToSetting {
+  0% {
+    scale: 0 1;
+  }
+  50% {
+    scale: 0 1;
+  }
+  100% {
+    scale: 1;
+    visibility: visible;
+  }
+}
+/* Setting to Auth animation */
+
+#setting-header,
+#setting-main,
+#setting-footer {
+  /* border: dotted 2px rgba(22, 182, 22, 0.2);
+  box-sizing: border-box; */
+  transition: 0.25s;
+}
+
 #setting-header {
   position: relative;
   flex: 0 0 auto;
-  height: 180px;
-  border: dotted 2px rgba(193, 40, 165, 0.463);
-  box-sizing: border-box;
+  height: 120px;
 }
 
 #setting-main {
   position: relative;
   flex: 1;
-
-  border: dotted 2px rgba(226, 228, 108, 0.463);
-  box-sizing: border-box;
 }
 
 #setting-footer {
   position: relative;
   flex: 0 0 auto;
-  height: 240px;
-
-  border: dotted 2px rgba(22, 182, 22, 0.463);
-  box-sizing: border-box;
+  height: 120px;
 }
 
 #about-bg,
@@ -65,17 +263,18 @@
 }
 
 #about-bg {
-  opacity: 0.4;
+  opacity: 0.3;
 }
 
 #about {
   font-size: 34px;
+  pointer-events: all;
 }
 
 /* Popup animation */
 .page-settings {
   scale: 0 0;
-  translate: 48% -48%;
+  translate: -50% -50%;
   visibility: hidden;
 }
 .page-settings.on {
@@ -86,12 +285,11 @@
 
 .container-setting-fork-inner-bg {
   position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background-color: rgba(0, 0, 0, 0.2);
-  backdrop-filter: blur(20px);
+  top: -10%;
+  bottom: -10%;
+  left: -7%;
+  right: -7%;
+  /* background-color: blue; */
 }
 
 .container-setting-fork-inner-bg.on {
@@ -103,4 +301,22 @@
   pointer-events: none;
   visibility: hidden;
   opacity: 0;
+}
+
+#setting-header.blur,
+#setting-main.blur {
+  filter: blur(2px);
+  opacity: 0.7;
+}
+
+/** Does a devise support hover */
+@media (hover: hover) {
+  #button-page-settings:hover {
+    opacity: 0.9;
+    animation: settingButtonRot 6s infinite linear;
+  }
+  .button-jitter:hover {
+    opacity: 0.9;
+    animation: settingExitHover 0.25s infinite ease-out;
+  }
 }

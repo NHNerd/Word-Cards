@@ -109,3 +109,13 @@
   font-size: 72px;
   z-index: 1;
 }
+
+#playOpacitySettingOn {
+  opacity: 0.1;
+  transition: 0.25s;
+}
+
+#playOpacitySettingOff {
+  opacity: 1;
+  transition: 0.25s;
+}

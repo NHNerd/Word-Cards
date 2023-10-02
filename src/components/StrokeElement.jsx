@@ -6,11 +6,9 @@ import { AppContext } from '../App.jsx';
 
 import './StrokeElement.css';
 
-// stroke-container
-// container
 function StrokeElement({
   setStrokeElementHeight,
-  parrentType,
+  parrentTypeSettings,
   textH1,
   textH2,
   countH2,
@@ -22,20 +20,17 @@ function StrokeElement({
   axis,
   pos,
 }) {
-  const { screen, changeScreen, containerSize, menuLOLTransition } = useContext(AppContext);
+  const { screen, changeScreen, containerSize, menuLOLTransition, authOpen, setAuthOpen } =
+    useContext(AppContext);
   const strokeContainerRef = useRef();
-
-  // Button type
-  // let type = 'exit';
-  // if (parrentType === 'Settings') {
-  //   type = 'tick';
-  // } else {
-  //   type = 'exit';
-  // }
 
   useEffect(() => {
     setStrokeElementHeight(strokeContainerRef.current.clientHeight);
   }, []);
+
+  function openAuthHandler() {
+    setAuthOpen(!authOpen);
+  }
 
   //Style
   const strokeContainerStyle = {
@@ -50,24 +45,36 @@ function StrokeElement({
       <div
         ref={strokeContainerRef}
         className={`stroke ${screen}  ${axis} ${order === 0 ? 'firstElement' : 'nonFirstElement'}`}
-        style={strokeContainerStyle}
+        //* margin
+        style={parrentTypeSettings === 'Settings' ? { marginBottom: `40px` } : strokeContainerStyle}
       >
         <div className='h1'>
-          {order === 0 ? <ButtonDrag rotate='top' /> : null}
+          {parrentTypeSettings != 'Settings' && order === 0 ? <ButtonDrag rotate='top' /> : null}
+
           <Button
-            type={`${parrentType === 'Settings' ? 'tick' : 'exit'}`}
+            type={`${parrentTypeSettings === 'Settings' ? 'tick' : 'exit'}`}
             position='left'
             parrentType={'StrokeElement'}
+            parrentTypeSettings={parrentTypeSettings}
           />
-          <div className='textH1'>
+          <div
+            className='textH1'
+            style={parrentTypeSettings === 'Settings' ? { fontSize: '24px' } : null}
+          >
             {textH1}
-            {order === 0 ? <ButtonDrag rotate='left' /> : null}
-            {order === 0 ? <ButtonDrag rotate='right' /> : null}
+            {parrentTypeSettings != 'Settings' && order === 0 ? (
+              <>
+                <ButtonDrag rotate='left' />
+                <ButtonDrag rotate='right' />
+              </>
+            ) : null}
           </div>
           <Button
-            type={`${parrentType === 'Settings' ? 'faq' : 'edit'}`}
+            ButtonOnClickHandler={openAuthHandler}
+            type={`${parrentTypeSettings === 'Settings' ? 'edit' : 'edit'}`}
             position='right'
             parrentType={'StrokeElement'}
+            parrentTypeSettings={parrentTypeSettings}
           />
         </div>
         <div className={textH2 ? 'h2' : 'h2Off'}>
@@ -80,10 +87,14 @@ function StrokeElement({
         </div>
         <div
           className={line ? 'stroke-line' : ''}
-          style={{
-            marginTop: `${120 - menuLOLTransition * 100}px`,
-            opacity: `${menuLOLTransition * 0.2}`,
-          }}
+          style={
+            parrentTypeSettings === 'Settings'
+              ? null
+              : {
+                  marginTop: `${120 - menuLOLTransition * 100}px`,
+                  opacity: `${menuLOLTransition * 0.2}`,
+                }
+          }
         ></div>
       </div>
     </>

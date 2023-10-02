@@ -93,10 +93,10 @@
 }
 
 .bg-left {
-  border-left: 2px solid #d9d9d9;
+  border-left: 2px solid var(--text-color);
 }
 .bg-right {
-  border-right: 2px solid #d9d9d9;
+  border-right: 2px solid var(--text-color);
 }
 
 /** Image hover effects */
@@ -113,7 +113,7 @@
 /** Button active effects */
 .button::before {
   content: '';
-  background-color: #d9d9d9;
+  background-color: var(--text-color);
   height: 100%;
   width: 100%;
   border-radius: 20px;
@@ -126,7 +126,7 @@
 .StrokeElement.button:active::before {
   content: '';
   scale: 1;
-  opacity: 0.3;
+  opacity: 0.06;
 }
 
 .forkNon.button:active,
