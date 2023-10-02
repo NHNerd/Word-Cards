@@ -6,7 +6,7 @@ import { AppContext } from '../App';
 let text = 'Go';
 let textClass = 'text';
 
-function PlayCard() {
+function PlayCard({ settingOpen }) {
   // Get value from context
   const { screen, changeScreen, containerSize, menuLOLTransition } = useContext(AppContext);
 
@@ -37,6 +37,7 @@ function PlayCard() {
       >
         <div
           onClick={() => changeScreen('Session')}
+          id={settingOpen ? 'playOpacitySettingOn' : 'playOpacitySettingOff'}
           className={screen !== 'Menu' && screen !== 'Session' ? `startBtn other` : `startBtn ${screen}`}
         >
           <div

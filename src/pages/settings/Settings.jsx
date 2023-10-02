@@ -1,15 +1,23 @@
-// import { useContext, useState, useEffect } from 'react';
 import React from 'react';
 import Fork from '../../components/Fork/Fork';
 import StrokeElement from '../../components/StrokeElement';
+import Auth from '../auth/auth';
 
 import { AppContext } from '../../App.jsx';
 
 import './Settings.css';
 console.log('S E T T I N G S');
-function Settings({ setStrokeElementHeight }) {
-  const { settingOpen, setIsContactsOpen, setIsDonateOpen, isContactsOpen, isDonateOpen } =
-    React.useContext(AppContext);
+function Settings({ setStrokeElementHeight, setSettingOpen }) {
+  const {
+    settingOpen,
+
+    setIsContactsOpen,
+    setIsDonateOpen,
+    isContactsOpen,
+    isDonateOpen,
+    authOpen,
+    setAuthOpen,
+  } = React.useContext(AppContext);
 
   const settingsObject = ['synchronization', 'sound', 'notification'];
 
@@ -18,6 +26,8 @@ function Settings({ setStrokeElementHeight }) {
   React.useEffect(() => {
     if (isContactsOpen || isDonateOpen) {
       setBgIsOpen('on');
+    } else {
+      setBgIsOpen('off');
     }
   }, [isContactsOpen, isDonateOpen]);
 
@@ -27,24 +37,49 @@ function Settings({ setStrokeElementHeight }) {
     setBgIsOpen('off');
   }
 
+  function settingOpenHandler() {
+    setSettingOpen(!settingOpen);
+    setAuthOpen(false);
+  }
+
+  function settingBackHandler() {
+    console.log('back');
+  }
+
   return (
     <>
+      <div className={`setting-bg-filter ${settingOpen ? 'on' : 'off'}`}></div>
+      <div className={`setting-bg-color ${settingOpen ? 'on' : 'off'}`}></div>
+      <button
+        id='button-page-settings'
+        onClick={settingOpenHandler}
+        style={settingOpen ? { scale: '0', opacity: 0 } : null}
+      ></button>
       <section id='page-settings' className={`page-settings ${settingOpen ? 'on' : ''}`}>
-        <div id='setting-bg'></div>
-
-        <section id='page-settings-window'>
-          <header id='setting-header'>
+        {/* exit */}
+        <button
+          id='page-setting-exit-container'
+          className='button-jitter'
+          onClick={settingOpenHandler}
+          role='button'
+        >
+          <div id='page-setting-exit-element'></div>
+        </button>
+        <section id='page-settings-inner' className={authOpen ? 'off' : 'on'}>
+          <header id='setting-header' className={isContactsOpen || isDonateOpen ? 'blur' : null}>
             <div id='about-bg'>
               text text text <br /> text text
               <br /> text text text
             </div>
-            <div id='about'>A B O U T</div>
+            <button id='about' role='button'>
+              A B O U T
+            </button>
           </header>
-          <main id='setting-main'>
+          <main id='setting-main' className={isContactsOpen || isDonateOpen ? 'blur' : null}>
             {settingsObject.map((key, index) => (
               <StrokeElement
                 setStrokeElementHeight={setStrokeElementHeight}
-                parrentType={'Settings'}
+                parrentTypeSettings={'Settings'}
                 key={key} // Используем ключ в качестве уникального идентификатора (id)
                 id={index} // Прокидываем ключ как id для StrokeElement
                 textH1={settingsObject[index]}
@@ -57,14 +92,18 @@ function Settings({ setStrokeElementHeight }) {
           </main>
 
           {/* BG blur */}
+
           <div
             onClick={containerSettingForkBgHandelr}
             className={'container-setting-fork-inner-bg' + ' ' + bgIsOpen}
           ></div>
 
           <footer id='setting-footer'>
-            <Fork parrentType={'Settings'} />
+            <Fork parrentTypeSettings={'Settings'} />
           </footer>
+        </section>
+        <section id='auth' className={authOpen ? 'on' : 'off'}>
+          <Auth setStrokeElementHeight={setStrokeElementHeight} />
         </section>
       </section>
     </>

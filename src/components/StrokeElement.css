@@ -7,17 +7,6 @@
   cursor: pointer;
   user-select: none;
   pointer-events: none;
-
-  /* .stroke-container.Menu {
-  bottom: 30px;
-} */
-  /* .stroke-container.Session {
-  position: relative;
-}
-.stroke-container.ListOfList {
-  position: relative;
-  top: 220px;
-} */
 }
 .stroke.horizontal {
   position: absolute;

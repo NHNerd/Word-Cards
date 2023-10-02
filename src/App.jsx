@@ -7,6 +7,7 @@ import Burger from './components/Burger.jsx';
 import Fork from './components/Fork/Fork.jsx';
 import Statistic from './components/Statistic.jsx';
 import { increase, decrease } from './handlers/LOLData.js';
+// import Auth from './pages/auth/auth.jsx';
 
 import Draggable from './handlers/Draggable/Draggable.jsx';
 
@@ -29,6 +30,9 @@ function App() {
   const [settingOpen, setSettingOpen] = useState(false);
   const [isContactsOpen, setIsContactsOpen] = useState(false);
   const [isDonateOpen, setIsDonateOpen] = useState(false);
+
+  // Auth
+  const [authOpen, setAuthOpen] = useState(false);
 
   // All
   const [screen, setScreen] = useState('Menu');
@@ -79,6 +83,8 @@ function App() {
         setIsDonateOpen,
         isContactsOpen,
         isDonateOpen,
+        authOpen,
+        setAuthOpen,
       }}
     >
       <section
@@ -86,9 +92,9 @@ function App() {
         ref={containerRef}
         style={{ '--menuLOLTransition': menuLOLTransition }}
       >
-        <Settings setStrokeElementHeight={setStrokeElementHeight} />
+        <Settings setStrokeElementHeight={setStrokeElementHeight} setSettingOpen={setSettingOpen} />
         <Statistic />
-        <PlayCard />
+        <PlayCard settingOpen={settingOpen} />
         <Fork />
 
         <Draggable setMenuLOLTransition={setMenuLOLTransition} setLOLOrder={setLOLOrder}>
@@ -98,7 +104,7 @@ function App() {
         {/*Multy elements*/}
       </section>
 
-      <Burger setSettingOpen={setSettingOpen} />
+      <Burger />
     </AppContext.Provider>
   );
 }

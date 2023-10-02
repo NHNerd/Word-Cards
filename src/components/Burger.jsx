@@ -8,17 +8,16 @@ import { AppContext } from '../App';
 
 console.log('B U R G E R');
 
-function Burger({ setSettingOpen }) {
-  const { screen, changeScreen, settingOpen } = useContext(AppContext);
+function Burger() {
+  const { screen, changeScreen } = useContext(AppContext);
 
-  function test() {
+  function burgerHandler() {
     changeScreen('Menu');
     console.log('Burger onClick');
-    setSettingOpen(!settingOpen);
   }
   return (
     <>
-      <div onClick={test} id='burger'>
+      <div onClick={burgerHandler} id='burger'>
         <div className={`burger-line ${screen}`}></div>
       </div>
     </>

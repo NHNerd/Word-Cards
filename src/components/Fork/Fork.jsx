@@ -6,8 +6,7 @@ import { AppContext } from '../../App.jsx';
 
 import './Fork.css';
 
-function Fork({ parrentType }) {
-  console.log('F O R K');
+function Fork({ parrentTypeSettings }) {
   const {
     screen,
     containerSize,
@@ -53,26 +52,27 @@ function Fork({ parrentType }) {
 
   return (
     <>
-      {parrentType === 'Settings' ? null : <div className={`fork-bg-header ${screen}`}></div>}
+      {parrentTypeSettings ? null : <div className={`fork-bg-header ${screen}`}></div>}
 
       {forkState != 'forkNon' ? (
-        <div id={parrentType === 'Settings' ? '' : 'fork-bg-lol'} onClick={() => forkNonHandler()}></div>
+        <div id={parrentTypeSettings ? '' : 'fork-bg-lol'} onClick={() => forkNonHandler()}></div>
       ) : null}
 
       <section
         id='fork'
-        className={`${parrentType === 'Settings' ? 'fork-Settings' : 'fork-' + screen}`}
-        style={parrentType != 'Settings' ? { top: `${marginTop}px` } : {}}
+        className={`${parrentTypeSettings ? 'fork-Settings' : 'fork-' + screen}`}
+        style={parrentTypeSettings != 'Settings' ? { top: `${marginTop}px` } : {}}
       >
         <Button
-          text={parrentType === 'Settings' ? 'Contacts' : ''}
-          type={parrentType === 'Settings' ? 'contacts' : forkState === 'forkAdd' ? 'tick' : 'search'}
+          text={parrentTypeSettings ? 'Contacts' : ''}
+          type={parrentTypeSettings ? 'contacts' : forkState === 'forkAdd' ? 'tick' : 'search'}
           position='left'
           menuLOLTransition={menuLOLTransition}
           parrentType={'Fork'}
+          parrentTypeSettings={parrentTypeSettings}
           containerSize={containerSize}
-          onClickHandler={
-            parrentType === 'Settings'
+          ButtonOnClickHandler={
+            parrentTypeSettings
               ? contactsHandler
               : forkState === 'forkAdd'
               ? () => {
@@ -83,26 +83,28 @@ function Fork({ parrentType }) {
           forkState={forkState}
           setInputValue={setInputValue}
         >
-          {parrentType === 'Settings' ? (
+          {parrentTypeSettings ? (
             <SettingFork buttonType={'Contacts'} isContactsOpen={isContactsOpen} />
           ) : null}
         </Button>
+
         <div
           className={
-            parrentType === 'Settings' ? `fork-line ${parrentType}` : `fork-line ${screen} ${forkState}`
+            parrentTypeSettings ? `fork-line ${parrentTypeSettings}` : `fork-line ${screen} ${forkState}`
           }
           style={lineStyle}
         ></div>
 
         <Button
-          text={parrentType === 'Settings' ? 'Donate' : ''}
-          type={parrentType === 'Settings' ? 'donate' : forkState === 'forkSearch' ? 'tick' : 'add'}
+          text={parrentTypeSettings ? 'Donate' : ''}
+          type={parrentTypeSettings ? 'donate' : forkState === 'forkSearch' ? 'tick' : 'add'}
           position='right'
           menuLOLTransition={menuLOLTransition}
           parrentType={'Fork'}
+          parrentTypeSettings={parrentTypeSettings}
           containerSize={containerSize}
-          onClickHandler={
-            parrentType === 'Settings'
+          ButtonOnClickHandler={
+            parrentTypeSettings
               ? donateHandler
               : forkState === 'forkSearch'
               ? () => {
@@ -113,7 +115,7 @@ function Fork({ parrentType }) {
           forkState={forkState}
           setInputValue={setInputValue}
         >
-          {parrentType === 'Settings' ? (
+          {parrentTypeSettings ? (
             <SettingFork buttonType={'Donate'} isDonateOpen={isDonateOpen} />
           ) : null}
         </Button>

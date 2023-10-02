@@ -7,10 +7,11 @@ import { AppContext } from '../App';
 function Button({
   children,
   parrentType,
+  parrentTypeSettings,
   text,
   type,
   position,
-  onClickHandler,
+  ButtonOnClickHandler,
   forkState,
   setInputValue,
 }) {
@@ -34,9 +35,9 @@ function Button({
       inputAddRef.current.focus();
     }
   }, [forkState]);
-
+  // if(parrentTypeSettings != 'Settings')
   //* Animation
-  if (parrentType === 'Fork') {
+  if (parrentType === 'Fork' && parrentTypeSettings != 'Settings') {
     if (screen != 'ListOfList') {
       buttonStyles.opacity = menuLOLTransition;
     } else {
@@ -48,7 +49,7 @@ function Button({
     } else if (position === 'right' && forkState != 'forkAdd') {
       buttonStyles.transform = `translate(${(1 - menuLOLTransition) * containerSize.x * 0.52}px)`;
     }
-  } else {
+  } else if (parrentTypeSettings != 'Settings') {
     if (position === 'left') {
       // opacity: delite in Menu screen
       buttonStyles.opacity = `${menuLOLTransition}`;
@@ -60,7 +61,7 @@ function Button({
   return (
     <>
       <button
-        onClick={() => onClickHandler()}
+        onClick={() => ButtonOnClickHandler()}
         // onClick={() => changeScreen('ListOfList')}
         className={`button button-position-${position} ${forkState} ${parrentType}`}
         style={buttonStyles}

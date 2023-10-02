@@ -9,7 +9,7 @@
   right: 0;
   /* border: 1px solid #ffff; */
   transform: rotate(0deg);
-  z-index: 5;
+  z-index: 4;
   transition: 0.25s ease-in;
 }
 
