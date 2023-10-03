@@ -17,7 +17,7 @@
 /* Button back setting */
 
 /* spliting page  */
-#sign-in {
+#sign {
   position: relative;
   height: 80%;
   width: 80%;
@@ -34,18 +34,18 @@
   flex-direction: column;
 }
 
-#sign-in-header {
+#sign-header {
   flex: 0.2;
 }
-#sign-in-main {
+#sign-main {
   flex: 0.4;
 }
-#sign-in-footer {
+#sign-footer {
   flex: 0.4;
 }
-#sign-in-header,
-#sign-in-main,
-#sign-in-footer {
+#sign-header,
+#sign-main,
+#sign-footer {
   /* border: dotted 1px rgb(0, 255, 51, 0.5);
   box-sizing: border-box; */
 }
@@ -53,17 +53,60 @@
 /* spliting page  */
 
 /* H E A D E R  */
-#sign-in-header-text {
+#sign-header-fork {
   position: relative;
   top: 50%;
+  left: 50%;
+  width: 300px;
+  transform: translate(-50%, -50%);
+}
+#sign-header-fork-line {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-76px, -50%);
+  width: 2px;
+  height: 60px;
+  background-color: var(--text-color);
+  border-radius: 50%;
+  transition: 0.25s;
+  opacity: 0.4;
+}
+
+#sign-header-fork-line.in {
+  transform: translate(76px, -50%);
+}
+#sign-header-fork-line.up {
+  transform: translate(-76px, -50%);
+}
+
+#sign-in-header-text,
+#sign-up-header-text {
+  position: absolute;
+  top: 50%;
   transform: translateY(-50%);
-  font-size: 36px;
+  font-size: 18px;
   text-align: center;
+  opacity: 0.4;
+  transition: 0.25s;
+}
+#sign-in-header-text {
+  left: 0;
+}
+#sign-up-header-text {
+  right: 0;
+}
+
+#sign-in-header-text.on,
+#sign-up-header-text.on {
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 1;
+  font-size: 36px;
 }
 /* H E A D E R  */
 
 /* M A I N */
-
 #sign-in-main-inner {
   position: relative;
   top: 50%;
@@ -88,6 +131,17 @@
   translate: -50% 0;
   width: 100%;
   font-size: 28px;
+}
+
+#containeer-auth-password-confirm.on {
+  scale: 1 1;
+  visibility: visible;
+  transition: 0.25s;
+}
+#containeer-auth-password-confirm.off {
+  scale: 1 0;
+  visibility: hidden;
+  transition: 0.25s;
 }
 
 #input-mail-status,

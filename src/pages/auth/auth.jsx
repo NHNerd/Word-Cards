@@ -12,6 +12,7 @@ function preDefHandle(e) {
 function Auth() {
   const { setAuthOpen } = React.useContext(AppContext);
 
+  const [sign, setSign] = React.useState('in');
   const [eye, setEye] = React.useState({ password: false, confirm: false });
   const [inputMail, setInputMail] = React.useState({ value: '', status: 'none' });
   const [inputPassword, setInputPassword] = React.useState({ value: '', status: 'none' });
@@ -69,6 +70,12 @@ function Auth() {
     setEye({ password: eye.password, confirm: !eye.confirm });
   }
 
+  function signInHandler() {
+    setSign('in');
+  }
+  function signUpHandler() {
+    setSign('up');
+  }
   return (
     <>
       <button
@@ -81,14 +88,30 @@ function Auth() {
       </button>
 
       {isUserRegistr ? (
-        <form id='sign-in'>
+        <form id='sign'>
           {/* H E A D E R  */}
-          <div id='sign-in-header' onClick={preDefHandle}>
-            <div id='sign-in-header-text'>sign-in</div>
+          <div id='sign-header' onClick={preDefHandle}>
+            <div id='sign-header-fork'>
+              <button
+                id='sign-in-header-text'
+                className={sign === 'in' ? 'on' : null}
+                onClick={signInHandler}
+              >
+                sign-in
+              </button>
+              <div id='sign-header-fork-line' className={sign === 'in' ? 'in' : 'up'}></div>
+              <button
+                id='sign-up-header-text'
+                className={sign === 'up' ? 'on' : null}
+                onClick={signUpHandler}
+              >
+                sign-up
+              </button>
+            </div>
           </div>
 
           {/* M A I N   */}
-          <div id='sign-in-main'>
+          <div id='sign-main'>
             <div id='sign-in-main-inner'>
               <div id='containeer-auth-mail'>
                 <div id='input-mail-status' className={inputMail.status}></div>
@@ -117,7 +140,7 @@ function Auth() {
                 ></button>
               </div>
 
-              <div id='containeer-auth-password-confirm'>
+              <div id='containeer-auth-password-confirm' className={sign === 'in' ? 'off' : 'on'}>
                 <div id='input-password-confirm-status' className={inputConfirm.status}></div>
                 <button className={eye.confirm ? 'eye' : 'eye-hide'} onClick={eyeComfirmHandle}></button>
                 <input
@@ -143,7 +166,7 @@ function Auth() {
           </div>
 
           {/* F O O T E R */}
-          <div id='sign-in-footer'>
+          <div id='sign-footer'>
             <button id='auth-sign-in-botton' className='auth-button' type='submit'>
               <div className='bg-left'></div>
               <div> sign-in </div>

@@ -42,10 +42,6 @@ function Settings({ setStrokeElementHeight, setSettingOpen }) {
     setAuthOpen(false);
   }
 
-  function settingBackHandler() {
-    console.log('back');
-  }
-
   return (
     <>
       <div className={`setting-bg-filter ${settingOpen ? 'on' : 'off'}`}></div>
