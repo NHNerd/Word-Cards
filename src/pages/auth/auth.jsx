@@ -178,8 +178,8 @@ function Auth() {
               <div id='auth-sign-or-line-right'></div>
             </div>
             <div id='conteiner-auth-sign-or' onClick={preDefHandle}>
-              <button id='auth-sign-github' type='buttom'></button>
-              <button id='auth-sign-google' type='buttom'></button>
+              <button id='auth-sign-github' className='circle-button-hover' type='buttom'></button>
+              <button id='auth-sign-google' className='circle-button-hover' type='buttom'></button>
             </div>
           </div>
         </form>

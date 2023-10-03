@@ -315,8 +315,4 @@
     opacity: 0.9;
     animation: settingButtonRot 6s infinite linear;
   }
-  .button-jitter:hover {
-    opacity: 0.9;
-    animation: settingExitHover 0.25s infinite ease-out;
-  }
 }
