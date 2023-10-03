@@ -11,7 +11,6 @@ import { increase, decrease } from './handlers/LOLData.js';
 
 import Draggable from './handlers/Draggable/Draggable.jsx';
 
-import data from '../public/data/data.json';
 import './App.css';
 //create context
 

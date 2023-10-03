@@ -155,8 +155,8 @@ function Auth() {
 
               <div id='sign-in-main-addirioanl'>
                 <div id='container-remember'>
-                  <input type='checkbox' name='remember'></input>
-                  <label htmlFor='remember'> remember me</label>
+                  <input id='auth-remember' type='checkbox' name='auth-remember'></input>
+                  <label htmlFor='auth-remember'> remember me</label>
                 </div>
                 <button id='forgot-open-button' type='buttom' onClick={preDefHandle}>
                   forgot password?

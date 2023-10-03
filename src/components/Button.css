@@ -49,27 +49,27 @@
   background-position: center;
 }
 .edit {
-  background-image: url('../../public/buttons/edit.svg');
+  background-image: url('../assets/buttons/edit.svg');
   margin: 2px;
 }
 .exit {
-  background-image: url('../../public/buttons/exit.svg');
+  background-image: url('../assets/buttons/exit.svg');
   margin: 6px;
 }
 .add {
-  background-image: url('../../public/buttons/add.svg');
+  background-image: url('../assets/buttons/add.svg');
   margin: 4px;
 }
 .search {
-  background-image: url('../../public/buttons/search.svg');
+  background-image: url('../assets/buttons/search.svg');
   margin: 4px;
 }
 .tick {
-  background-image: url('../../public/buttons/tick.svg');
+  background-image: url('../assets/buttons/tick.svg');
   margin: 4px;
 }
 .faq {
-  background-image: url('../../public/buttons/faq.svg');
+  background-image: url('../assets/buttons/faq.svg');
   margin: 4px;
 }
 .contacts,

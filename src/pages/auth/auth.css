@@ -8,7 +8,7 @@
   height: 30px;
   pointer-events: all;
   opacity: 0.8;
-  background-image: url('../../../public/buttons/back.svg');
+  background-image: url('../../assets/buttons/back.svg');
 
   background-repeat: no-repeat;
   background-size: 100% 100%;
@@ -156,25 +156,26 @@
   background-size: 60%;
   background-repeat: no-repeat;
   background-position: 50%;
-  /* background-image: url('../../../public/buttons/exit.svg'); */
+  /* background-image: url('../../assets/buttons/exit.svg'); */
 }
 #input-mail-status.issue {
-  background-image: url('../../../public/buttons/exit.svg');
+  background-image: url('../../assets/buttons/back.svg');
+  background-image: url('../../assets/buttons/exit.svg');
 }
 #input-mail-status.ok {
-  background-image: url('../../../public/buttons/tick.svg');
+  background-image: url('../../assets/buttons/tick.svg');
 }
 #input-password-status.issue {
-  background-image: url('../../../public/buttons/exit.svg');
+  background-image: url('../../assets/buttons/exit.svg');
 }
 #input-password-status.ok {
-  background-image: url('../../../public/buttons/tick.svg');
+  background-image: url('../../assets/buttons/tick.svg');
 }
 #input-password-confirm-status.issue {
-  background-image: url('../../../public/buttons/exit.svg');
+  background-image: url('../../assets/buttons/exit.svg');
 }
 #input-password-confirm-status.ok {
-  background-image: url('../../../public/buttons/tick.svg');
+  background-image: url('../../assets/buttons/tick.svg');
 }
 
 .eye,
@@ -191,10 +192,10 @@
   z-index: 1;
 }
 .eye {
-  background-image: url('../../../public/buttons/eye.svg');
+  background-image: url('../../assets/buttons/eye.svg');
 }
 .eye-hide {
-  background-image: url('../../../public/buttons/eye-hide.svg');
+  background-image: url('../../assets/buttons/eye-hide.svg');
 }
 
 #container-remember {
@@ -233,12 +234,12 @@
 
 #auth-sign-github {
   left: 36%;
-  background-image: url('../../../public/icons/gitHub.svg');
+  background-image: url('../../assets/icons/gitHub.svg');
 }
 
 #auth-sign-google {
   right: 36%;
-  background-image: url('../../../public/icons/google.svg');
+  background-image: url('../../assets/icons/google.svg');
 }
 
 #container-or-split {

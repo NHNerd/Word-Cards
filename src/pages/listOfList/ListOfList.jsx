@@ -1,8 +1,6 @@
 import React from 'react';
 import StrokeElement from '../../components/StrokeElement.jsx';
 
-import data from '../../../public/data/data.json';
-
 function ListOfList({ setStrokeElementHeight }) {
   // const listOfListKeys = Object.keys(data.listOfList);
   const listOfListKeys = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14];

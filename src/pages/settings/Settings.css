@@ -6,7 +6,7 @@
   left: 20px;
   height: 36px;
   width: 36px;
-  background-image: url('../../../public/buttons/setting.svg');
+  background-image: url('../../assets/buttons/setting.svg');
   background-repeat: no-repeat;
   background-size: 100%;
   z-index: 4;

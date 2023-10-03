@@ -10,7 +10,6 @@ console.log('S E T T I N G S');
 function Settings({ setStrokeElementHeight, setSettingOpen }) {
   const {
     settingOpen,
-
     setIsContactsOpen,
     setIsDonateOpen,
     isContactsOpen,
