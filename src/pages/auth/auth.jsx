@@ -1,6 +1,8 @@
 import React from 'react';
 
 import Button from '../../components/Button.jsx';
+import { registrationHandler, loginHandler } from '../../data/auth.js';
+import { validateEmail, passwordValidation } from '../../handlers/mailValidation.js';
 import './Auth.css';
 
 import { AppContext } from '../../App.jsx';
@@ -24,37 +26,42 @@ function Auth() {
     setAuthOpen(false);
   }
 
-  //TODO if for correct mail
   function mailOkHandler(e) {
     const value = e.target.value;
     if (value === '') {
       setInputMail({ value: value, status: 'none' });
-    } else if (true) {
+    } else if (validateEmail(value)) {
       setInputMail({ value: value, status: 'ok' });
     } else {
       setInputMail({ value: value, status: 'issue' });
     }
   }
+
+  //TODO add password validation
   function passwordOkHandler(e) {
     const value = e.target.value;
     if (value === '') {
       setInputPassword({ value: value, status: 'none' });
-    } else if (value.length >= 4) {
+    } else if (passwordValidation(value)) {
       setInputPassword({ value: value, status: 'ok' });
-
-      // Confirm
-      if (e.target.value === inputConfirm.value) {
-        setInputConfirm({ value: value, status: 'ok' });
-      }
     } else {
       setInputPassword({ value: value, status: 'issue' });
+    }
+
+    // Confirm status
+    if (inputConfirm.value === '') {
+      setInputConfirm({ value: inputConfirm.value, status: 'none' });
+    } else if (e.target.value === inputConfirm.value && passwordValidation(value)) {
+      setInputConfirm({ value: inputConfirm.value, status: 'ok' });
+    } else {
+      setInputConfirm({ value: inputConfirm.value, status: 'issue' });
     }
   }
   function confirmOkHandler(e) {
     const value = e.target.value;
     if (value === '') {
       setInputConfirm({ value: value, status: 'none' });
-    } else if (e.target.value === inputPassword.value && value.length >= 4) {
+    } else if (e.target.value === inputPassword.value && passwordValidation(value)) {
       setInputConfirm({ value: value, status: 'ok' });
     } else {
       setInputConfirm({ value: value, status: 'issue' });
@@ -76,6 +83,22 @@ function Auth() {
   function signUpHandler() {
     setSign('up');
   }
+
+  function submitHandler(e) {
+    e.preventDefault();
+    // const userInput = { email: 'melancholyboy2007@gmail.com', password: '123' };
+    const userInput = {
+      email: inputMail.value,
+      password: inputPassword.value,
+    };
+
+    if (sign === 'in') {
+      loginHandler(userInput);
+    } else if (sign === 'up') {
+      registrationHandler(userInput);
+    }
+  }
+
   return (
     <>
       <button
@@ -119,6 +142,7 @@ function Auth() {
                   id='auth-input-mail'
                   type='text'
                   placeholder='enter mail'
+                  value={inputMail.value} // ? Must have?
                   required
                   onChange={mailOkHandler}
                 ></input>
@@ -130,6 +154,7 @@ function Auth() {
                   id='auth-input-password'
                   type={eye.password ? 'text' : 'password'}
                   placeholder='enter password'
+                  value={inputPassword.value} // ? Must have?
                   maxLength={16}
                   required
                   onChange={passwordOkHandler}
@@ -167,9 +192,14 @@ function Auth() {
 
           {/* F O O T E R */}
           <div id='sign-footer'>
-            <button id='auth-sign-in-botton' className='auth-button' type='submit'>
+            <button
+              id='auth-sign-in-botton'
+              className='auth-button'
+              type='submit'
+              onClick={submitHandler}
+            >
               <div className='bg-left'></div>
-              <div> sign-in </div>
+              <div id='auth-submit'>sign-in</div>
               <div className='bg-right'></div>
             </button>
             <div id='container-or-split'>

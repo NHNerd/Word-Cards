@@ -5,7 +5,7 @@ import { isMobile } from 'react-device-detect';
 
 import { AppContext } from '../../App';
 import { increase, decrease } from '../LOLData.js';
-// import LOLData from '../LOLData.js';
+
 import './Draggable.css';
 
 function Draggable(props) {
