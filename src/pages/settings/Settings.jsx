@@ -6,17 +6,17 @@ import Auth from '../auth/auth';
 import { AppContext } from '../../App.jsx';
 
 import './Settings.css';
-console.log('S E T T I N G S');
+
 function Settings({ setStrokeElementHeight, setSettingOpen }) {
   const {
     settingOpen,
-
     setIsContactsOpen,
     setIsDonateOpen,
     isContactsOpen,
     isDonateOpen,
     authOpen,
     setAuthOpen,
+    isAuth,
   } = React.useContext(AppContext);
 
   const settingsObject = ['synchronization', 'sound', 'notification'];
@@ -42,9 +42,16 @@ function Settings({ setStrokeElementHeight, setSettingOpen }) {
     setAuthOpen(false);
   }
 
-  function settingBackHandler() {
-    console.log('back');
-  }
+  // turn on auth if user unauthorized
+  React.useEffect(() => {
+    if (!isAuth) {
+      setSettingOpen(true);
+      setAuthOpen(true);
+    } else {
+      setSettingOpen(false);
+      setAuthOpen(false);
+    }
+  }, [isAuth]);
 
   return (
     <>
@@ -57,14 +64,17 @@ function Settings({ setStrokeElementHeight, setSettingOpen }) {
       ></button>
       <section id='page-settings' className={`page-settings ${settingOpen ? 'on' : ''}`}>
         {/* exit */}
-        <button
-          id='page-setting-exit-container'
-          className='button-jitter'
-          onClick={settingOpenHandler}
-          role='button'
-        >
-          <div id='page-setting-exit-element'></div>
-        </button>
+        {isAuth ? (
+          <button
+            id='page-setting-exit-container'
+            className='button-jitter'
+            onClick={settingOpenHandler}
+            role='button'
+          >
+            <div id='page-setting-exit-element'></div>
+          </button>
+        ) : null}
+
         <section id='page-settings-inner' className={authOpen ? 'off' : 'on'}>
           <header id='setting-header' className={isContactsOpen || isDonateOpen ? 'blur' : null}>
             <div id='about-bg'>

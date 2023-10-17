@@ -6,8 +6,6 @@ import './Burger.css';
 
 import { AppContext } from '../App';
 
-console.log('B U R G E R');
-
 function Burger() {
   const { screen, changeScreen } = useContext(AppContext);
 

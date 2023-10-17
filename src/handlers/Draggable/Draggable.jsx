@@ -4,8 +4,8 @@ import { useState, useContext, useEffect } from 'react';
 import { isMobile } from 'react-device-detect';
 
 import { AppContext } from '../../App';
-import { increase, decrease } from '../LOLData.js';
-// import LOLData from '../LOLData.js';
+import { increase, decrease } from '../listOrderHandler.js';
+
 import './Draggable.css';
 
 function Draggable(props) {
@@ -60,6 +60,7 @@ function Draggable(props) {
       e.preventDefault();
     }
     //TODO now have problem when drug to - when return mosue to + component not move
+    //TODO It seems solved aftere added screen stransist :)) (but it's not exactly)
     if (isTaped) {
       const userInputDevice = isMobile ? e.touches[0] : e;
       const client = {
@@ -126,12 +127,10 @@ function Draggable(props) {
     //horizontal
   }
 
-  //TODO  Combine X Y into one with one requestAnimationFrame
   function transitionAutoCloserY(step, invertTowardY) {
     if (!isTaped && transform.y > 0) {
       setTransform((prevTransform) => {
         const newTransform = Math.min(totalDistanceY, prevTransform.y - step.y * invertTowardY);
-
         setTransformOld({ x: 0, y: newTransform });
         if (newTransform <= 0 || newTransform >= totalDistanceY) {
           cancelAnimationFrame(animationFrameId);
@@ -185,7 +184,6 @@ function Draggable(props) {
           }
           return { x: 0, y: 0 };
         }
-        // setTransformOld({ x: newTransformX, y: 0 });
         return { x: newTransformX, y: 0 };
       });
       animationFrameId = requestAnimationFrame(transitionAutoCloser);

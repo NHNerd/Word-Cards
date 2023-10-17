@@ -36,30 +36,30 @@
 
 /* Contacts  */
 #instagram {
-  background-image: url('../../../../public/icons/instagram.svg');
+  background-image: url('../../../assets/icons/instagram.svg');
 }
 
 #gmail {
-  background-image: url('../../../../public/icons/gmail.svg');
+  background-image: url('../../../assets/icons/gmail.svg');
 }
 
 #telegram {
-  background-image: url('../../../../public/icons/telegram.svg');
+  background-image: url('../../../assets/icons/telegram.svg');
 }
 
 /* Donate  */
 #patreon {
-  background-image: url('../../../../public/icons/patreon.svg');
+  background-image: url('../../../assets/icons/patreon.svg');
 }
 #googlePay {
-  background-image: url('../../../../public/icons/googlePay.svg');
+  background-image: url('../../../assets/icons/googlePay.svg');
   width: 80px;
 }
 #coFi {
-  background-image: url('../../../../public/icons/coFi.svg');
+  background-image: url('../../../assets/icons/coFi.svg');
 }
 #payPal {
-  background-image: url('../../../../public/icons/payPal.svg');
+  background-image: url('../../../assets/icons/payPal.svg');
 }
 
 .setting-fork-contacts-all.on,

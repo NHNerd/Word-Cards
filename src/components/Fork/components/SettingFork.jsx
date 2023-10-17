@@ -19,16 +19,26 @@ function SettingFork({ buttonType, isContactsOpen, isDonateOpen }) {
       <div className='container-setting-fork-inner'>
         {buttonType === 'Contacts' ? (
           <div className={`setting-fork-contacts-all ${isContactsOpen ? 'on' : 'off'} `}>
-            <div id='instagram' onClick={instagramHandler} role='button'></div>
-            <div id='gmail' onClick={gmailHandler} role='button'></div>
-            <div id='telegram' onClick={telegramHandler} role='button'></div>
+            <div
+              id='instagram'
+              className='circle-button-hover'
+              onClick={instagramHandler}
+              role='button'
+            ></div>
+            <div id='gmail' className='circle-button-hover' onClick={gmailHandler} role='button'></div>
+            <div
+              id='telegram'
+              className='circle-button-hover'
+              onClick={telegramHandler}
+              role='button'
+            ></div>
           </div>
         ) : (
           <div className={`setting-fork-donate-all ${isDonateOpen ? 'on' : 'off'} `}>
-            <div id='patreon' role='button'></div>
-            <div id='googlePay' role='button'></div>
-            <div id='coFi' role='button'></div>
-            <div id='payPal' role='button'></div>
+            <div id='patreon' className='circle-button-hover' role='button'></div>
+            <div id='googlePay' className='circle-button-hover' role='button'></div>
+            <div id='coFi' className='circle-button-hover' role='button'></div>
+            <div id='payPal' className='circle-button-hover' role='button'></div>
           </div>
         )}
       </div>

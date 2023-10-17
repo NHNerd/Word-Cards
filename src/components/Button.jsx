@@ -14,6 +14,7 @@ function Button({
   ButtonOnClickHandler,
   forkState,
   setInputValue,
+  inputValue,
 }) {
   // Get value from context
   const { screen, changeScreen, menuLOLTransition, containerSize } = React.useContext(AppContext);
@@ -49,6 +50,12 @@ function Button({
     } else if (position === 'right' && forkState != 'forkAdd') {
       buttonStyles.transform = `translate(${(1 - menuLOLTransition) * containerSize.x * 0.52}px)`;
     }
+
+    // if input Emty button submit is not active
+    if (type === 'tick' && inputValue === '') {
+      buttonStyles.opacity = 0.4;
+      buttonStyles.pointerEvents = 'none';
+    }
   } else if (parrentTypeSettings != 'Settings') {
     if (position === 'left') {
       // opacity: delite in Menu screen
@@ -74,7 +81,9 @@ function Button({
         {type === 'search' || type === 'add' ? (
           <input
             className={`input${type === 'search' ? 'Search' : 'Add'}`}
+            value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
+            // onBlur={() => setInputValue('')}
             ref={type === 'search' ? inputSearchRef : inputAddRef}
             maxLength={16}
             required

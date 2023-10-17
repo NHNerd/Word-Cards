@@ -1,6 +1,6 @@
 @font-face {
   font-family: 'ShareTech-Regular.ttf';
-  src: url('../public/fonts/ShareTech-Regular.ttf');
+  src: url('./assets/fonts/ShareTech-Regular.ttf');
 }
 
 * {
