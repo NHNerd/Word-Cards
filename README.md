@@ -5,7 +5,7 @@ Web App for creating groups of flashcards with foreign words and repeating them 
 based on the spaced repetition system.
 
 ## app navigation scheme
-![app navigation scheme](./src/assets/ref/app-navigation-scheme.jpg)
+<img src="./src/assets/ref/app-navigation-scheme.jpg" width="600">
 
 ## data management in 3 steps ;) 
 
