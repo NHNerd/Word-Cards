@@ -6,7 +6,7 @@ export function validateEmail(mail) {
 }
 
 export function passwordValidation(password) {
-  if (/^[a-zA-Z0-9.]{6,16}$/.test(password)) {
+  if (/^[a-zA-Z0-9'\-!"#$%&()*,.:;?@[\]^_`{|}~+<=>]{8,24}$/.test(password)) {
     return true;
   } else {
     return false;

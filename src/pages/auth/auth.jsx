@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Button from '../../components/Button.jsx';
+// import Alert from '../../components/Alert.jsx';
 import { registrationHandler, loginHandler } from '../../data/auth.js';
 import { validateEmail, passwordValidation } from '../../handlers/mailValidation.js';
 import './Auth.css';
@@ -12,15 +13,35 @@ function preDefHandle(e) {
 }
 
 function Auth() {
-  const { setAuthOpen } = React.useContext(AppContext);
+  const containeerAuthMailRef = React.useRef();
+
+  const { setIsLoading, setAuthOpen, setIsAuth, isAuth } = React.useContext(AppContext);
 
   const [sign, setSign] = React.useState('in');
   const [eye, setEye] = React.useState({ password: false, confirm: false });
   const [inputMail, setInputMail] = React.useState({ value: '', status: 'none' });
   const [inputPassword, setInputPassword] = React.useState({ value: '', status: 'none' });
   const [inputConfirm, setInputConfirm] = React.useState({ value: '', status: 'none' });
+  const [inputFocused, setInputFocused] = React.useState(false);
 
   const isUserRegistr = true;
+
+  function inputFocusedHandler(inputName) {
+    switch (inputName) {
+      case 'mail':
+        setInputFocused('mail');
+        break;
+      case 'password':
+        setInputFocused('password');
+        break;
+      case 'confirm-password':
+        setInputFocused('confirm-password');
+        break;
+      default:
+        setInputFocused('none');
+        break;
+    }
+  }
 
   function authBack() {
     setAuthOpen(false);
@@ -86,16 +107,50 @@ function Auth() {
 
   function submitHandler(e) {
     e.preventDefault();
-    // const userInput = { email: 'melancholyboy2007@gmail.com', password: '123' };
-    const userInput = {
-      email: inputMail.value,
-      password: inputPassword.value,
-    };
+    // if inputs incoorect marks invalid input
+    if (inputMail.status != 'ok') {
+      setInputFocused('mail');
+    } else if (inputPassword.status != 'ok') {
+      setInputFocused('password');
+    } else if (inputConfirm.status != 'ok') {
+      setInputFocused('confirm-password');
+    }
 
-    if (sign === 'in') {
-      loginHandler(userInput);
-    } else if (sign === 'up') {
-      registrationHandler(userInput);
+    // Check log-in validation
+    if (inputPassword.status === 'ok' && inputMail.status === 'ok') {
+      const userInput = {
+        email: inputMail.value,
+        password: inputPassword.value,
+      };
+
+      // check current page
+      if (sign === 'in') {
+        setIsLoading(true);
+        loginHandler(userInput).then((data) => {
+          if (data.success) {
+            setIsAuth(true);
+            console.log('S U C C E S S');
+          } else {
+            setIsAuth(false);
+            console.log('F A I L');
+          }
+          setIsLoading(false);
+        });
+
+        // Check log-up validation
+      } else if (sign === 'up' && inputConfirm.status === 'ok') {
+        setIsLoading(true);
+        registrationHandler(userInput).then((data) => {
+          if (data.success) {
+            setIsAuth(true);
+            console.log('S U C C E S S');
+          } else {
+            setIsAuth(false);
+            console.log('F A I L');
+          }
+          setIsLoading(false);
+        });
+      }
     }
   }
 
@@ -136,7 +191,7 @@ function Auth() {
           {/* M A I N   */}
           <div id='sign-main'>
             <div id='sign-in-main-inner'>
-              <div id='containeer-auth-mail'>
+              <div id='containeer-auth-mail' ref={containeerAuthMailRef}>
                 <div id='input-mail-status' className={inputMail.status}></div>
                 <input
                   id='auth-input-mail'
@@ -145,7 +200,16 @@ function Auth() {
                   value={inputMail.value} // ? Must have?
                   required
                   onChange={mailOkHandler}
+                  onFocus={() => inputFocusedHandler('mail')}
+                  onBlur={() => inputFocusedHandler('none')}
                 ></input>
+                <div
+                  className={`auth-validation-alert ${
+                    inputFocused === 'mail' ? inputMail.status : null
+                  }`}
+                >
+                  incorrect email address
+                </div>
               </div>
 
               <div id='containeer-auth-password'>
@@ -158,7 +222,21 @@ function Auth() {
                   maxLength={16}
                   required
                   onChange={passwordOkHandler}
+                  onFocus={() => inputFocusedHandler('password')}
+                  onBlur={() => inputFocusedHandler('none')}
                 ></input>
+
+                <div
+                  className={`auth-validation-alert ${
+                    inputFocused === 'password' ? inputPassword.status : null
+                  }`}
+                >
+                  length 8-24 symbols
+                  <br />
+                  letters: a-z A-Z *<br />
+                  numbers: 0-9
+                </div>
+
                 <button
                   className={eye.password ? 'eye' : 'eye-hide'}
                   onClick={eyePasswordHandle}
@@ -175,7 +253,19 @@ function Auth() {
                   maxLength={16}
                   required
                   onChange={confirmOkHandler}
+                  onFocus={() => inputFocusedHandler('confirm-password')}
+                  onBlur={() => inputFocusedHandler('none')}
                 ></input>
+                <div
+                  className={`auth-validation-alert ${
+                    inputFocused === 'confirm-password' ? inputConfirm.status : null
+                  }`}
+                  // className={`auth-validation-alert ${inputConfirm.status}`}
+                >
+                  {inputPassword.status === 'ok'
+                    ? 'password mismatch!'
+                    : 'Before input correct password!'}
+                </div>
               </div>
 
               <div id='sign-in-main-addirioanl'>

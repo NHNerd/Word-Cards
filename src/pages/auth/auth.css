@@ -1,3 +1,7 @@
+:root {
+  --input-height: 70px;
+}
+
 /* Button back setting */
 
 #page-setting-back-container {
@@ -34,14 +38,18 @@
   flex-direction: column;
 }
 
+/*? Change z-index when alert active */
 #sign-header {
   flex: 0.2;
+  z-index: 1;
 }
 #sign-main {
   flex: 0.4;
+  z-index: 2;
 }
 #sign-footer {
   flex: 0.4;
+  z-index: 1;
 }
 #sign-header,
 #sign-main,
@@ -119,7 +127,7 @@
 #containeer-auth-password,
 #containeer-auth-password-confirm {
   position: relative;
-  height: 70px; /*! margin input  */
+  height: var(--input-height); /*! margin input  */
 }
 
 #auth-input-mail,
@@ -268,4 +276,38 @@
   left: 50%;
   translate: -50% 18px;
   font-size: 28px;
+}
+
+.auth-validation-alert {
+  pointer-events: none;
+  padding: 8px 0;
+  position: absolute;
+  bottom: 50%;
+  height: auto;
+  width: 100%;
+  background-color: rgba(60, 60, 60, 0.9);
+  border-radius: 8px;
+  text-align: center;
+  z-index: 1;
+
+  opacity: 0;
+  transform: scale(0.6, 0) translateY(100%);
+  transition: 0.25s ease-in-out;
+  visibility: hidden;
+}
+
+.auth-validation-alert.issue {
+  opacity: 1;
+  transform: scale(1, 1) translateY(100%);
+  transition: 0.25s ease-in-out;
+  visibility: visible;
+}
+
+#testLoading {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  background-color: rgb(42, 77, 77);
+  z-index: 11;
+  pointer-events: all;
 }

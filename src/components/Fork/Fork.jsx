@@ -1,8 +1,8 @@
 import React from 'react';
 import Button from '../Button.jsx';
 import SettingFork from './components/SettingFork.jsx';
-
 import { AppContext } from '../../App.jsx';
+import { addListFetch } from '../../data/content-management.js';
 
 import './Fork.css';
 
@@ -15,6 +15,8 @@ function Fork({ parrentTypeSettings }) {
     setIsDonateOpen,
     isContactsOpen,
     isDonateOpen,
+    lists,
+    setLists,
   } = React.useContext(AppContext);
 
   const [forkState, setForkState] = React.useState('forkNon');
@@ -37,7 +39,29 @@ function Fork({ parrentTypeSettings }) {
     setInputValue('');
   }
   function submitHandler() {
-    alert(`submit = ${inputValue}`);
+    // alert(`submit = ${inputValue}`);
+    const list = {
+      userId: localStorage.getItem('userId'),
+      listName: inputValue,
+      order: lists.length || 0,
+      gameCount: 0,
+    };
+
+    // Refresh State
+    // Is list no Empty?
+    if (lists) {
+      setLists((prevLists) => [list, ...prevLists]);
+      // localStorage set in the ListOfList.jsx ( useEffect[lists] )
+    } else {
+      setLists(list);
+      // localStorage set in the ListOfList.jsx ( useEffect[lists] )
+    }
+
+    // Fetch Add List
+    addListFetch(list);
+
+    //clear
+    forkNonHandler();
   }
 
   //* Settings screen
@@ -82,6 +106,7 @@ function Fork({ parrentTypeSettings }) {
           }
           forkState={forkState}
           setInputValue={setInputValue}
+          inputValue={inputValue}
         >
           {parrentTypeSettings ? (
             <SettingFork buttonType={'Contacts'} isContactsOpen={isContactsOpen} />
@@ -114,6 +139,7 @@ function Fork({ parrentTypeSettings }) {
           }
           forkState={forkState}
           setInputValue={setInputValue}
+          inputValue={inputValue}
         >
           {parrentTypeSettings ? (
             <SettingFork buttonType={'Donate'} isDonateOpen={isDonateOpen} />

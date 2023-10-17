@@ -1,6 +1,7 @@
 import { useContext, useState, useEffect, useRef } from 'react';
 import ButtonDrag from './ButtonDrag.jsx';
 import Button from './Button.jsx';
+import { deleteListFetch } from '../data/content-management.js';
 
 import { AppContext } from '../App.jsx';
 
@@ -20,16 +21,54 @@ function StrokeElement({
   axis,
   pos,
 }) {
-  const { screen, changeScreen, containerSize, menuLOLTransition, authOpen, setAuthOpen } =
-    useContext(AppContext);
+  const {
+    screen,
+    changeScreen,
+    containerSize,
+    menuLOLTransition,
+    authOpen,
+    setAuthOpen,
+    lists,
+    setLists,
+  } = useContext(AppContext);
   const strokeContainerRef = useRef();
 
   useEffect(() => {
-    setStrokeElementHeight(strokeContainerRef.current.clientHeight);
+    // setStrokeElementHeight(strokeContainerRef.current.clientHeight);
+    setStrokeElementHeight(100);
   }, []);
 
   function openAuthHandler() {
     setAuthOpen(!authOpen);
+  }
+  async function deleteListButton() {
+    let listDeleted = false;
+    let listId = '';
+    // Search listID
+    const newLists = await lists.map((item) => {
+      if (item.order === order) {
+        listId = item._id;
+        console.log(listId);
+        listDeleted = true;
+        lists.splice(order, 1);
+      }
+      // changing oerder elements after deleted element
+      else if (listDeleted) {
+        item.order = item.order - 1;
+      }
+      return item;
+    });
+    // After the item is deleted it will be empty ! at the end of array !
+    newLists.length = newLists.length - 1;
+
+    // State
+    setLists(newLists);
+
+    //* Local Storage
+    //* Changing in the listOfLIst.jsx only! useEffect(list)
+
+    // FETCH
+    listId ? deleteListFetch(listId) : null; //if _id = undefinde it's means this list not be added on server
   }
 
   //Style
@@ -52,6 +91,7 @@ function StrokeElement({
           {parrentTypeSettings != 'Settings' && order === 0 ? <ButtonDrag rotate='top' /> : null}
 
           <Button
+            ButtonOnClickHandler={deleteListButton}
             type={`${parrentTypeSettings === 'Settings' ? 'tick' : 'exit'}`}
             position='left'
             parrentType={'StrokeElement'}

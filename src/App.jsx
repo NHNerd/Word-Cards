@@ -1,12 +1,15 @@
 import { useState, useEffect, createContext, useRef } from 'react';
 
+import Loading from './components/Loading.jsx';
 import PlayCard from './components/PlayCard.jsx';
 import ListOfList from './pages/listOfList/ListOfList.jsx';
 import Settings from './pages/settings/Settings.jsx';
 import Burger from './components/Burger.jsx';
 import Fork from './components/Fork/Fork.jsx';
 import Statistic from './components/Statistic.jsx';
-import { increase, decrease } from './handlers/LOLData.js';
+import { increase, decrease } from './handlers/listOrderHandler.js';
+import { listsFetch } from './data/content-management.js';
+import arrayEqual from './handlers/arrayEqual.js';
 // import Auth from './pages/auth/auth.jsx';
 
 import Draggable from './handlers/Draggable/Draggable.jsx';
@@ -17,10 +20,29 @@ import './App.css';
 export const AppContext = createContext();
 
 function App() {
+  // get lists from mongoBD
+
   // increase();
   // LOLData();
+
   const containerRef = useRef();
 
+  //Check loading
+  const [isLoading, setIsLoading] = useState(false);
+
+  //TODO INPROGRESS
+  // Check user auth & active
+  const [isAuth, setIsAuth] = useState(false);
+  const [userActive, setUserActive] = useState(false);
+
+  //user data
+  // I get data from localStorage
+  // After I get data from mongoDB(if localStorage != mongoDB)
+  const oldLists = JSON.parse(localStorage.getItem('lists'));
+  const [lists, setLists] = useState(
+    oldLists || [{ id: 0, listName: 'Froots', order: '1', gameCount: '0' }]
+  );
+  // const [lists, setLists] = useState([]);
   const [containerSize, setContainerSize] = useState({ x: 800, y: 800 });
   const [strokeElemenHeight, setStrokeElementHeight] = useState();
   const [menuLOLTransition, setMenuLOLTransition] = useState(0);
@@ -36,6 +58,27 @@ function App() {
   // All
   const [screen, setScreen] = useState('Menu');
   const [isSettings, setSettings] = useState(false);
+
+  //TODO Get data inprogress...
+
+  useEffect(() => {
+    listsFetch()
+      .then((data) => {
+        setIsAuth(true);
+
+        if (arrayEqual(oldLists, data, 'listName')) {
+          setLists(data);
+
+          //* Local Storage
+          //* Changing in the listOfLIst.jsx only! useEffect(list)
+        }
+      })
+      .catch(() => {
+        setIsAuth(false);
+      });
+  }, []);
+
+  //TODO S O R T
 
   //? screen use in context and changes in childe components
   const changeScreen = (newScreen) => {
@@ -66,6 +109,12 @@ function App() {
     };
   }, []);
 
+  //TODO INPROGRESS before need add pages, and aftere add loading in time between pages changed
+
+  if (isLoading) {
+    return <Loading />;
+  }
+
   return (
     // Оберните компонент App в провайдер контекста, чтобы значения были доступны всем компонентам внутри него
     <AppContext.Provider
@@ -84,6 +133,11 @@ function App() {
         isDonateOpen,
         authOpen,
         setAuthOpen,
+        setIsLoading,
+        isAuth,
+        setIsAuth,
+        lists,
+        setLists,
       }}
     >
       <section
@@ -97,7 +151,14 @@ function App() {
         <Fork />
 
         <Draggable setMenuLOLTransition={setMenuLOLTransition} setLOLOrder={setLOLOrder}>
-          <ListOfList setStrokeElementHeight={setStrokeElementHeight} />
+          <ListOfList
+            setStrokeElementHeight={setStrokeElementHeight}
+            lists={lists}
+            setLists={setLists}
+            LOLOrder={LOLOrder}
+            oldLists={oldLists}
+            screen={screen}
+          />
         </Draggable>
 
         {/*Multy elements*/}
