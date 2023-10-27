@@ -4,7 +4,8 @@
 }
 
 .fork-ListOfList,
-.fork-Menu {
+.fork-Menu,
+.fork-ListEditing {
   position: fixed;
   height: 50px;
   width: 66vw;
@@ -40,15 +41,13 @@
   transition: 0.25s ease;
 }
 
-.fork-line.Settings {
+.fork-line.Settings,
+.fork-line.ListOfList,
+.fork-line.ListEditing {
   transform: scaleY(1.2);
   opacity: 1;
 }
 
-.fork-line.ListOfList {
-  transform: scaleY(1.2);
-  opacity: 1;
-}
 .fork-line.forkAdd {
   scale: 0;
   translate: -20vw 0;
@@ -61,7 +60,7 @@
 .fork-bg-header {
   position: fixed;
   left: 0;
-  right: 0;
+  right: 2px; /* padding for scroll-bar */
   top: 0;
   bottom: 84vh;
   background-image: linear-gradient(

@@ -8,6 +8,7 @@
   user-select: none;
   pointer-events: none;
 }
+
 .stroke.horizontal {
   position: absolute;
 }
@@ -20,6 +21,73 @@
   flex-direction: stroke;
   align-items: center;
   justify-content: center;
+}
+
+.h1 .textH1,
+.h2,
+.h3 {
+  /* animation: clouseStroke 0.25s 1 linear; */
+  animation-fill-mode: forwards;
+}
+
+@keyframes clouseStroke {
+  0% {
+    scale: 1 1;
+    height: 119px;
+  }
+  50% {
+    /* scale: 0 1; */
+  }
+  100% {
+    /* scale: 0 1; */
+    height: 65px;
+  }
+}
+@keyframes openListEditing {
+  0% {
+    /* scale: 0 1; */
+    height: 119px;
+  }
+  50% {
+    /* scale: 0 1; */
+  }
+  100% {
+    scale: 1 1;
+    height: 65px;
+  }
+}
+@keyframes clouseListEditing {
+  0% {
+    scale: 1 1;
+    height: 65px;
+  }
+  50% {
+    /* scale: 0 1; */
+  }
+  100% {
+    /* scale: 0 1; */
+    height: 119px;
+  }
+}
+
+/** Lisen this event and after this turn-on 'visability: hidden' for LOL */
+
+.h1 .textH1 {
+  /* animation: openStroke 0.25s 1 linear; */
+  animation-fill-mode: forwards;
+}
+@keyframes openStroke {
+  0% {
+    scale: 0 1;
+    height: 65px;
+  }
+  50% {
+    scale: 0 1;
+  }
+  100% {
+    scale: 1 1;
+    height: 119px;
+  }
 }
 
 .h1 {

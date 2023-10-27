@@ -37,11 +37,6 @@ function Settings({ setStrokeElementHeight, setSettingOpen }) {
     setBgIsOpen('off');
   }
 
-  function settingOpenHandler() {
-    setSettingOpen(!settingOpen);
-    setAuthOpen(false);
-  }
-
   // turn on auth if user unauthorized
   React.useEffect(() => {
     if (!isAuth) {
@@ -57,18 +52,17 @@ function Settings({ setStrokeElementHeight, setSettingOpen }) {
     <>
       <div className={`setting-bg-filter ${settingOpen ? 'on' : 'off'}`}></div>
       <div className={`setting-bg-color ${settingOpen ? 'on' : 'off'}`}></div>
-      <button
-        id='button-page-settings'
-        onClick={settingOpenHandler}
-        style={settingOpen ? { scale: '0', opacity: 0 } : null}
-      ></button>
+
       <section id='page-settings' className={`page-settings ${settingOpen ? 'on' : ''}`}>
         {/* exit */}
         {isAuth ? (
           <button
             id='page-setting-exit-container'
             className='button-jitter'
-            onClick={settingOpenHandler}
+            onClick={() => {
+              setSettingOpen(!settingOpen);
+              setAuthOpen(false);
+            }}
             role='button'
           >
             <div id='page-setting-exit-element'></div>

@@ -6,6 +6,7 @@ import arrayEqual from '../../handlers/arrayEqual.js';
 let LOLOrderOld = 0;
 
 function ListOfList({ setStrokeElementHeight, lists, setLists, LOLOrder, oldLists, screen }) {
+  const [visibility, setVisibility] = React.useState(true);
   // if lists = null || undefinde
   // lists = lists || [{ id: 0, listName: 'Froots', order: '1', gameCount: '0' }];
 
@@ -66,7 +67,20 @@ function ListOfList({ setStrokeElementHeight, lists, setLists, LOLOrder, oldList
       window.removeEventListener('beforeunload', handleBeforeUnload);
     };
   }, []);
-  console.log(screen);
+
+  React.useEffect(() => {
+    if (screen === 'Menu' || screen === 'ListOfList') {
+      setTimeout(() => {
+        setVisibility(true);
+      }, 200);
+    } else {
+      setTimeout(() => {
+        setVisibility(false);
+        console.log('hidden!');
+      }, 200);
+    }
+  }, [screen]);
+
   if (!lists) {
     return (
       <>
@@ -142,6 +156,8 @@ function ListOfList({ setStrokeElementHeight, lists, setLists, LOLOrder, oldList
       {/* horizontal END */}
 
       {/* vertical */}
+      {/* style={{ visibility: visibility }} */}
+
       {lists.map((object, index) => (
         <StrokeElement
           setStrokeElementHeight={setStrokeElementHeight}
@@ -150,10 +166,8 @@ function ListOfList({ setStrokeElementHeight, lists, setLists, LOLOrder, oldList
           textH1={object.listName}
           //TODO
           textH2={'word count'}
-          // countH2={Object.keys(data.listOfList[key].words).length}
           countH2={object.order}
           textH3={'game count'}
-          // countH3={data.listOfList[key]['game count']}
           countH3={object.gameCount}
           line={index === lists.length - 1 ? false : true} //? remove for last element
           isButtonDrag={true}

@@ -3,11 +3,13 @@ import { useState, useEffect, createContext, useRef } from 'react';
 import Loading from './components/Loading.jsx';
 import PlayCard from './components/PlayCard.jsx';
 import ListOfList from './pages/listOfList/ListOfList.jsx';
+import MemoizedListOfList from './pages/listEditing/ListEditing.jsx';
 import Settings from './pages/settings/Settings.jsx';
 import Burger from './components/Burger.jsx';
 import Fork from './components/Fork/Fork.jsx';
 import Statistic from './components/Statistic.jsx';
 import { increase, decrease } from './handlers/listOrderHandler.js';
+// import { refreshFetch } from './data/auth.js';
 import { listsFetch } from './data/content-management.js';
 import arrayEqual from './handlers/arrayEqual.js';
 // import Auth from './pages/auth/auth.jsx';
@@ -57,10 +59,12 @@ function App() {
 
   // All
   const [screen, setScreen] = useState('Menu');
+  const [screenFromTo, setScreenFromTo] = useState('none');
+
   const [isSettings, setSettings] = useState(false);
 
   //TODO Get data inprogress...
-
+  listsFetch();
   useEffect(() => {
     listsFetch()
       .then((data) => {
@@ -109,8 +113,17 @@ function App() {
     };
   }, []);
 
-  //TODO INPROGRESS before need add pages, and aftere add loading in time between pages changed
+  const prevScreenRef = useRef(screen);
 
+  useEffect(() => {
+    // get prev
+    const prevScreen = prevScreenRef.current;
+    setScreenFromTo(prevScreen + '>>>' + screen);
+    // Refresh
+    prevScreenRef.current = screen;
+  }, [screen]);
+  console.log(screenFromTo);
+  //TODO INPROGRESS before need add pages, and aftere add loading in time between pages changed
   if (isLoading) {
     return <Loading />;
   }
@@ -122,6 +135,7 @@ function App() {
       value={{
         screen,
         changeScreen,
+        screenFromTo,
         containerSize,
         strokeElemenHeight,
         menuLOLTransition,
@@ -161,10 +175,20 @@ function App() {
           />
         </Draggable>
 
+        <MemoizedListOfList
+          setStrokeElementHeight={setStrokeElementHeight}
+          lists={lists}
+          setLists={setLists}
+          LOLOrder={LOLOrder}
+          oldLists={oldLists}
+          screen={screen}
+          changeScreen={changeScreen}
+          screenFromTo={screenFromTo}
+        />
         {/*Multy elements*/}
       </section>
 
-      <Burger />
+      <Burger setSettingOpen={setSettingOpen} />
     </AppContext.Provider>
   );
 }

@@ -6,13 +6,18 @@ import './Burger.css';
 
 import { AppContext } from '../App';
 
-function Burger() {
-  const { screen, changeScreen } = useContext(AppContext);
+function Burger({ setSettingOpen }) {
+  const { screen, changeScreen, setAuthOpen, settingOpen } = useContext(AppContext);
 
   function burgerHandler() {
-    changeScreen('Menu');
-    console.log('Burger onClick');
+    if (screen === 'Menu') {
+      setSettingOpen(!settingOpen);
+      setAuthOpen(false);
+    } else {
+      changeScreen('Menu');
+    }
   }
+
   return (
     <>
       <div onClick={burgerHandler} id='burger'>

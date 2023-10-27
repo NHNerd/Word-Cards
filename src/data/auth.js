@@ -47,4 +47,26 @@ function loginHandler(user) {
     });
 }
 
-export { registrationHandler, loginHandler };
+function refreshFetch() {
+  return fetch(apiUrl + '/api/refresh', {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    credentials: 'include', //? Parsing object to JSON stroke
+  })
+    .then((response) => {
+      return response.json();
+    })
+    .then((data) => {
+      localStorage.setItem('accessToken', data.accessToken);
+      console.log('refresh: ' + data.message);
+    })
+
+    .catch((error) => {
+      console.error('Error: refresh: ' + error);
+      throw error; //? throw error on up layer for try catch
+    });
+}
+
+export { registrationHandler, loginHandler, refreshFetch };

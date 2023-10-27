@@ -1,0 +1,46 @@
+#container-listEditin {
+  padding-top: 134px;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+
+  user-select: all;
+  pointer-events: all;
+  overflow-y: scroll;
+  visibility: hidden;
+  z-index: 1;
+}
+
+#listEditin-button {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  width: 30px;
+  height: 30px;
+  pointer-events: all;
+  opacity: 0.8;
+  background-image: url('../../assets/buttons/back.svg');
+
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  z-index: 2;
+}
+
+#container-wordProgressBar {
+  position: absolute;
+  height: 50%;
+  top: 50%;
+  transform: translateY(-60%);
+  left: 100px;
+  right: 100px;
+  /* background-color: rgba(255, 0, 0, 0.137); */
+}
+
+#wordProgressBar {
+  position: absolute;
+  height: 100%;
+  width: 50%;
+  background-color: rgba(255, 255, 255, 0.06);
+  border-radius: 50px;
+}
