@@ -1,13 +1,11 @@
 import React from 'react';
 
-import { useContext } from 'react';
-
 import './Burger.css';
 
 import { AppContext } from '../App';
 
 function Burger({ setSettingOpen }) {
-  const { screen, changeScreen, setAuthOpen, settingOpen } = useContext(AppContext);
+  const { screen, changeScreen, setAuthOpen, settingOpen } = React.useContext(AppContext);
 
   function burgerHandler() {
     if (screen === 'Menu') {

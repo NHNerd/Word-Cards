@@ -1,5 +1,7 @@
 import { useState, useEffect, createContext, useRef } from 'react';
 
+import Offline from './pages/offline/Offline.jsx';
+import MemoizedNoConnect from './pages/notConnect/NoConnect.jsx';
 import Loading from './components/Loading.jsx';
 import PlayCard from './components/PlayCard.jsx';
 import ListOfList from './pages/listOfList/ListOfList.jsx';
@@ -21,7 +23,8 @@ import './App.css';
 
 export const AppContext = createContext();
 
-function App() {
+export function App() {
+  console.log('App rerenders');
   // get lists from mongoBD
 
   // increase();
@@ -30,6 +33,8 @@ function App() {
   const containerRef = useRef();
 
   //Check loading
+  const [isOnline, setIsOnline] = useState(true);
+  const [isConnect, SetIsConnect] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
   //TODO INPROGRESS
@@ -59,16 +64,25 @@ function App() {
 
   // All
   const [screen, setScreen] = useState('Menu');
-  const [screenFromTo, setScreenFromTo] = useState('none');
+  const [screenFromTo, setScreenFromTo] = useState('Menu>>>Menu');
 
   const [isSettings, setSettings] = useState(false);
 
   //TODO Get data inprogress...
-  listsFetch();
+
   useEffect(() => {
+    if (navigator.onLine) {
+      setIsOnline(true);
+    } else {
+      setIsOnline(false);
+      return;
+    }
+
     listsFetch()
       .then((data) => {
+        SetIsConnect(true);
         setIsAuth(true);
+        console.log('isConnect = true');
 
         if (arrayEqual(oldLists, data, 'listName')) {
           setLists(data);
@@ -78,21 +92,17 @@ function App() {
         }
       })
       .catch(() => {
+        SetIsConnect(false);
         setIsAuth(false);
+
+        console.log('isConnect = false');
       });
-  }, []);
 
-  //TODO S O R T
+    if (!isConnect) {
+      return;
+    }
 
-  //? screen use in context and changes in childe components
-  const changeScreen = (newScreen) => {
-    setScreen(newScreen);
-  };
-
-  // console.log(`current screen: ${screen}`);
-
-  // listner change screen size
-  useEffect(() => {
+    // listner change screen size
     function updateSizes() {
       // Check is rendered strokeElementRef
 
@@ -113,6 +123,13 @@ function App() {
     };
   }, []);
 
+  //TODO S O R T
+
+  //? screen use in context and changes in childe components
+  const changeScreen = (newScreen) => {
+    setScreen(newScreen);
+  };
+
   const prevScreenRef = useRef(screen);
 
   useEffect(() => {
@@ -122,10 +139,13 @@ function App() {
     // Refresh
     prevScreenRef.current = screen;
   }, [screen]);
-  console.log(screenFromTo);
+
   //TODO INPROGRESS before need add pages, and aftere add loading in time between pages changed
   if (isLoading) {
     return <Loading />;
+  }
+  if (!isOnline) {
+    return <Offline />;
   }
 
   return (
@@ -133,6 +153,8 @@ function App() {
     <AppContext.Provider
       //? order not wise in {} instead []
       value={{
+        isConnect,
+        SetIsConnect,
         screen,
         changeScreen,
         screenFromTo,
@@ -154,43 +176,46 @@ function App() {
         setLists,
       }}
     >
-      <section
-        className='container'
-        ref={containerRef}
-        style={{ '--menuLOLTransition': menuLOLTransition }}
-      >
-        <Settings setStrokeElementHeight={setStrokeElementHeight} setSettingOpen={setSettingOpen} />
-        <Statistic />
-        <PlayCard settingOpen={settingOpen} />
-        <Fork />
+      {isConnect ? (
+        <section
+          className='container'
+          ref={containerRef}
+          style={{ '--menuLOLTransition': menuLOLTransition }}
+        >
+          <Settings setStrokeElementHeight={setStrokeElementHeight} setSettingOpen={setSettingOpen} />
+          <Statistic />
+          <PlayCard settingOpen={settingOpen} />
+          <Fork />
 
-        <Draggable setMenuLOLTransition={setMenuLOLTransition} setLOLOrder={setLOLOrder}>
-          <ListOfList
+          <Draggable setMenuLOLTransition={setMenuLOLTransition} setLOLOrder={setLOLOrder}>
+            <ListOfList
+              setStrokeElementHeight={setStrokeElementHeight}
+              lists={lists}
+              setLists={setLists}
+              LOLOrder={LOLOrder}
+              oldLists={oldLists}
+              screen={screen}
+            />
+          </Draggable>
+
+          <MemoizedListOfList
             setStrokeElementHeight={setStrokeElementHeight}
             lists={lists}
             setLists={setLists}
             LOLOrder={LOLOrder}
             oldLists={oldLists}
             screen={screen}
+            changeScreen={changeScreen}
+            screenFromTo={screenFromTo}
           />
-        </Draggable>
+        </section>
+      ) : null}
 
-        <MemoizedListOfList
-          setStrokeElementHeight={setStrokeElementHeight}
-          lists={lists}
-          setLists={setLists}
-          LOLOrder={LOLOrder}
-          oldLists={oldLists}
-          screen={screen}
-          changeScreen={changeScreen}
-          screenFromTo={screenFromTo}
-        />
-        {/*Multy elements*/}
-      </section>
-
-      <Burger setSettingOpen={setSettingOpen} />
+      {isConnect ? (
+        <Burger setSettingOpen={setSettingOpen} />
+      ) : (
+        <MemoizedNoConnect SetIsConnect={SetIsConnect} setIsAuth={setIsAuth} />
+      )}
     </AppContext.Provider>
   );
 }
-
-export default App;

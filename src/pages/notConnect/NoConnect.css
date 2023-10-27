@@ -1,0 +1,38 @@
+#no-connection-bg {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  /* background-color: var(--bg-color); */
+  background-color: rgba(0, 0, 0, 0.384);
+  z-index: 5;
+}
+
+#wifi {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
+  width: 20vh;
+  height: 30vh;
+
+  background-image: url('../../assets/imgs/wifi.svg');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+}
+
+#noConnection-button-container {
+  position: absolute;
+  bottom: 16%;
+  left: 50%;
+  translate: -50% -50%;
+}
+
+#noConnection-text {
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  translate: -50% -50%;
+  font-size: 36px;
+}

@@ -94,7 +94,6 @@ function StrokeElement({
     }px)`,
   };
   let AniametionCSS = {};
-  console.log('!!!!!!!!!!!!!!!!!!!!!!!   ' + screenFromTo);
 
   if (screenFromTo === 'ListOfList>>>ListEditing') {
     AniametionCSS = {
