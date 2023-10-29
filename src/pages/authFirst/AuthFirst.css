@@ -1,0 +1,21 @@
+#authFirstHeader {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  translate: -50% 0;
+  height: 200px;
+  width: 400px;
+
+  /* background-color: black; */
+  background-image: url('../../../src/assets/imgs/FirstAuthHeader.png');
+  background-repeat: no-repeat;
+  background-size: 100%;
+}
+
+#container-authFirst {
+  position: absolute;
+  top: 12%;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}

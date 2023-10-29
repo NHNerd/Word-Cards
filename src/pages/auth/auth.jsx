@@ -15,7 +15,7 @@ function preDefHandle(e) {
 function Auth() {
   const containeerAuthMailRef = React.useRef();
 
-  const { setIsLoading, setAuthOpen, setIsAuth, isAuth } = React.useContext(AppContext);
+  const { setIsLoading, setIsAuth } = React.useContext(AppContext);
 
   const [sign, setSign] = React.useState('in');
   const [eye, setEye] = React.useState({ password: false, confirm: false });
@@ -41,10 +41,6 @@ function Auth() {
         setInputFocused('none');
         break;
     }
-  }
-
-  function authBack() {
-    setAuthOpen(false);
   }
 
   function mailOkHandler(e) {
@@ -156,15 +152,6 @@ function Auth() {
 
   return (
     <>
-      <button
-        id='page-setting-back-container'
-        className='button-jitter'
-        onClick={authBack}
-        role='button'
-      >
-        <div id='page-setting-back-element'></div>
-      </button>
-
       {isUserRegistr ? (
         <form id='sign'>
           {/* H E A D E R  */}
@@ -202,6 +189,8 @@ function Auth() {
                   onChange={mailOkHandler}
                   onFocus={() => inputFocusedHandler('mail')}
                   onBlur={() => inputFocusedHandler('none')}
+                  //! Dont work
+                  autoComplete='email'
                 ></input>
                 <div
                   className={`auth-validation-alert ${
@@ -224,6 +213,8 @@ function Auth() {
                   onChange={passwordOkHandler}
                   onFocus={() => inputFocusedHandler('password')}
                   onBlur={() => inputFocusedHandler('none')}
+                  //! Dont work
+                  autoComplete='password'
                 ></input>
 
                 <div
@@ -312,7 +303,6 @@ function Auth() {
           <Button text={'sign-up'} />
         </section>
       )}
-
       {/* <div className='forgot'>
         <StrokeElement text={'e-mail'} />
       </div> */}

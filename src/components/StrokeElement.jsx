@@ -16,6 +16,7 @@ function StrokeElement({
   countH2,
   textH3,
   countH3,
+  progressBar,
   line,
   isButtonDrag,
   order,
@@ -35,6 +36,9 @@ function StrokeElement({
     setLists,
   } = useContext(AppContext);
   const strokeContainerRef = useRef();
+  const h1Refs = useRef();
+  const h2Refs = useRef();
+  const h3Refs = useRef();
 
   //TODO ?
   useEffect(() => {
@@ -64,7 +68,7 @@ function StrokeElement({
     });
     // After the item is deleted it will be empty ! at the end of array !
     newLists.length = newLists.length - 1;
-
+    console.log(1);
     //* State
     setLists(newLists);
 
@@ -82,29 +86,70 @@ function StrokeElement({
         listId = item._id;
       }
     });
-    console.log(listId);
+    console.log(listId); //!
     changeScreen('ListEditing');
   }
 
   //Style
-  let strokeContainerStyle = {
-    marginBottom: `${120 - menuLOLTransition * 100}px`,
-    transform: `translateX(${
-      axis === 'horizontal' ? (order + 1) * containerSize.x * (pos === 'left' ? 1 : -1) : 0
-    }px)`,
-  };
-  let AniametionCSS = {};
-
-  if (screenFromTo === 'ListOfList>>>ListEditing') {
-    AniametionCSS = {
-      animation:
-        parrentType === 'ListEditing' ? 'openListEditing 1s 1 linear' : 'clouseStroke 1s 1 linear',
+  let strokeContainerStyle;
+  if (screen !== 'ListEditing') {
+    strokeContainerStyle = {
+      height: `${186 - menuLOLTransition * 100}px`, // h1(34) + h2(20) + h3(16) + conteiner-line-MinHeight(16) = 86
+      transform: `translateX(${
+        axis === 'horizontal' ? (order + 1) * containerSize.x * (pos === 'left' ? 1 : -1) : 0
+      }px)`,
     };
-  } else if (screenFromTo === 'ListEditing>>>ListOfList') {
-    AniametionCSS = {
-      // animation: parrentType === 'ListEditing' ? 'clouseStroke 1s 1 linear' : 'openStroke 1s 1 linear',
+  }
+
+  let AniametionDivsCSS = {};
+  let aniametionProgressBarCSS = {};
+
+  switch (screenFromTo) {
+    case 'menu>>>ListOfList':
+      break;
+    case 'menu>>>ListEditing':
+      break;
+    case 'ListOfList>>>menu':
+      break;
+    case 'ListOfList>>>ListEditing':
+      animationFlipHandler('Open', false);
+      if (parrentType === 'ListOfList') {
+        strokeContainerStyle = {
+          animation: 'strokeHeightLolClose 1s linear 1 forwards',
+        };
+      } else if (parrentType === 'ListEditing') {
+        strokeContainerStyle = {
+          animation: `strokeHeightLeClose 1s linear 1 forwards`,
+        };
+      }
+      break;
+    case 'ListEditing>>>menu':
+      break;
+    case 'ListEditing>>>ListOfList':
+      animationFlipHandler('Close', true);
+      if (parrentType === 'ListOfList') {
+        strokeContainerStyle = {
+          animation: `strokeHeightLolOpen 1s linear 1 forwards`,
+        };
+      } else if (parrentType === 'ListEditing') {
+        strokeContainerStyle = {
+          animation: `strokeHeightLolOpen 1s linear 1 forwards`,
+        };
+      }
+
+      break;
+  }
+
+  async function animationFlipHandler(animationStatus) {
+    AniametionDivsCSS = {
       animation:
-        parrentType === 'ListEditing' ? 'clouseListEditing 1s 1 linear' : 'openStroke 1s 1 linear',
+        parrentType === 'ListEditing'
+          ? `flip${animationStatus === 'Open' ? 'Open' : 'Close'} 1s linear 1 forwards`
+          : `flip${animationStatus === 'Open' ? 'Close' : 'Open'} 1s linear 1 forwards`,
+    };
+
+    aniametionProgressBarCSS = {
+      animation: `flipProgressBar${animationStatus === 'Open' ? 'Open' : 'Close'} 1s linear 1 forwards`,
     };
   }
 
@@ -115,13 +160,20 @@ function StrokeElement({
         className={`stroke ${screen} parrent-${parrentType} ${axis} ${
           order === 0 ? 'firstElement' : 'nonFirstElement'
         }`}
+        // TODO Add visability off in end animation
         //* margin
         style={parrentTypeSettings === 'Settings' ? { marginBottom: `40px` } : strokeContainerStyle}
       >
         {children}
-        <div className='h1'>
+        <div ref={h1Refs} className='h1 '>
           {parrentTypeSettings != 'Settings' && order === 0 ? <ButtonDrag rotate='top' /> : null}
 
+          {/*//* ListEditing */}
+          {parrentType === 'ListEditing' ? (
+            <div id='container-wordProgressBar' style={aniametionProgressBarCSS}>
+              <div id='wordProgressBar' style={{ width: progressBar }}></div>
+            </div>
+          ) : null}
           <Button
             ButtonOnClickHandler={deleteListButton}
             type={`${parrentTypeSettings === 'Settings' ? 'tick' : 'exit'}`}
@@ -131,7 +183,7 @@ function StrokeElement({
           />
           <div
             className='textH1'
-            style={parrentTypeSettings === 'Settings' ? { fontSize: '24px' } : AniametionCSS}
+            style={parrentTypeSettings === 'Settings' ? { fontSize: '24px' } : AniametionDivsCSS}
           >
             {textH1}
             {parrentTypeSettings != 'Settings' && order === 0 ? (
@@ -149,25 +201,28 @@ function StrokeElement({
             parrentTypeSettings={parrentTypeSettings}
           />
         </div>
-        <div className={textH2 ? 'h2' : 'h2Off'} style={AniametionCSS}>
+        <div ref={h2Refs} className={textH2 ? 'h2 ' : 'h2Off'} style={AniametionDivsCSS}>
           <div className='textH2'>{textH2 + ':'}</div>
           <div className='countH2'>{countH2}</div>
         </div>
-        <div className={textH3 ? 'h3' : 'h3Off'} style={AniametionCSS}>
+        <div ref={h3Refs} className={textH3 ? 'h3 ' : 'h3Off'} style={AniametionDivsCSS}>
           <div className='textH3'>{textH3 + ':'}</div>
           <div className='countH3'>{countH3}</div>
         </div>
-        <div
-          className={line ? 'stroke-line' : ''}
-          style={
-            parrentTypeSettings === 'Settings'
-              ? null
-              : {
-                  marginTop: `${120 - menuLOLTransition * 100}px`,
-                  opacity: `${menuLOLTransition * 0.2}`,
-                }
-          }
-        ></div>
+        {/*//* ListEditing */}
+        {parrentType === 'ListEditing' ? <div id='h2h3HeightLE'></div> : null}
+        <div className='stroke-container-line'>
+          <div
+            className={line ? 'stroke-line' : ''}
+            style={
+              parrentTypeSettings === 'Settings'
+                ? null
+                : {
+                    opacity: `${menuLOLTransition * 0.2}`,
+                  }
+            }
+          ></div>
+        </div>
       </div>
     </>
   );

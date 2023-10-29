@@ -4,6 +4,7 @@ import './Burger.css';
 
 import { AppContext } from '../App';
 
+//TODO Add functional switch open/close (now it's menu)
 function Burger({ setSettingOpen }) {
   const { screen, changeScreen, setAuthOpen, settingOpen } = React.useContext(AppContext);
 

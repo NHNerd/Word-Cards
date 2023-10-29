@@ -2,10 +2,11 @@ import { useState, useEffect, createContext, useRef } from 'react';
 
 import Offline from './pages/offline/Offline.jsx';
 import MemoizedNoConnect from './pages/notConnect/NoConnect.jsx';
+import MemoizedAuthFirst from './pages/authFirst/AuthFirst.jsx';
 import Loading from './components/Loading.jsx';
 import PlayCard from './components/PlayCard.jsx';
 import ListOfList from './pages/listOfList/ListOfList.jsx';
-import MemoizedListOfList from './pages/listEditing/ListEditing.jsx';
+import MemoizedListEditing from './pages/listEditing/ListEditing.jsx';
 import Settings from './pages/settings/Settings.jsx';
 import Burger from './components/Burger.jsx';
 import Fork from './components/Fork/Fork.jsx';
@@ -34,7 +35,7 @@ export function App() {
 
   //Check loading
   const [isOnline, setIsOnline] = useState(true);
-  const [isConnect, SetIsConnect] = useState(false);
+  const [isConnect, SetIsConnect] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
 
   //TODO INPROGRESS
@@ -66,8 +67,6 @@ export function App() {
   const [screen, setScreen] = useState('Menu');
   const [screenFromTo, setScreenFromTo] = useState('Menu>>>Menu');
 
-  const [isSettings, setSettings] = useState(false);
-
   //TODO Get data inprogress...
 
   useEffect(() => {
@@ -91,12 +90,18 @@ export function App() {
           //* Changing in the listOfLIst.jsx only! useEffect(list)
         }
       })
-      .catch(() => {
-        SetIsConnect(false);
-        setIsAuth(false);
+      .catch((error) => {
+        if (error.message === 'Failed to fetch') {
+          SetIsConnect(false);
+          console.log('isConnect = false');
+        } else if (error.message === 'Unauthorized') {
+          SetIsConnect(true);
 
-        console.log('isConnect = false');
+          setIsAuth(false);
+        }
       });
+
+    // no connect handler
 
     if (!isConnect) {
       return;
@@ -112,8 +117,7 @@ export function App() {
       // setStrokeElementHeight(strokeElementRef.current.clientHeight);
       // setForkHeight(forkRef.current.clientHeight);
     }
-
-    updateSizes();
+    if (isAuth) updateSizes();
 
     // Добавляем слушатель события resize на window
     window.addEventListener('resize', updateSizes);
@@ -176,7 +180,9 @@ export function App() {
         setLists,
       }}
     >
-      {isConnect ? (
+      {!isAuth ? (
+        <MemoizedAuthFirst />
+      ) : isConnect ? (
         <section
           className='container'
           ref={containerRef}
@@ -198,7 +204,7 @@ export function App() {
             />
           </Draggable>
 
-          <MemoizedListOfList
+          <MemoizedListEditing
             setStrokeElementHeight={setStrokeElementHeight}
             lists={lists}
             setLists={setLists}
@@ -207,11 +213,12 @@ export function App() {
             screen={screen}
             changeScreen={changeScreen}
             screenFromTo={screenFromTo}
+            containerSize={containerSize}
           />
         </section>
       ) : null}
 
-      {isConnect ? (
+      {!isAuth ? null : isConnect ? (
         <Burger setSettingOpen={setSettingOpen} />
       ) : (
         <MemoizedNoConnect SetIsConnect={SetIsConnect} setIsAuth={setIsAuth} />

@@ -36,6 +36,13 @@ function Button({
       inputAddRef.current.focus();
     }
   }, [forkState]);
+
+  //TODO Now there is problem with the parrentType:
+  //TODO grandParrent(LOL) and parrent(strokeElement)
+  //WORKAROUND parrentTypeSettings - only one grandParrent
+  if (parrentType === 'StrokeElement' && position === 'left' && parrentTypeSettings != 'Settings') {
+    buttonStyles.scale = `${0.5 + menuLOLTransition * 0.5}`;
+  }
   // if(parrentTypeSettings != 'Settings')
   //* Animation
   if (parrentType === 'Fork' && parrentTypeSettings != 'Settings') {

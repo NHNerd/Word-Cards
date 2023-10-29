@@ -17,6 +17,7 @@ function ListEditing({
   screen,
   changeScreen,
   screenFromTo,
+  containerSize,
 }) {
   //TODO add into system S T A R T
   const words = [
@@ -230,31 +231,35 @@ function ListEditing({
       </>
     );
   }
+
+  //WORKAROUND same shit in the Draggable
+  const marginTop = Math.round(containerSize.y * 0.16);
+
   return (
     <>
       <div id='listEditin-button' className='button-jitter' onClick={backToLOL}></div>
 
-      <section id='container-listEditin' style={{ visibility: visibility }}>
+      <section
+        id='container-listEditin'
+        style={{ visibility: visibility, paddingTop: `${marginTop}px` }}
+      >
         {words.map((object, index) => (
           <StrokeElement
             setStrokeElementHeight={setStrokeElementHeight}
             parrentType={'ListEditing'}
             key={index} //? unique react component(need for React)
             textH1={object.word}
-            // textH2={' '}
-            // countH2={' '}
-            // textH3={' '}
-            // countH3={' '}
+            progressBar={`${(object.correctAnswers / object.gameCount) * 100}%`}
             line={index === words.length - 1 ? false : true} //? remove for last element
             order={index}
             axis={'vertical'}
           >
-            <div id='container-wordProgressBar'>
+            {/* <div id='container-wordProgressBar'>
               <div
                 id='wordProgressBar'
                 style={{ width: `${(object.correctAnswers / object.gameCount) * 100}%` }}
               ></div>
-            </div>
+            </div> */}
           </StrokeElement>
         ))}
       </section>
@@ -262,6 +267,6 @@ function ListEditing({
   );
 }
 
-const MemoizedListOfList = React.memo(ListEditing);
-export default MemoizedListOfList;
+const MemoizedListEditing = React.memo(ListEditing);
+export default MemoizedListEditing;
 //

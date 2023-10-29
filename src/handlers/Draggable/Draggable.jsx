@@ -237,6 +237,7 @@ function Draggable(props) {
             : {
                 height: `${containerSize.y - marginTop}px`,
                 top: `${0}px`,
+                
                 paddingTop: `${marginTop}px`,
                 transform: `translateY(${transformOld.y - transform.y}px)`,
                 overflowY: 'scroll',

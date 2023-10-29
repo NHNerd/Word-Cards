@@ -1,10 +1,10 @@
 #container-listEditin {
-  padding-top: 134px;
+  /* //TODO change this param on global var */
+  padding-top: 128px;
   position: absolute;
   top: 0;
   bottom: 0;
   width: 100%;
-
   user-select: all;
   pointer-events: all;
   overflow-y: scroll;
@@ -29,18 +29,39 @@
 
 #container-wordProgressBar {
   position: absolute;
+  left: 100px;
+  right: 100px;
   height: 50%;
   top: 50%;
   transform: translateY(-60%);
-  left: 100px;
-  right: 100px;
-  /* background-color: rgba(255, 0, 0, 0.137); */
+  /* background-color: rgba(0, 0, 0, 0.137); */
 }
 
 #wordProgressBar {
   position: absolute;
   height: 100%;
-  width: 50%;
   background-color: rgba(255, 255, 255, 0.06);
   border-radius: 50px;
 }
+
+#h2h3HeightLE {
+  height: calc(var(--h2-height) + var(--h3-height));
+}
+
+/** Colors */
+/* .parrent-ListEditing.stroke {
+  border: dotted 1px red;
+  box-sizing: border-box;
+}
+.parrent-ListEditing > .h1 {
+  background-color: rgba(255, 97, 208, 0.2);
+}
+.parrent-ListEditing > .h2 {
+  background-color: rgba(255, 246, 124, 0.2);
+}
+.parrent-ListEditing > .h3 {
+  background-color: rgba(151, 255, 137, 0.2);
+}
+.parrent-ListEditing > .stroke-container-line {
+  background-color: rgba(0, 255, 255, 0.2);
+} */

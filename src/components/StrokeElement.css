@@ -1,12 +1,25 @@
+:root {
+  --h1-height: 34px;
+  --h2-height: 20px;
+  --h3-height: 16px;
+  --line-height: 2px;
+  --conteiner-line-MinHeight: 16px; /*? it is min spase between elements  */
+
+  --StrokeHeightLol: 92px; /*? h1 + h2 + h3 + lineHeight + margin = 26 */
+  --StrokeHeightLe: calc(var(--h1-height) + var(--conteiner-line-MinHeight));
+}
+
 .stroke {
   position: relative;
   left: 0;
   right: 0;
+  display: flex;
   flex-direction: column;
   text-align: center;
   cursor: pointer;
   user-select: none;
   pointer-events: none;
+  /** height: set in js - if(screen !== 'ListEditing')  */
 }
 
 .stroke.horizontal {
@@ -18,93 +31,26 @@
 .h3 {
   position: relative;
   display: flex;
-  flex-direction: stroke;
   align-items: center;
   justify-content: center;
 }
 
-.h1 .textH1,
-.h2,
-.h3 {
-  /* animation: clouseStroke 0.25s 1 linear; */
-  animation-fill-mode: forwards;
-}
-
-@keyframes clouseStroke {
-  0% {
-    scale: 1 1;
-    height: 119px;
-  }
-  50% {
-    /* scale: 0 1; */
-  }
-  100% {
-    /* scale: 0 1; */
-    height: 65px;
-  }
-}
-@keyframes openListEditing {
-  0% {
-    /* scale: 0 1; */
-    height: 119px;
-  }
-  50% {
-    /* scale: 0 1; */
-  }
-  100% {
-    scale: 1 1;
-    height: 65px;
-  }
-}
-@keyframes clouseListEditing {
-  0% {
-    scale: 1 1;
-    height: 65px;
-  }
-  50% {
-    /* scale: 0 1; */
-  }
-  100% {
-    /* scale: 0 1; */
-    height: 119px;
-  }
-}
-
-/** Lisen this event and after this turn-on 'visability: hidden' for LOL */
-
-.h1 .textH1 {
-  /* animation: openStroke 0.25s 1 linear; */
-  animation-fill-mode: forwards;
-}
-@keyframes openStroke {
-  0% {
-    scale: 0 1;
-    height: 65px;
-  }
-  50% {
-    scale: 0 1;
-  }
-  100% {
-    scale: 1 1;
-    height: 119px;
-  }
-}
-
 .h1 {
-  font-size: 34px;
-  margin: -8px 0;
-  margin-top: -8px;
+  height: var(--h1-height);
+  min-height: var(--h1-height);
+  font-size: var(--h1-height);
 }
-
 .h2 {
-  font-size: 20px;
+  font-size: var(--h2-height);
+  min-height: 0;
 }
 .h2Off {
   display: none;
 }
 
 .h3 {
-  font-size: 16px;
+  font-size: var(--h3-height);
+  min-height: 0;
 }
 .h3Off {
   display: none;
@@ -118,14 +64,144 @@
   color: rgba(217, 217, 217, 0.7);
 }
 
+.stroke-container-line {
+  position: relative;
+  flex: 1;
+  min-height: var(--conteiner-line-MinHeight);
+}
+
 .stroke-line {
-  margin: 0 30px;
-  height: 2px;
-  background-image: linear-gradient(
+  position: relative;
+  bottom: -50%;
+  left: 50%;
+  translate: -50% -50%;
+  height: var(--line-height);
+  width: 44%;
+
+  /* background-image: linear-gradient(
     to right,
     rgba(239, 240, 232, 0),
     rgba(239, 240, 232, 0.34),
     rgba(239, 240, 232, 0)
-  );
+  ); */
+  background-color: rgb(0, 255, 0);
   border-radius: 50%;
+}
+
+/* lol */
+@keyframes strokeHeightLolOpen {
+  0% {
+    height: var(--StrokeHeightLe);
+  }
+  100% {
+    height: var(--StrokeHeightLol);
+  }
+}
+@keyframes strokeHeightLolClose {
+  0% {
+    height: var(--StrokeHeightLol);
+  }
+  100% {
+    height: var(--StrokeHeightLe);
+    visibility: hidden;
+  }
+}
+/* le */
+@keyframes strokeHeightLeOpen {
+  0% {
+    height: var(--StrokeHeightLe);
+  }
+  100% {
+    height: var(--StrokeHeightLol);
+    visibility: hidden;
+  }
+}
+@keyframes strokeHeightLeClose {
+  0% {
+    height: var(--StrokeHeightLol);
+  }
+  100% {
+    height: var(--StrokeHeightLe);
+  }
+}
+
+@keyframes flipOpen {
+  0% {
+    scale: 0 1;
+  }
+  50% {
+    scale: 0 0.75;
+  }
+  100% {
+    scale: 1 1;
+  }
+}
+@keyframes flipClose {
+  0% {
+    scale: 1 1;
+  }
+  50% {
+    scale: 0 0.75;
+  }
+  100% {
+    scale: 0 1;
+  }
+}
+
+@keyframes flipProgressBarOpen {
+  0% {
+    opacity: 0;
+    scale: 0.9 0;
+    translate: 0 -50%;
+  }
+  50% {
+    opacity: 0;
+    scale: 0.9 0;
+    translate: 0 -50%;
+  }
+  100% {
+    opacity: 1;
+    scale: 1 1;
+    translate: 0 0;
+  }
+}
+
+@keyframes flipProgressBarClose {
+  0% {
+    opacity: 1;
+    scale: 1 1;
+    translate: 0 0;
+  }
+  50% {
+    opacity: 0;
+    scale: 0.9 0;
+    translate: 0 -50%;
+  }
+  100% {
+    opacity: 0;
+    scale: 0.9 0;
+    translate: 0 -50%;
+  }
+}
+/** Colors */
+/* .stroke {
+  border: dotted 1px red;
+  box-sizing: border-box;
+} */
+
+/* .h1 {
+  background-color: rgba(255, 97, 208, 0.2);
+}
+.h2 {
+  background-color: rgba(255, 246, 124, 0.2);
+}
+.h3 {
+  background-color: rgba(151, 255, 137, 0.2);
+}
+.parrent-ListOfList > .stroke-container-line {
+  background-color: rgba(0, 255, 255, 0.2);
+} */
+
+.parrent-ListEditing > .stroke-container-line > .stroke-line {
+  background-color: rgb(255, 0, 0);
 }

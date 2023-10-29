@@ -17,12 +17,13 @@ function NoConnect({ SetIsConnect, setIsAuth }) {
       })
       .catch((error) => {
         // no connect handler
-        if (error.message == 'Failed to fetch') {
+        if (error.message === 'Failed to fetch') {
           SetIsConnect(false);
           console.log('isConnect = false');
+        } else if (error.message === 'Unauthorized') {
+          SetIsConnect(true);
+          setIsAuth(false);
         }
-
-        setIsAuth(false);
       });
   }
 

@@ -28,23 +28,26 @@
   content: '';
   transition: all 0.25s linear;
 }
-.burger-line::before {
-  transform: translateY(-7px) rotate(0);
-}
-
+/** States  START*/
+/* Exit  */
+/*? not(.Menu) not need in this circumstanses(but element rotated) */
 .burger-line::after {
-  transform: translateY(7px) rotate(0);
-}
-
-.burger-line.ListOfList::after {
   transform: translateY(0) rotate(-90deg);
 }
-
-.burger-line.ListOfList::before {
+.burger-line:not(.Menu)::before {
   transform: translateY(0) rotate(-180deg);
   opacity: 0;
 }
-
-.burger-line.ListOfList {
+.burger-line:not(.Menu) {
   transform: translateY(0) rotate(-45deg);
 }
+
+/* Burger  */
+.burger-line.Menu::after {
+  transform: translateY(-7px) rotate(0);
+}
+.burger-line.Menu::before {
+  transform: translateY(7px) rotate(0);
+}
+
+/** States  END*/

@@ -16,7 +16,6 @@ function Settings({ setStrokeElementHeight, setSettingOpen }) {
     isDonateOpen,
     authOpen,
     setAuthOpen,
-    isAuth,
   } = React.useContext(AppContext);
 
   const settingsObject = ['synchronization', 'sound', 'notification'];
@@ -37,39 +36,51 @@ function Settings({ setStrokeElementHeight, setSettingOpen }) {
     setBgIsOpen('off');
   }
 
-  // turn on auth if user unauthorized
-  React.useEffect(() => {
-    if (!isAuth) {
-      setSettingOpen(true);
-      setAuthOpen(true);
-    } else {
-      setSettingOpen(false);
-      setAuthOpen(false);
-    }
-  }, [isAuth]);
+  // // turn on auth if user unauthorized
+  // React.useEffect(() => {
+  //   if (!isAuth) {
+  //     setSettingOpen(true);
+  //     setAuthOpen(true);
+  //   } else {
+  //     setSettingOpen(false);
+  //     setAuthOpen(false);
+  //   }
+  // }, [isAuth]);
+  function authBack() {
+    setAuthOpen(false);
+  }
 
   return (
     <>
       <div className={`setting-bg-filter ${settingOpen ? 'on' : 'off'}`}></div>
       <div className={`setting-bg-color ${settingOpen ? 'on' : 'off'}`}></div>
 
-      <section id='page-settings' className={`page-settings ${settingOpen ? 'on' : ''}`}>
-        {/* exit */}
-        {isAuth ? (
-          <button
-            id='page-setting-exit-container'
-            className='button-jitter'
-            onClick={() => {
-              setSettingOpen(!settingOpen);
-              setAuthOpen(false);
-            }}
-            role='button'
-          >
-            <div id='page-setting-exit-element'></div>
-          </button>
-        ) : null}
+      <section id='page-settings' className={`page-settings ${settingOpen ? null : 'off'}`}>
+        {/* back */}
+        <button
+          id='page-setting-back-container'
+          className='button-jitter'
+          onClick={authBack}
+          role='button'
+        >
+          <div id='page-setting-back-element'></div>
+        </button>
 
-        <section id='page-settings-inner' className={authOpen ? 'off' : 'on'}>
+        {/* exit */}
+        <button
+          id='page-setting-exit-container'
+          className='button-jitter'
+          onClick={() => {
+            setSettingOpen(!settingOpen);
+            setAuthOpen(false);
+          }}
+          role='button'
+        >
+          <div id='page-setting-exit-element'></div>
+        </button>
+
+        {/* authOpen */}
+        <section id='page-settings-inner' className={`${authOpen ? 'off' : 'on'} `}>
           <header id='setting-header' className={isContactsOpen || isDonateOpen ? 'blur' : null}>
             <div id='about-bg'>
               text text text <br /> text text
